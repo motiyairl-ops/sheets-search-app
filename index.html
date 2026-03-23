@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>מתנדבי יחידת פנתר</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --accent: #e8a020;
+    --accent2: #f0c060;
+    --text: #f0f0f0;
+    --text2: #9ca3b0;
+    --border: #2e3347;
+    --green: #34d399;
+    --red: #f87171;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; direction: rtl; }
+
+  .header {
+    background: var(--surface);
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .logo { width: 38px; height: 38px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: var(--text2); margin-top: 1px; }
+  .refresh-btn { margin-right: auto; background: none; border: none; color: var(--text2); font-size: 20px; cursor: pointer; padding: 4px 8px; }
+  .refresh-btn:active { color: var(--accent); }
+
+  .search-wrap { position: relative; }
+  .search-input {
+    width: 100%; background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 12px 42px 12px 16px;
+    font-size: 16px; font-family: 'Heebo', sans-serif; color: var(--text);
+    direction: rtl; transition: border-color 0.2s; -webkit-appearance: none;
+  }
+  .search-input:focus { outline: none; border-color: var(--accent); }
+  .search-input::placeholder { color: var(--text2); }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 17px; pointer-events: none; }
+  .clear-btn { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text2); font-size: 18px; cursor: pointer; display: none; padding: 4px; }
+
+  .filter-row { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; scrollbar-width: none; }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .chip { flex-shrink: 0; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-family: 'Heebo', sans-serif; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); color: var(--text2); transition: all 0.15s; }
+  .chip.active { background: var(--accent); border-color: var(--accent); color: #000; }
+
+  .count-bar { padding: 6px 16px 2px; font-size: 12px; color: var(--text2); }
+  .count-bar span { color: var(--accent); font-weight: 700; }
+
+  .list { padding: 8px 16px 100px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.15s, transform 0.1s; }
+  .card:active { transform: scale(0.98); }
+  .card.open { border-color: var(--accent); }
+
+  .card-header { display: flex; align-items: center; gap: 12px; padding: 14px; }
+  .avatar { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; flex-shrink: 0; color: #000; }
+  .card-name { font-size: 16px; font-weight: 700; flex: 1; }
+  .card-city { font-size: 13px; color: var(--text2); margin-top: 2px; }
+  .card-phone-preview { font-size: 13px; color: var(--text2); direction: ltr; text-align: left; }
+  .chevron { font-size: 14px; color: var(--text2); transition: transform 0.25s; flex-shrink: 0; }
+  .card.open .chevron { transform: rotate(180deg); }
+
+  .card-body { display: none; padding: 0 14px 14px; border-top: 1px solid var(--border); }
+  .card.open .card-body { display: block; }
+  .card-body-inner { padding-top: 14px; }
+
+  .field-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .field-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .field-label { font-size: 11px; color: var(--text2); margin-bottom: 1px; }
+  .field-value { font-size: 14px; font-weight: 500; }
+  .field-value.phone { direction: ltr; color: var(--accent2); }
+
+  .actions { display: flex; gap: 8px; margin-top: 14px; }
+  .btn { flex: 1; padding: 11px 8px; border-radius: 10px; border: none; font-size: 14px; font-family: 'Heebo', sans-serif; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; transition: opacity 0.15s; }
+  .btn:active { opacity: 0.75; }
+  .btn-call { background: var(--green); color: #000; }
+  .btn-whatsapp { background: #25d366; color: #000; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tag { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+  .tag.yes { background: rgba(52,211,153,0.15); color: var(--green); border-color: rgba(52,211,153,0.3); }
+  .tag.no { background: rgba(248,113,113,0.12); color: var(--red); border-color: rgba(248,113,113,0.25); }
+
+  .empty { text-align: center; padding: 60px 20px; color: var(--text2); }
+  .empty-icon { font-size: 48px; margin-bottom: 12px; }
+  .empty-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+
+  mark { background: rgba(232,160,32,0.3); color: var(--accent2); border-radius: 3px; padding: 0 1px; }
+
+  /* Loading */
+  .loading-screen {
+    position: fixed; inset: 0; background: var(--bg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; z-index: 999;
+  }
+  .loading-logo { font-size: 52px; animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:0.7} }
+  .loading-text { font-size: 15px; color: var(--text2); }
+  .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-banner {
+    background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 10px; padding: 12px 14px; margin: 10px 16px;
+    font-size: 13px; color: var(--red); display: none;
+  }
+
+  .last-updated { font-size: 11px; color: var(--text2); padding: 4px 16px 0; text-align: left; direction: ltr; }
+</style>
+</head>
+<body>
+
+<!-- Loading screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-logo">🐆</div>
+  <div class="spinner"></div>
+  <div class="loading-text">טוען נתונים מהגיליון...</div>
+</div>
+
+<div id="appContent" style="display:none">
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">🐆</div>
+      <div>
+        <div class="header-title">מתנדבי יחידת פנתר</div>
+        <div class="header-sub" id="totalCount">טוען...</div>
+      </div>
+      <button class="refresh-btn" onclick="loadData()" title="רענן נתונים">↻</button>
+    </div>
+    <div class="search-wrap">
+      <input class="search-input" type="search" id="searchInput"
+        placeholder="חפש שם, טלפון, יישוב..."
+        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <span class="search-icon" id="searchIcon">🔍</span>
+      <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
+    </div>
+  </div>
+
+  <div class="error-banner" id="errorBanner"></div>
+
+  <div class="filter-row" id="filterRow">
+    <button class="chip active" onclick="setFilter(this,'')">הכל</button>
+    <button class="chip" onclick="setFilter(this,'כננת')">כננת ✅</button>
+    <button class="chip" onclick="setFilter(this,'לועזי')">לועזי</button>
+    <button class="chip" onclick="setFilter(this,'עברי')">עברי</button>
+  </div>
+
+  <div class="last-updated" id="lastUpdated"></div>
+  <div class="count-bar" id="countBar"></div>
+  <div class="list" id="list"></div>
+</div>
+
+<script>
+const API_KEY = 'AIzaSyCKZvu3_u3hU6XETtQ5sgM_VDEWy-0om7c';
+const SHEET_ID = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
+const SHEET_NAME = 'Form Responses 1';
+
+// Column indices (0-based) — adjust if needed after first load
+// A=0 חותמת זמן, B=1 שם פרטי, C=2 שם משפחה, D=3 טלפון, E=4 יישוב(עברי/לועזי)
+// F=5 יישוב(עיר), G=6 תאריך לידה לועזי, H=7 תאריך לידה עברי, I=8 ?,
+// J=9 דגם רכב, K=10 כננת, ...
+const COL = {
+  TIMESTAMP: 0,
+  FIRST_NAME: 1,
+  LAST_NAME: 2,
+  PHONE: 3,
+  YISHUV_TYPE: 4,  // עברי/לועזי
+  CITY: 5,
+  DOB_GREGORIAN: 6,
+  DOB_HEBREW: 7,
+  DOB_QUESTION: 8,
+  CAR_MODEL: 9,
+  KANANET: 10,
+  // שדות נוספים — יוצגו כ"הערות"
+};
+
+const COLORS = ['#e8a020','#34d399','#60a5fa','#f472b6','#a78bfa','#fb923c','#22d3ee'];
+let DATA = [];
+let currentFilter = '';
+let openId = null;
+let headers = [];
+
+function color(name) {
+  let h = 0;
+  for (let c of (name||'')) h = (h * 31 + c.charCodeAt(0)) % COLORS.length;
+  return COLORS[h];
+}
+
+function highlight(text, q) {
+  if (!q || !text) return text || '';
+  const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return String(text).replace(new RegExp(escaped, 'gi'), m => `<mark>${m}</mark>`);
+}
+
+function normalizePhone(p) {
+  return (p || '').replace(/\D/g, '');
+}
+
+function getVal(row, idx) {
+  return (row[idx] || '').toString().trim();
+}
+
+async function loadData() {
+  document.getElementById('loadingScreen').style.display = 'flex';
+  document.getElementById('appContent').style.display = 'none';
+  document.getElementById('errorBanner').style.display = 'none';
+
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || `HTTP ${res.status}`);
+    }
+    const json = await res.json();
+    const rows = json.values || [];
+    if (rows.length < 2) throw new Error('הגיליון ריק או אין נתונים');
+
+    headers = rows[0];
+    DATA = rows.slice(1).filter(r => r.length > 2).map((r, i) => ({ _id: i, _raw: r }));
+
+    document.getElementById('totalCount').textContent = `${DATA.length} מתנדבים`;
+    document.getElementById('lastUpdated').textContent =
+      'עודכן: ' + new Date().toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit'});
+
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('appContent').style.display = 'block';
+    render();
+
+  } catch(e) {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('appContent').style.display = 'block';
+    const banner = document.getElementById('errorBanner');
+    banner.style.display = 'block';
+    banner.textContent = '⚠️ שגיאה בטעינת הנתונים: ' + e.message;
+    document.getElementById('totalCount').textContent = 'שגיאה בטעינה';
+  }
+}
+
+function matches(row, q, filter) {
+  const r = row._raw;
+  const firstName = getVal(r, COL.FIRST_NAME);
+  const lastName = getVal(r, COL.LAST_NAME);
+  const phone = getVal(r, COL.PHONE);
+  const city = getVal(r, COL.CITY);
+  const yishuvType = getVal(r, COL.YISHUV_TYPE);
+  const kananet = getVal(r, COL.KANANET);
+
+  const inFilter = !filter ||
+    (filter === 'כננת' && kananet === 'כן') ||
+    (filter === 'לועזי' && yishuvType === 'לועזי') ||
+    (filter === 'עברי' && yishuvType === 'עברי');
+  if (!inFilter) return false;
+
+  const lq = q.trim().toLowerCase();
+  if (!lq) return true;
+
+  const qPhone = normalizePhone(lq);
+  if (qPhone.length >= 3 && normalizePhone(phone).includes(qPhone)) return true;
+
+  const full = (firstName + ' ' + lastName).toLowerCase();
+  if (full.includes(lq)) return true;
+  if (city.toLowerCase().includes(lq)) return true;
+
+  return false;
+}
+
+function render() {
+  const q = document.getElementById('searchInput').value;
+  const results = DATA.filter(row => matches(row, q, currentFilter));
+  document.getElementById('countBar').innerHTML =
+    `נמצאו <span>${results.length}</span> מתנדבים`;
+
+  const list = document.getElementById('list');
+  if (results.length === 0) {
+    list.innerHTML = `<div class="empty">
+      <div class="empty-icon">🔍</div>
+      <div class="empty-title">לא נמצאו תוצאות</div>
+      <div>נסה מילות חיפוש אחרות</div>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = results.map(row => {
+    const r = row._raw;
+    const id = row._id;
+    const isOpen = openId === id;
+
+    const firstName = getVal(r, COL.FIRST_NAME);
+    const lastName = getVal(r, COL.LAST_NAME);
+    const phone = getVal(r, COL.PHONE);
+    const yishuvType = getVal(r, COL.YISHUV_TYPE);
+    const city = getVal(r, COL.CITY);
+    const dobG = getVal(r, COL.DOB_GREGORIAN);
+    const dobH = getVal(r, COL.DOB_HEBREW);
+    const car = getVal(r, COL.CAR_MODEL);
+    const kananet = getVal(r, COL.KANANET);
+
+    // שדות נוספים מעמודה 11 ואילך
+    const extraFields = [];
+    for (let i = 11; i < r.length; i++) {
+      const val = (r[i] || '').trim();
+      if (val && val !== 'לא' && val !== 'לא רלוונטי') {
+        const label = headers[i] || `שדה ${i+1}`;
+        extraFields.push({ label, val });
+      }
+    }
+
+    const initials = (firstName[0]||'') + (lastName[0]||'');
+    const bg = color(firstName + lastName);
+    const fullName = firstName + ' ' + lastName;
+    const dob = dobG || dobH || '—';
+    const phoneClean = normalizePhone(phone);
+    const waPhone = phoneClean.startsWith('972') ? phoneClean : '972' + phoneClean.replace(/^0/, '');
+
+    return `<div class="card ${isOpen ? 'open' : ''}" id="card-${id}" onclick="toggle(${id})">
+      <div class="card-header">
+        <div class="avatar" style="background:${bg}">${initials}</div>
+        <div style="flex:1;min-width:0">
+          <div class="card-name">${highlight(fullName, q)}</div>
+          <div class="card-city">${highlight(city, q)}</div>
+        </div>
+        <div>
+          <div class="card-phone-preview">${highlight(phone, q)}</div>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          ${phone ? `<div class="field-row">
+            <span class="field-icon">📞</span>
+            <div><div class="field-label">טלפון</div><div class="field-value phone">${phone}</div></div>
+          </div>` : ''}
+          ${city ? `<div class="field-row">
+            <span class="field-icon">📍</span>
+            <div><div class="field-label">יישוב</div><div class="field-value">${city}</div></div>
+          </div>` : ''}
+          ${dob !== '—' ? `<div class="field-row">
+            <span class="field-icon">🎂</span>
+            <div><div class="field-label">תאריך לידה</div><div class="field-value">${dob}</div></div>
+          </div>` : ''}
+          ${car ? `<div class="field-row">
+            <span class="field-icon">🚙</span>
+            <div><div class="field-label">רכב</div><div class="field-value">${car}</div></div>
+          </div>` : ''}
+          ${extraFields.map(f => `<div class="field-row">
+            <span class="field-icon">📋</span>
+            <div><div class="field-label">${f.label}</div><div class="field-value" style="font-size:13px;font-weight:400;color:var(--text2)">${f.val}</div></div>
+          </div>`).join('')}
+
+          <div class="tags">
+            ${kananet ? `<span class="tag ${kananet==='כן'?'yes':'no'}">כננת: ${kananet}</span>` : ''}
+            ${yishuvType ? `<span class="tag">${yishuvType}</span>` : ''}
+          </div>
+
+          ${phone ? `<div class="actions">
+            <a class="btn btn-call" href="tel:${phone}">📞 התקשר</a>
+            <a class="btn btn-whatsapp" href="https://wa.me/${waPhone}">💬 וואטסאפ</a>
+          </div>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggle(id) {
+  openId = (openId === id) ? null : id;
+  render();
+  if (openId !== null) {
+    setTimeout(() => {
+      const el = document.getElementById('card-' + id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 50);
+  }
+}
+
+function setFilter(el, val) {
+  currentFilter = val;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('clearBtn').style.display = 'none';
+  document.getElementById('searchIcon').style.display = 'block';
+  render();
+}
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  const hasVal = this.value.length > 0;
+  document.getElementById('clearBtn').style.display = hasVal ? 'block' : 'none';
+  document.getElementById('searchIcon').style.display = hasVal ? 'none' : 'block';
+  render();
+});
+
+loadData();
+</script>
+</body>
+</html>
