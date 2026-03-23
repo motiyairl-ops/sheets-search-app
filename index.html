@@ -49,7 +49,6 @@
   .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 18px; pointer-events: none; }
   .clear-btn { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text2); font-size: 20px; cursor: pointer; display: none; padding: 4px; }
 
-  /* FILTERS */
   .filter-groups { display: flex; flex-direction: column; gap: 8px; }
   .filter-group-row { display: flex; align-items: center; gap: 8px; }
   .filter-group-label { font-size: 14px; font-weight: 600; color: var(--text); flex-shrink: 0; width: 95px; }
@@ -64,14 +63,9 @@
   .chip.on-yes { background: rgba(52,211,153,0.2);  border-color: var(--green); color: var(--green); font-weight: 700; }
   .chip.on-no  { background: rgba(248,113,113,0.15); border-color: var(--red);   color: var(--red);  font-weight: 700; }
 
-  /* COUNT BADGE next to chips */
   .filter-count {
-    font-size: 13px; font-weight: 700;
-    color: var(--text2);
-    margin-right: auto;
-    white-space: nowrap;
-    min-width: 60px;
-    text-align: left;
+    font-size: 13px; font-weight: 700; color: var(--text2);
+    margin-right: auto; white-space: nowrap;
   }
   .filter-count .cnt-yes { color: var(--green); }
   .filter-count .cnt-no  { color: var(--red); }
@@ -206,51 +200,50 @@ const SHEET_ID   = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
 const SHEET_NAME = 'Form Responses 1';
 
 /*
-  מיפוי מאומת מה-console:
+  מיפוי מאומת מה-console של עמנואל (index 17 ב-DATA):
   [0]  חותמת זמן
   [1]  שם פרטי
   [2]  שם משפחה
   [3]  טלפון
   [4]  יישוב
-  [5]  סוג תאריך לידה (עברי/לועזי)
+  [5]  סוג תאריך לידה (ל' = לועזי)
   [6]  תאריך לידה לועזי
-  [7]  תאריך לידה עברי
+  [7]  תאריך לידה עברי (ריק)
   [8]  דגם הרכב
   [9]  כננת (כן/לא)
-  [10] האם מותקנת ברכב כננת — שדה נוסף (לא בשימוש)
-  [11] סמן הדרכות עברת (טקסט חופשי — לא בשימוש)
-  [12] הדרכה מתקדמת (כן/לא)  ← L
-  [13] הדרכת כננות (כן/לא)   ← M  (לפי תמונת הגיליון)
-  [14] תרגולי בוץ (כן/לא)    ← N
-  [15] ריענון מפגש חורף 11/25 (כן/לא) ← O
-  [16] ערכת פתיחה (תקינה/לא) ← P
-  [17] פריטים (אפוד זוהר...)  ← R
+  [10] פ — שדה ביניים (לא בשימוש)
+  [11] טקסט חופשי הדרכות (לא בשימוש)
+  [12] הדרכה מתקדמת (כן/לא/ריק)
+  [13] הדרכת כננות (כן/לא/ריק)
+  [14] תרגולי בוץ (כן/לא/ריק)
+  [15] ריענון מפגש חורף 11/25 (כן/לא/ריק)
+  [16] ערכת פתיחה (תקינה/לא/ריק)
+  [17] פריטים ברשות (אפוד זוהר, מדבקה, שלט...)
 */
 const C = {
-  FIRST:        1,
-  LAST:         2,
-  PHONE:        3,
-  CITY:         4,
-  DOB_TYPE:     5,
-  DOB_G:        6,
-  DOB_H:        7,
-  CAR:          8,
-  KANANET:      9,
-  HAD_ADV:      12,  // הדרכה מתקדמת
-  HAD_KAN:      13,  // הדרכת כננות
-  HAD_BOTS:     14,  // תרגולי בוץ
-  HAD_CHOREF:   15,  // ריענון מפגש חורף 11/25
-  EREKET:       16,  // ערכת פתיחה
-  ITEMS:        17,  // פריטים (אפוד זוהר...)
+  FIRST:      1,
+  LAST:       2,
+  PHONE:      3,
+  CITY:       4,
+  DOB_TYPE:   5,
+  DOB_G:      6,
+  DOB_H:      7,
+  CAR:        8,
+  KANANET:    9,
+  HAD_ADV:    12,
+  HAD_KAN:    13,
+  HAD_BOTS:   14,
+  HAD_CHOREF: 15,
+  EREKET:     16,
+  ITEMS:      17,
 };
 
-// שמות הדרכות לפי אינדקס
-const HAD_LABELS = {
-  [C.HAD_ADV]:    'הדרכה מתקדמת',
-  [C.HAD_KAN]:    'הדרכת כננות',
-  [C.HAD_BOTS]:   'תרגולי בוץ',
-  [C.HAD_CHOREF]: 'ריענון מפגש חורף 11/25',
-};
+const HAD_LABELS = [
+  { idx: C.HAD_ADV,    name: 'הדרכה מתקדמת' },
+  { idx: C.HAD_KAN,    name: 'הדרכת כננות' },
+  { idx: C.HAD_BOTS,   name: 'תרגולי בוץ' },
+  { idx: C.HAD_CHOREF, name: 'ריענון מפגש חורף 11/25' },
+];
 
 let DATA = [];
 let openId = null;
@@ -259,22 +252,19 @@ let F = { kananet: null, apod: null, ereket: null };
 function g(row, idx) { return ((row[idx]||'')+'').trim(); }
 
 function isYes(v) {
-  const t = (v||'').trim();
-  return t === 'כן' || t === 'פ' || t === 'TRUE' || t === 'true' || t === '✓' || t === 'תקינה';
+  const t = (v||'').trim().toLowerCase();
+  return t === 'כן' || t === 'פ' || t === 'true' || t === '✓' || t === 'תקינה';
 }
 
 function getKananet(r) { return isYes(g(r, C.KANANET)); }
 function getEreket(r)  { return isYes(g(r, C.EREKET)); }
-function getApod(r)    {
-  return g(r, C.ITEMS).split(',').map(s=>s.trim()).some(s => s.includes('אפוד זוהר'));
+function getApod(r) {
+  const items = g(r, C.ITEMS);
+  if (!items) return false;
+  return items.split(',').map(s=>s.trim()).some(s => s.includes('אפוד זוהר'));
 }
-
 function getHadList(r) {
-  const list = [];
-  [C.HAD_ADV, C.HAD_KAN, C.HAD_BOTS, C.HAD_CHOREF].forEach(idx => {
-    if (isYes(g(r, idx))) list.push(HAD_LABELS[idx]);
-  });
-  return list;
+  return HAD_LABELS.filter(h => isYes(g(r, h.idx))).map(h => h.name);
 }
 
 async function loadData() {
@@ -307,21 +297,19 @@ async function loadData() {
 }
 
 function updateCounts() {
-  // חשב כמה יש/אין מתוך כל הנתונים (ללא פילטרים אחרים)
-  let kanYes=0, kanNo=0, apodYes=0, apodNo=0, erekYes=0, erekNo=0;
+  let kanY=0,kanN=0, apodY=0,apodN=0, erekY=0,erekN=0;
   DATA.forEach(row => {
     const r = row._raw;
-    getKananet(r) ? kanYes++ : kanNo++;
-    getApod(r)    ? apodYes++ : apodNo++;
-    getEreket(r)  ? erekYes++ : erekNo++;
+    getKananet(r) ? kanY++ : kanN++;
+    getApod(r)    ? apodY++ : apodN++;
+    getEreket(r)  ? erekY++ : erekN++;
   });
-
-  document.getElementById('cnt-kananet').innerHTML =
-    `<span class="cnt-yes">${kanYes}</span><span class="sep">/</span><span class="cnt-no">${kanNo}</span>`;
-  document.getElementById('cnt-apod').innerHTML =
-    `<span class="cnt-yes">${apodYes}</span><span class="sep">/</span><span class="cnt-no">${apodNo}</span>`;
-  document.getElementById('cnt-ereket').innerHTML =
-    `<span class="cnt-yes">${erekYes}</span><span class="sep">/</span><span class="cnt-no">${erekNo}</span>`;
+  // יש קודם, אחר כך אין
+  const fmt = (y,n) =>
+    `<span class="cnt-yes">${y}</span><span class="sep">/</span><span class="cnt-no">${n}</span>`;
+  document.getElementById('cnt-kananet').innerHTML = fmt(kanY, kanN);
+  document.getElementById('cnt-apod').innerHTML    = fmt(apodY, apodN);
+  document.getElementById('cnt-ereket').innerHTML  = fmt(erekY, erekN);
 }
 
 function matchesFilters(row) {
@@ -392,12 +380,18 @@ function render() {
     const apod      = getApod(r);
     const hadList   = getHadList(r);
 
-    const isHebrew = dobType === 'עברי';
+    // תאריך לידה לפי סוג (ל' = לועזי, עב' / עברי = עברי)
+    const dobTypeTrim = dobType.replace(/['"]/g,'').trim();
+    const isHebrew = dobTypeTrim === 'עברי' || dobTypeTrim === "עב'";
     const dob = isHebrew ? dobH : dobG;
 
     const fullName = (firstName + ' ' + lastName).trim();
     const phoneClean = phone.replace(/\D/g,'');
     const waPhone = phoneClean.startsWith('972') ? phoneClean : '972'+phoneClean.replace(/^0/,'');
+
+    const hadDisplay = hadList.length
+      ? `<div class="field-value blue">${hadList.join(' · ')}</div>`
+      : `<div class="field-value red">לא</div>`;
 
     return `<div class="card ${isOpen?'open':''}" id="card-${id}" onclick="toggle(${id})">
       <div class="card-header">
@@ -448,10 +442,10 @@ function render() {
             ${yesNo(apod)}
           </div>
 
-          ${hadList.length ? `<div class="field wide">
+          <div class="field wide">
             <div class="field-label">הדרכות</div>
-            <div class="field-value blue">${hadList.join(' · ')}</div>
-          </div>` : ''}
+            ${hadDisplay}
+          </div>
 
           <div class="actions">
             <a class="btn btn-call" href="tel:${phone}">📞 התקשר</a>
