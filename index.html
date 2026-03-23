@@ -25,41 +25,42 @@
 
   .header {
     background: var(--surface);
-    padding: 16px 16px 12px;
+    padding: 20px 16px 12px;
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
   }
   .header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .logo { width: 36px; height: 36px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; }
+  .logo { width: 38px; height: 38px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
   .header-title-wrap { flex: 1; cursor: pointer; }
-  .header-title { font-size: 17px; font-weight: 700; }
-  .header-sub { font-size: 11px; color: var(--text2); margin-top: 1px; }
-  .refresh-btn { background: none; border: none; color: var(--text2); font-size: 21px; cursor: pointer; padding: 4px 6px; line-height: 1; }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: var(--text2); margin-top: 1px; }
+  .refresh-btn { background: none; border: none; color: var(--text2); font-size: 22px; cursor: pointer; padding: 4px 8px; line-height: 1; }
   .refresh-btn:active { color: var(--accent); }
 
   .search-wrap { position: relative; margin-bottom: 12px; }
   .search-input {
     width: 100%; background: var(--bg); border: 1.5px solid var(--border);
-    border-radius: 12px; padding: 11px 16px 11px 40px;
-    font-size: 15px; font-family: 'Heebo', sans-serif; color: var(--text);
+    border-radius: 12px; padding: 12px 16px 12px 42px;
+    font-size: 16px; font-family: 'Heebo', sans-serif; color: var(--text);
     direction: rtl; transition: border-color 0.2s; -webkit-appearance: none;
   }
   .search-input:focus { outline: none; border-color: var(--accent); }
   .search-input::placeholder { color: var(--text2); }
-  .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 16px; pointer-events: none; }
-  .clear-btn { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text2); font-size: 17px; cursor: pointer; display: none; padding: 4px; }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 17px; pointer-events: none; }
+  .clear-btn { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text2); font-size: 18px; cursor: pointer; display: none; padding: 4px; }
 
-  .filter-section { margin-bottom: 10px; }
-  .filter-title { font-size: 13px; font-weight: 700; color: var(--text); padding: 0 2px 6px; display: block; }
-  .filter-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
-  .filter-row::-webkit-scrollbar { display: none; }
+  /* CHIPS ROW */
+  .chips-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .chips-row::-webkit-scrollbar { display: none; }
   .chip {
-    flex-shrink: 0; padding: 7px 14px; border-radius: 20px; font-size: 13px;
+    flex-shrink: 0; padding: 7px 12px; border-radius: 20px; font-size: 12px;
     font-family: 'Heebo', sans-serif; font-weight: 500; cursor: pointer;
     border: 1.5px solid var(--border); background: var(--surface2); color: var(--text2);
     transition: all 0.15s; white-space: nowrap;
   }
-  .chip.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+  .chip.active-yes  { background: rgba(52,211,153,0.2);  border-color: var(--green); color: var(--green);  font-weight: 700; }
+  .chip.active-no   { background: rgba(248,113,113,0.15); border-color: var(--red);   color: var(--red);   font-weight: 700; }
+  .chip.active-had  { background: rgba(96,165,250,0.2);   border-color: var(--blue);  color: var(--blue);  font-weight: 700; }
 
   .count-bar { padding: 8px 16px 4px; font-size: 12px; color: var(--text2); }
   .count-bar span { color: var(--accent); font-weight: 700; }
@@ -74,7 +75,7 @@
   .card:active { opacity: 0.9; }
   .card.open { border-color: var(--accent); }
 
-  .card-header { display: flex; align-items: center; gap: 10px; padding: 13px 14px; }
+  .card-header { display: flex; align-items: center; gap: 10px; padding: 14px; }
   .card-name { font-size: 16px; font-weight: 700; flex: 1; }
   .card-city { font-size: 12px; color: var(--text2); margin-top: 2px; }
   .card-phone-preview { font-size: 12px; color: var(--text2); direction: ltr; text-align: left; white-space: nowrap; }
@@ -86,22 +87,22 @@
   .card-body-inner { padding-top: 12px; }
 
   .field-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
-  .field-icon { font-size: 15px; flex-shrink: 0; width: 20px; text-align: center; margin-top: 2px; }
+  .field-icon { font-size: 15px; flex-shrink: 0; margin-top: 2px; width: 20px; text-align: center; }
   .field-label { font-size: 10px; color: var(--text2); margin-bottom: 2px; }
   .field-value { font-size: 14px; font-weight: 500; line-height: 1.4; }
-  .field-value.phone { direction: ltr; color: var(--accent2); font-size: 16px; }
+  .field-value.phone { direction: ltr; color: var(--accent2); }
 
   .actions { display: flex; gap: 8px; margin-top: 14px; }
-  .btn { flex: 1; padding: 12px 8px; border-radius: 10px; border: none; font-size: 14px; font-family: 'Heebo', sans-serif; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
+  .btn { flex: 1; padding: 12px 8px; border-radius: 10px; border: none; font-size: 15px; font-family: 'Heebo', sans-serif; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
   .btn:active { opacity: 0.75; }
   .btn-call { background: var(--green); color: #000; }
   .btn-whatsapp { background: #25d366; color: #000; }
 
   .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
-  .tag { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
-  .tag.yes { background: rgba(52,211,153,0.15); color: var(--green); border-color: rgba(52,211,153,0.3); }
-  .tag.no { background: rgba(248,113,113,0.12); color: var(--red); border-color: rgba(248,113,113,0.25); }
-  .tag.blue { background: rgba(96,165,250,0.15); color: var(--blue); border-color: rgba(96,165,250,0.3); }
+  .tag { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+  .tag.yes  { background: rgba(52,211,153,0.15);  color: var(--green); border-color: rgba(52,211,153,0.3); }
+  .tag.no   { background: rgba(248,113,113,0.12); color: var(--red);   border-color: rgba(248,113,113,0.25); }
+  .tag.blue { background: rgba(96,165,250,0.15);  color: var(--blue);  border-color: rgba(96,165,250,0.3); }
 
   .empty { text-align: center; padding: 60px 20px; color: var(--text2); }
   .empty-icon { font-size: 44px; margin-bottom: 12px; }
@@ -111,9 +112,9 @@
 
   .loading-screen { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; z-index: 999; }
   .loading-logo { font-size: 52px; animation: pulse 1.2s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1);opacity:0.7} }
-  .loading-text { font-size: 14px; color: var(--text2); }
-  .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:0.7} }
+  .loading-text { font-size: 15px; color: var(--text2); }
+  .spinner { width: 34px; height: 34px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .error-banner { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); border-radius: 10px; padding: 12px 14px; margin: 10px 16px; font-size: 13px; color: var(--red); display: none; }
@@ -147,23 +148,16 @@
       <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
     </div>
 
-    <div class="filter-section">
-      <span class="filter-title">האם יש כננת?</span>
-      <div class="filter-row">
-        <button class="chip active" data-group="kananet" data-val="" onclick="setFilter(this,'kananet','')">הכל</button>
-        <button class="chip" data-group="kananet" data-val="כן" onclick="setFilter(this,'kananet','כן')">✅ יש כננת</button>
-        <button class="chip" data-group="kananet" data-val="לא" onclick="setFilter(this,'kananet','לא')">❌ אין כננת</button>
-      </div>
-    </div>
-
-    <div class="filter-section" style="margin-bottom:4px">
-      <span class="filter-title">הדרכות</span>
-      <div class="filter-row">
-        <button class="chip active" data-group="hadracha" data-val="" onclick="setFilter(this,'hadracha','')">הכל</button>
-        <button class="chip" data-group="hadracha" data-val="adv"  onclick="setFilter(this,'hadracha','adv')">מתקדמת</button>
-        <button class="chip" data-group="hadracha" data-val="kan"  onclick="setFilter(this,'hadracha','kan')">כננות</button>
-        <button class="chip" data-group="hadracha" data-val="bots" onclick="setFilter(this,'hadracha','bots')">תרגולי בוץ</button>
-      </div>
+    <div class="chips-row">
+      <button class="chip" id="chip-kananet-yes"  onclick="toggleChip('kananet','yes')">✅ יש כננת</button>
+      <button class="chip" id="chip-kananet-no"   onclick="toggleChip('kananet','no')">❌ אין כננת</button>
+      <button class="chip" id="chip-apod-yes"     onclick="toggleChip('apod','yes')">🦺 יש אפוד זוהר</button>
+      <button class="chip" id="chip-apod-no"      onclick="toggleChip('apod','no')">🦺 אין אפוד זוהר</button>
+      <button class="chip" id="chip-ereket-yes"   onclick="toggleChip('ereket','yes')">🧰 יש ערכת פתיחה</button>
+      <button class="chip" id="chip-ereket-no"    onclick="toggleChip('ereket','no')">🧰 אין ערכת פתיחה</button>
+      <button class="chip" id="chip-had-adv"      onclick="toggleChip('had','adv')">📚 הדרכה מתקדמת</button>
+      <button class="chip" id="chip-had-kan"      onclick="toggleChip('had','kan')">🔗 כננות</button>
+      <button class="chip" id="chip-had-bots"     onclick="toggleChip('had','bots')">🌧️ תרגולי בוץ</button>
     </div>
   </div>
 
@@ -180,10 +174,24 @@ const SHEET_NAME = 'Form Responses 1';
 
 /*
   עמודות (0-based):
-  0=חותמת זמן  1=שם פרטי  2=שם משפחה  3=טלפון  4=יישוב(עיר)
-  5=עברי/לועזי(סוג תאריך)  6=ת.לידה לועזי  7=ת.לידה עברי  8=?
-  9=דגם רכב  10=כננת  11=הדרכה מתקדמת  12=הדרכת כננות
-  13=תרגולי בוץ  14=מפגש חורף  15=תרגולי  16=הערות  17=פריטים
+  A=0  חותמת זמן
+  B=1  שם פרטי
+  C=2  שם משפחה
+  D=3  מספר טלפון
+  E=4  יישוב (עיר)
+  F=5  סוג תאריך לידה (עברי/לועזי)
+  G=6  תאריך לידה לועזי
+  H=7  תאריך לידה עברי
+  I=8  האם מותקנת כננת (כן/לא)
+  J=9  דגם הרכב
+  K=10 האם מוכן לברכב כננת / שדה ביניים
+  L=11 הדרכה מתקדמת (כן/לא)
+  M=12 הדרכת כננות (כן/לא)
+  N=13 תרגולי בוץ (כן/לא)
+  O=14 ריענון / מפגש חורף (כן/לא)
+  P=15 ערכת פתיחה (כן/לא)
+  Q=16 חסר משהו
+  R=17 סמן בבקשה — רשימה בפסיקים (אפוד זוהר, מדבקה, שלט...)
 */
 const C = {
   FIRST:    1,
@@ -193,21 +201,29 @@ const C = {
   DOB_TYPE: 5,
   DOB_G:    6,
   DOB_H:    7,
+  KANANET:  8,
   CAR:      9,
-  KANANET:  10,
-  HADR_ADV: 11,
-  HADR_KAN: 12,
-  BOTS:     13,
-  CHOREF:   14,
-  NOTES:    16,
+  HAD_ADV:  11,
+  HAD_KAN:  12,
+  HAD_BOTS: 13,
+  HAD_CHOREF: 14,
+  EREKET:   15,
+  ITEMS:    17,  // אפוד זוהר, מדבקה, שלט
 };
 
 let DATA = [];
 let openId = null;
-let filters = { kananet: '', hadracha: '' };
+
+// מצב פילטרים — כל קבוצה: null / 'yes' / 'no' / שם-ספציפי
+let F = { kananet: null, apod: null, ereket: null, had: null };
 
 function g(row, idx) { return ((row[idx]||'')+'').trim(); }
-function hasContent(v) { return v && v !== 'לא' && v !== 'לא רלוונטי'; }
+function hasVal(v)   { return v && v !== 'לא' && v !== 'לא רלוונטי' && v !== 'לא השתתפתי' && v !== '-'; }
+
+// בדיקה אם רשימת פסיקים כוללת פריט
+function listIncludes(str, item) {
+  return str.split(',').map(s=>s.trim()).some(s => s.includes(item));
+}
 
 async function loadData() {
   document.getElementById('loadingScreen').style.display = 'flex';
@@ -217,7 +233,7 @@ async function loadData() {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
   try {
     const res = await fetch(url);
-    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `HTTP ${res.status}`); }
+    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message||`HTTP ${res.status}`); }
     const json = await res.json();
     const rows = json.values || [];
     if (rows.length < 2) throw new Error('הגיליון ריק');
@@ -239,29 +255,50 @@ async function loadData() {
 
 function matchesFilters(row) {
   const r = row._raw;
-  if (filters.kananet && g(r, C.KANANET) !== filters.kananet) return false;
-  if (filters.hadracha) {
-    if (filters.hadracha === 'adv'  && !hasContent(g(r, C.HADR_ADV))) return false;
-    if (filters.hadracha === 'kan'  && !hasContent(g(r, C.HADR_KAN))) return false;
-    if (filters.hadracha === 'bots' && !hasContent(g(r, C.BOTS)))     return false;
-  }
+  const kananet = g(r, C.KANANET).trim();
+  const items   = g(r, C.ITEMS);
+  const ereket  = g(r, C.EREKET).trim();
+  const hasApod = listIncludes(items, 'אפוד זוהר');
+
+  if (F.kananet === 'yes' && kananet !== 'כן')  return false;
+  if (F.kananet === 'no'  && kananet !== 'לא')  return false;
+  if (F.apod    === 'yes' && !hasApod)           return false;
+  if (F.apod    === 'no'  && hasApod)            return false;
+  if (F.ereket  === 'yes' && ereket !== 'כן')    return false;
+  if (F.ereket  === 'no'  && ereket !== 'לא')    return false;
+
+  if (F.had === 'adv'  && !hasVal(g(r, C.HAD_ADV)))  return false;
+  if (F.had === 'kan'  && !hasVal(g(r, C.HAD_KAN)))  return false;
+  if (F.had === 'bots' && !hasVal(g(r, C.HAD_BOTS))) return false;
+
   return true;
 }
 
 function matchesSearch(row, q) {
   if (!q) return true;
-  const r = row._raw;
-  const lq = q.toLowerCase();
+  const r   = row._raw;
+  const lq  = q.toLowerCase().trim();
   const phoneQ = lq.replace(/\D/g,'');
+
+  // חיפוש טלפון
   if (phoneQ.length >= 3 && g(r, C.PHONE).replace(/\D/g,'').includes(phoneQ)) return true;
-  return [g(r,C.FIRST), g(r,C.LAST), g(r,C.CITY), g(r,C.CAR), g(r,C.DOB_G), g(r,C.DOB_H)]
-    .some(f => f.toLowerCase().includes(lq));
+
+  // חיפוש שם — כל אחד בנפרד וגם ביחד
+  const first = g(r, C.FIRST).toLowerCase();
+  const last  = g(r, C.LAST).toLowerCase();
+  if (first.includes(lq) || last.includes(lq) || (first+' '+last).includes(lq)) return true;
+
+  // שאר שדות
+  const others = [g(r,C.CITY), g(r,C.CAR), g(r,C.DOB_G), g(r,C.DOB_H), g(r,C.ITEMS)];
+  if (others.some(f => f.toLowerCase().includes(lq))) return true;
+
+  return false;
 }
 
 function hl(text, q) {
-  if (!q || !text) return text || '';
+  if (!q || !text) return text||'';
   const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  return String(text).replace(new RegExp(esc,'gi'), m => `<mark>${m}</mark>`);
+  return String(text).replace(new RegExp(esc,'gi'), m=>`<mark>${m}</mark>`);
 }
 
 function render() {
@@ -271,91 +308,114 @@ function render() {
 
   const list = document.getElementById('list');
   if (!results.length) {
-    list.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">לא נמצאו תוצאות</div><div>נסה מילות חיפוש אחרות</div></div>`;
+    list.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">לא נמצאו תוצאות</div><div>נסה לאפס פילטרים או מילות חיפוש אחרות</div></div>`;
     return;
   }
 
   list.innerHTML = results.map(row => {
-    const r   = row._raw;
-    const id  = row._id;
+    const r = row._raw;
+    const id = row._id;
     const isOpen = openId === id;
 
     const firstName = g(r, C.FIRST);
     const lastName  = g(r, C.LAST);
     const phone     = g(r, C.PHONE);
     const city      = g(r, C.CITY);
-    const dobType   = g(r, C.DOB_TYPE); // "עברי" / "לועזי"
+    const dobType   = g(r, C.DOB_TYPE);
     const dobG      = g(r, C.DOB_G);
     const dobH      = g(r, C.DOB_H);
-    const car       = g(r, C.CAR);
     const kananet   = g(r, C.KANANET);
-    const hadrAdv   = g(r, C.HADR_ADV);
-    const hadrKan   = g(r, C.HADR_KAN);
-    const bots      = g(r, C.BOTS);
-    const choref    = g(r, C.CHOREF);
-    const notes     = g(r, C.NOTES);
+    const car       = g(r, C.CAR);
+    const hadAdv    = g(r, C.HAD_ADV);
+    const hadKan    = g(r, C.HAD_KAN);
+    const hadBots   = g(r, C.HAD_BOTS);
+    const hadChoref = g(r, C.HAD_CHOREF);
+    const ereket    = g(r, C.EREKET);
+    const items     = g(r, C.ITEMS);
 
-    // תאריך לידה לפי סוג
-    const dob = dobType === 'עברי' ? dobH : (dobG || dobH || '');
+    const isHebrew = dobType === 'עברי';
+    const dob = isHebrew ? dobH : dobG;
 
-    // הדרכות
-    const hadrList = [];
-    if (hasContent(hadrAdv)) hadrList.push('הדרכה מתקדמת');
-    if (hasContent(hadrKan)) hadrList.push('כננות');
-    if (hasContent(bots))    hadrList.push('תרגולי בוץ');
-    if (hasContent(choref))  hadrList.push('מפגש חורף');
+    const hadList = [];
+    if (hasVal(hadAdv))    hadList.push(hadAdv);
+    if (hasVal(hadKan))    hadList.push(hadKan);
+    if (hasVal(hadBots))   hadList.push(hadBots);
+    if (hasVal(hadChoref)) hadList.push(hadChoref);
 
-    const fullName   = firstName + ' ' + lastName;
+    const hasApod = listIncludes(items, 'אפוד זוהר');
+
+    const fullName = (firstName + ' ' + lastName).trim();
     const phoneClean = phone.replace(/\D/g,'');
-    const waPhone    = phoneClean.startsWith('972') ? phoneClean : '972' + phoneClean.replace(/^0/,'');
+    const waPhone = phoneClean.startsWith('972') ? phoneClean : '972'+phoneClean.replace(/^0/,'');
 
     return `<div class="card ${isOpen?'open':''}" id="card-${id}" onclick="toggle(${id})">
       <div class="card-header">
         <div style="flex:1;min-width:0">
-          <div class="card-name">${hl(fullName,q)}</div>
-          <div class="card-city">${hl(city,q)}</div>
+          <div class="card-name">${hl(fullName, q)}</div>
+          <div class="card-city">${hl(city, q)}</div>
         </div>
         <div style="text-align:left;flex-shrink:0">
-          <div class="card-phone-preview">${hl(phone,q)}</div>
+          <div class="card-phone-preview">${hl(phone, q)}</div>
         </div>
         <div class="chevron">▾</div>
       </div>
       <div class="card-body">
         <div class="card-body-inner">
+
           ${phone ? `<div class="field-row">
             <span class="field-icon">📞</span>
             <div><div class="field-label">טלפון</div><div class="field-value phone">${phone}</div></div>
           </div>` : ''}
+
           ${city ? `<div class="field-row">
             <span class="field-icon">📍</span>
             <div><div class="field-label">יישוב</div><div class="field-value">${city}</div></div>
           </div>` : ''}
+
           ${dob ? `<div class="field-row">
             <span class="field-icon">🎂</span>
-            <div><div class="field-label">תאריך לידה</div><div class="field-value">${dob}</div></div>
+            <div><div class="field-label">תאריך לידה${isHebrew?' (עברי)':''}</div><div class="field-value">${dob}</div></div>
           </div>` : ''}
-          ${car ? `<div class="field-row">
+
+          ${car && hasVal(car) ? `<div class="field-row">
             <span class="field-icon">🚙</span>
-            <div><div class="field-label">רכב</div><div class="field-value">${car}</div></div>
+            <div><div class="field-label">דגם הרכב</div><div class="field-value">${car}</div></div>
           </div>` : ''}
-          ${hadrList.length ? `<div class="field-row">
-            <span class="field-icon">🎓</span>
-            <div><div class="field-label">הדרכות</div><div class="field-value" style="font-size:13px">${hadrList.join(' · ')}</div></div>
-          </div>` : ''}
-          ${notes ? `<div class="field-row">
-            <span class="field-icon">📝</span>
-            <div><div class="field-label">הערות</div><div class="field-value" style="font-size:13px;color:var(--text2);font-weight:400">${notes}</div></div>
+
+          <div class="field-row">
+            <span class="field-icon">🔗</span>
+            <div><div class="field-label">כננת</div><div class="field-value">${kananet || '—'}</div></div>
+          </div>
+
+          <div class="field-row">
+            <span class="field-icon">🧰</span>
+            <div><div class="field-label">ערכת פתיחה</div><div class="field-value">${ereket || '—'}</div></div>
+          </div>
+
+          <div class="field-row">
+            <span class="field-icon">🦺</span>
+            <div><div class="field-label">אפוד זוהר</div><div class="field-value">${hasApod ? 'יש' : 'אין'}</div></div>
+          </div>
+
+          ${hadList.length ? `<div class="field-row">
+            <span class="field-icon">📋</span>
+            <div><div class="field-label">הדרכות</div><div class="field-value" style="font-size:13px;color:var(--text);font-weight:400">${hadList.join(' · ')}</div></div>
           </div>` : ''}
 
           <div class="tags">
             <span class="tag ${kananet==='כן'?'yes':'no'}">כננת: ${kananet||'—'}</span>
-            ${hadrList.map(h=>`<span class="tag blue">${h}</span>`).join('')}
+            <span class="tag ${hasApod?'yes':'no'}">אפוד זוהר: ${hasApod?'יש':'אין'}</span>
+            <span class="tag ${ereket==='כן'?'yes':'no'}">ערכת פתיחה: ${ereket||'—'}</span>
+            ${hasVal(hadAdv)  ? `<span class="tag blue">הדרכה מתקדמת</span>` : ''}
+            ${hasVal(hadBots) ? `<span class="tag blue">תרגולי בוץ</span>`    : ''}
+            ${hasVal(hadKan)  ? `<span class="tag blue">כננות</span>`         : ''}
           </div>
 
           ${phone ? `<div class="actions">
             <a class="btn btn-call" href="tel:${phone}">📞 התקשר</a>
             <a class="btn btn-whatsapp" href="https://wa.me/${waPhone}">💬 וואטסאפ</a>
           </div>` : ''}
+
         </div>
       </div>
     </div>`;
@@ -363,24 +423,59 @@ function render() {
 }
 
 function toggle(id) {
-  openId = (openId === id) ? null : id;
+  if (openId === id) { openId = null; render(); return; }
+  openId = id;
   render();
-  if (openId !== null) {
-    setTimeout(() => {
-      const el = document.getElementById('card-' + id);
-      if (!el) return;
-      const headerH = document.querySelector('.header').offsetHeight;
-      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }, 60);
-  }
+  setTimeout(() => {
+    const el = document.getElementById('card-' + id);
+    if (!el) return;
+    const headerH = document.querySelector('.header')?.offsetHeight || 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, 60);
 }
 
-function setFilter(el, group, val) {
-  filters[group] = val;
-  document.querySelectorAll(`[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
+function toggleChip(group, val) {
+  // אותה קבוצה — toggle off
+  if (F[group] === val) {
+    F[group] = null;
+    updateChipStyles();
+    render();
+    return;
+  }
+  // קבוצות yes/no — מבטל את ההפוך
+  if (group === 'kananet' || group === 'apod' || group === 'ereket') {
+    F[group] = val;
+  } else {
+    // הדרכות — בחירה בודדת
+    F[group] = val;
+  }
+  updateChipStyles();
   render();
+}
+
+function updateChipStyles() {
+  const map = [
+    { id: 'chip-kananet-yes', group: 'kananet', val: 'yes', type: 'yes' },
+    { id: 'chip-kananet-no',  group: 'kananet', val: 'no',  type: 'no'  },
+    { id: 'chip-apod-yes',    group: 'apod',    val: 'yes', type: 'yes' },
+    { id: 'chip-apod-no',     group: 'apod',    val: 'no',  type: 'no'  },
+    { id: 'chip-ereket-yes',  group: 'ereket',  val: 'yes', type: 'yes' },
+    { id: 'chip-ereket-no',   group: 'ereket',  val: 'no',  type: 'no'  },
+    { id: 'chip-had-adv',     group: 'had',     val: 'adv', type: 'had' },
+    { id: 'chip-had-kan',     group: 'had',     val: 'kan', type: 'had' },
+    { id: 'chip-had-bots',    group: 'had',     val: 'bots',type: 'had' },
+  ];
+  map.forEach(({ id, group, val, type }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'chip';
+    if (F[group] === val) {
+      if (type === 'yes') el.classList.add('active-yes');
+      else if (type === 'no')  el.classList.add('active-no');
+      else el.classList.add('active-had');
+    }
+  });
 }
 
 function clearSearch() {
@@ -392,20 +487,16 @@ function clearSearch() {
 
 function resetAll() {
   clearSearch();
-  filters = { kananet: '', hadracha: '' };
-  document.querySelectorAll('.chip').forEach(c => {
-    c.classList.remove('active');
-    if (c.dataset.val === '') c.classList.add('active');
-  });
+  F = { kananet: null, apod: null, ereket: null, had: null };
+  updateChipStyles();
   openId = null;
   render();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 document.getElementById('searchInput').addEventListener('input', function() {
-  const has = this.value.length > 0;
-  document.getElementById('clearBtn').style.display = has ? 'block' : 'none';
-  document.getElementById('searchIcon').style.display = has ? 'none' : 'block';
+  const hv = this.value.length > 0;
+  document.getElementById('clearBtn').style.display = hv ? 'block' : 'none';
+  document.getElementById('searchIcon').style.display = hv ? 'none' : 'block';
   render();
 });
 
