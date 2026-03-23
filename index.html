@@ -59,8 +59,8 @@
     border: 1.5px solid var(--border); background: var(--surface2); color: var(--text2);
     transition: all 0.15s; white-space: nowrap;
   }
-  .chip.on-yes { background: rgba(52,211,153,0.2);  border-color: var(--green); color: var(--green);  font-weight: 700; }
-  .chip.on-no  { background: rgba(248,113,113,0.15); border-color: var(--red);   color: var(--red);   font-weight: 700; }
+  .chip.on-yes { background: rgba(52,211,153,0.2);  border-color: var(--green); color: var(--green); font-weight: 700; }
+  .chip.on-no  { background: rgba(248,113,113,0.15); border-color: var(--red);   color: var(--red);  font-weight: 700; }
 
   .count-bar { padding: 10px 16px 4px; font-size: 14px; color: var(--text2); }
   .count-bar span { color: var(--accent); font-weight: 700; }
@@ -182,24 +182,25 @@ const SHEET_ID   = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
 const SHEET_NAME = 'Form Responses 1';
 
 /*
-  מיפוי מאומת מהתמונה (0-based, A=0):
-  B=1   שם פרטי
-  C=2   שם משפחה
-  D=3   טלפון
-  E=4   יישוב
-  F=5   סוג תאריך לידה (עברי/לועזי)
-  G=6   תאריך לידה לועזי
-  H=7   תאריך לידה עברי
-  I=8   (ריק / לא בשימוש)
-  J=9   דגם הרכב
-  K=10  האם מותקנת כננת  — פ = יש, ריק/"לא" = אין
-  L=11  סמן הדרכות עברת (טקסט חופשי)
-  M=12  הדרכה מתקדמת — פ = כן
-  N=13  תרגולי בוץ — פ = כן
-  O=14  ריענון / מפגש חורף — פ = כן
-  P=15  ערכת פתיחה — פ/"תקינה" = יש, "לא" = אין
-  Q=16  חסר / הערות
-  R=17  פריטים ברשות (אפוד זוהר, מדבקה, שלט...)
+  מיפוי מאומת מה-console (0-based):
+  [0]  חותמת זמן
+  [1]  שם פרטי
+  [2]  שם משפחה
+  [3]  טלפון
+  [4]  יישוב
+  [5]  סוג תאריך לידה (עברי/לועזי)
+  [6]  תאריך לידה לועזי
+  [7]  תאריך לידה עברי
+  [8]  דגם הרכב           ← index 8
+  [9]  כננת (כן/לא)       ← index 9
+  [10] הדרכות טקסט חופשי  ← index 10
+  [11] ערכת פתיחה (תקינה/לא) ← index 11
+  [12] הדרכה מתקדמת (כן/לא)  ← index 12
+  [13] תרגולי בוץ (כן/לא)    ← index 13
+  [14] ?                      ← index 14
+  [15] כן/?                   ← index 15
+  [16] תקינה/?                ← index 16
+  [17] פריטים (אפוד זוהר...)  ← index 17
 */
 const C = {
   FIRST:      1,
@@ -209,13 +210,12 @@ const C = {
   DOB_TYPE:   5,
   DOB_G:      6,
   DOB_H:      7,
-  CAR:        9,
-  KANANET:    10,
-  HAD_FREE:   11,
+  CAR:        8,
+  KANANET:    9,
+  HAD_FREE:   10,
+  EREKET:     11,
   HAD_ADV:    12,
   HAD_BOTS:   13,
-  HAD_CHOREF: 14,
-  EREKET:     15,
   ITEMS:      17,
 };
 
@@ -225,25 +225,13 @@ let F = { kananet: null, apod: null, ereket: null };
 
 function g(row, idx) { return ((row[idx]||'')+'').trim(); }
 
-// "פ" הוא הסימן בגוגל שיט לצ'קבוקס מסומן
-function isChecked(v) {
+function isYes(v) {
   const t = (v||'').trim();
-  return t === 'פ' || t === 'TRUE' || t === 'true' || t === '✓' || t === 'כן' || t === 'תקינה';
-}
-
-function hasEreket(row) {
-  const v = g(row, C.EREKET);
-  // "לא" = אין, "פ"/"תקינה" = יש, ריק = לא ידוע (נחשב אין)
-  return isChecked(v);
-}
-
-function hasKananet(row) {
-  return isChecked(g(row, C.KANANET));
+  return t === 'כן' || t === 'פ' || t === 'TRUE' || t === 'true' || t === '✓' || t === 'תקינה';
 }
 
 function hasApod(row) {
-  const items = g(row, C.ITEMS);
-  return items.split(',').map(s=>s.trim()).some(s => s.includes('אפוד זוהר'));
+  return g(row, C.ITEMS).split(',').map(s=>s.trim()).some(s => s.includes('אפוד זוהר'));
 }
 
 async function loadData() {
@@ -263,14 +251,6 @@ async function loadData() {
     document.getElementById('lastUpdated').textContent = 'עודכן: ' + new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('loadingScreen').style.display = 'none';
     document.getElementById('appContent').style.display = 'block';
-
-    // DEBUG: הדפס את 3 השורות הראשונות לקונסול לבדיקה
-    console.log('=== DEBUG שורות ראשונות ===');
-    DATA.slice(0,3).forEach((row,i) => {
-      const r = row._raw;
-      console.log(`שורה ${i+1}: שם=${g(r,1)} ${g(r,2)} | רכב(J9)=${g(r,9)} | כננת(K10)=${g(r,10)} | ערכת(P15)=${g(r,15)} | פריטים(R17)=${g(r,17)}`);
-    });
-
     render();
   } catch(e) {
     document.getElementById('loadingScreen').style.display = 'none';
@@ -284,12 +264,16 @@ async function loadData() {
 
 function matchesFilters(row) {
   const r = row._raw;
-  if (F.kananet === 'yes' && !hasKananet(r)) return false;
-  if (F.kananet === 'no'  &&  hasKananet(r)) return false;
-  if (F.apod    === 'yes' && !hasApod(r))    return false;
-  if (F.apod    === 'no'  &&  hasApod(r))    return false;
-  if (F.ereket  === 'yes' && !hasEreket(r))  return false;
-  if (F.ereket  === 'no'  &&  hasEreket(r))  return false;
+  const kananet = isYes(g(r, C.KANANET));
+  const ereket  = isYes(g(r, C.EREKET));
+  const apod    = hasApod(r);
+
+  if (F.kananet === 'yes' && !kananet) return false;
+  if (F.kananet === 'no'  &&  kananet) return false;
+  if (F.apod    === 'yes' && !apod)    return false;
+  if (F.apod    === 'no'  &&  apod)    return false;
+  if (F.ereket  === 'yes' && !ereket)  return false;
+  if (F.ereket  === 'no'  &&  ereket)  return false;
   return true;
 }
 
@@ -315,7 +299,7 @@ function hl(text, q) {
   return String(text).replace(new RegExp(esc,'gi'), m=>`<mark>${m}</mark>`);
 }
 
-function yesNoHtml(bool) {
+function yesNo(bool) {
   return bool
     ? `<div class="field-value green">יש ✓</div>`
     : `<div class="field-value red">אין</div>`;
@@ -345,18 +329,16 @@ function render() {
     const dobG      = g(r, C.DOB_G);
     const dobH      = g(r, C.DOB_H);
     const car       = g(r, C.CAR);
-    const kananet   = hasKananet(r);
-    const ereket    = hasEreket(r);
+    const kananet   = isYes(g(r, C.KANANET));
+    const ereket    = isYes(g(r, C.EREKET));
     const apod      = hasApod(r);
 
     const isHebrew = dobType === 'עברי';
     const dob = isHebrew ? dobH : dobG;
 
-    // הדרכות — שמות לפי עמודה
     const hadList = [];
-    if (isChecked(g(r, C.HAD_ADV)))    hadList.push('הדרכה מתקדמת');
-    if (isChecked(g(r, C.HAD_BOTS)))   hadList.push('תרגולי בוץ');
-    if (isChecked(g(r, C.HAD_CHOREF))) hadList.push('ריענון / מפגש חורף');
+    if (isYes(g(r, C.HAD_ADV)))  hadList.push('הדרכה מתקדמת');
+    if (isYes(g(r, C.HAD_BOTS))) hadList.push('תרגולי בוץ');
 
     const fullName = (firstName + ' ' + lastName).trim();
     const phoneClean = phone.replace(/\D/g,'');
@@ -398,17 +380,17 @@ function render() {
 
           <div class="field">
             <div class="field-label">כננת</div>
-            ${yesNoHtml(kananet)}
+            ${yesNo(kananet)}
           </div>
 
           <div class="field">
             <div class="field-label">ערכת פתיחה</div>
-            ${yesNoHtml(ereket)}
+            ${yesNo(ereket)}
           </div>
 
           <div class="field">
             <div class="field-label">אפוד זוהר</div>
-            ${yesNoHtml(apod)}
+            ${yesNo(apod)}
           </div>
 
           ${hadList.length ? `<div class="field wide">
@@ -431,7 +413,6 @@ function toggle(id) {
   if (openId === id) { openId = null; render(); return; }
   openId = id;
   render();
-  // גלילה למרכז המסך
   setTimeout(() => {
     const el = document.getElementById('card-' + id);
     if (!el) return;
@@ -439,8 +420,7 @@ function toggle(id) {
     const windowH = window.innerHeight;
     const cardH   = el.offsetHeight;
     const cardTop = el.getBoundingClientRect().top + window.scrollY;
-    // מרכז הכרטיס במסך, עם התחשבות בהדר
-    const target  = cardTop - headerH - Math.max(0, (windowH - headerH - cardH) / 2);
+    const target  = cardTop - headerH - Math.max(8, (windowH - headerH - cardH) / 2);
     window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
   }, 60);
 }
