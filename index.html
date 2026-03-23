@@ -49,9 +49,11 @@
   .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 18px; pointer-events: none; }
   .clear-btn { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text2); font-size: 20px; cursor: pointer; display: none; padding: 4px; }
 
+  /* FILTERS */
   .filter-groups { display: flex; flex-direction: column; gap: 8px; }
   .filter-group-row { display: flex; align-items: center; gap: 8px; }
   .filter-group-label { font-size: 14px; font-weight: 600; color: var(--text); flex-shrink: 0; width: 95px; }
+  .chips-and-count { display: flex; align-items: center; gap: 8px; flex: 1; }
   .chips-row { display: flex; gap: 6px; }
   .chip {
     flex-shrink: 0; padding: 8px 16px; border-radius: 20px; font-size: 14px;
@@ -61,6 +63,19 @@
   }
   .chip.on-yes { background: rgba(52,211,153,0.2);  border-color: var(--green); color: var(--green); font-weight: 700; }
   .chip.on-no  { background: rgba(248,113,113,0.15); border-color: var(--red);   color: var(--red);  font-weight: 700; }
+
+  /* COUNT BADGE next to chips */
+  .filter-count {
+    font-size: 13px; font-weight: 700;
+    color: var(--text2);
+    margin-right: auto;
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: left;
+  }
+  .filter-count .cnt-yes { color: var(--green); }
+  .filter-count .cnt-no  { color: var(--red); }
+  .filter-count .sep { color: var(--border); margin: 0 3px; }
 
   .count-bar { padding: 10px 16px 4px; font-size: 14px; color: var(--text2); }
   .count-bar span { color: var(--accent); font-weight: 700; }
@@ -148,23 +163,32 @@
     <div class="filter-groups">
       <div class="filter-group-row">
         <span class="filter-group-label">כננת</span>
-        <div class="chips-row">
-          <button class="chip" id="f-kananet-yes" onclick="toggleF('kananet','yes')">✅ יש</button>
-          <button class="chip" id="f-kananet-no"  onclick="toggleF('kananet','no')">❌ אין</button>
+        <div class="chips-and-count">
+          <div class="chips-row">
+            <button class="chip" id="f-kananet-yes" onclick="toggleF('kananet','yes')">✅ יש</button>
+            <button class="chip" id="f-kananet-no"  onclick="toggleF('kananet','no')">❌ אין</button>
+          </div>
+          <div class="filter-count" id="cnt-kananet"></div>
         </div>
       </div>
       <div class="filter-group-row">
         <span class="filter-group-label">אפוד זוהר</span>
-        <div class="chips-row">
-          <button class="chip" id="f-apod-yes" onclick="toggleF('apod','yes')">🦺 יש</button>
-          <button class="chip" id="f-apod-no"  onclick="toggleF('apod','no')">🦺 אין</button>
+        <div class="chips-and-count">
+          <div class="chips-row">
+            <button class="chip" id="f-apod-yes" onclick="toggleF('apod','yes')">🦺 יש</button>
+            <button class="chip" id="f-apod-no"  onclick="toggleF('apod','no')">🦺 אין</button>
+          </div>
+          <div class="filter-count" id="cnt-apod"></div>
         </div>
       </div>
       <div class="filter-group-row">
         <span class="filter-group-label">ערכת פתיחה</span>
-        <div class="chips-row">
-          <button class="chip" id="f-ereket-yes" onclick="toggleF('ereket','yes')">🧰 יש</button>
-          <button class="chip" id="f-ereket-no"  onclick="toggleF('ereket','no')">🧰 אין</button>
+        <div class="chips-and-count">
+          <div class="chips-row">
+            <button class="chip" id="f-ereket-yes" onclick="toggleF('ereket','yes')">🧰 יש</button>
+            <button class="chip" id="f-ereket-no"  onclick="toggleF('ereket','no')">🧰 אין</button>
+          </div>
+          <div class="filter-count" id="cnt-ereket"></div>
         </div>
       </div>
     </div>
@@ -182,7 +206,7 @@ const SHEET_ID   = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
 const SHEET_NAME = 'Form Responses 1';
 
 /*
-  מיפוי מאומת מה-console (0-based):
+  מיפוי מאומת מה-console:
   [0]  חותמת זמן
   [1]  שם פרטי
   [2]  שם משפחה
@@ -191,32 +215,41 @@ const SHEET_NAME = 'Form Responses 1';
   [5]  סוג תאריך לידה (עברי/לועזי)
   [6]  תאריך לידה לועזי
   [7]  תאריך לידה עברי
-  [8]  דגם הרכב           ← index 8
-  [9]  כננת (כן/לא)       ← index 9
-  [10] הדרכות טקסט חופשי  ← index 10
-  [11] ערכת פתיחה (תקינה/לא) ← index 11
-  [12] הדרכה מתקדמת (כן/לא)  ← index 12
-  [13] תרגולי בוץ (כן/לא)    ← index 13
-  [14] ?                      ← index 14
-  [15] כן/?                   ← index 15
-  [16] תקינה/?                ← index 16
-  [17] פריטים (אפוד זוהר...)  ← index 17
+  [8]  דגם הרכב
+  [9]  כננת (כן/לא)
+  [10] האם מותקנת ברכב כננת — שדה נוסף (לא בשימוש)
+  [11] סמן הדרכות עברת (טקסט חופשי — לא בשימוש)
+  [12] הדרכה מתקדמת (כן/לא)  ← L
+  [13] הדרכת כננות (כן/לא)   ← M  (לפי תמונת הגיליון)
+  [14] תרגולי בוץ (כן/לא)    ← N
+  [15] ריענון מפגש חורף 11/25 (כן/לא) ← O
+  [16] ערכת פתיחה (תקינה/לא) ← P
+  [17] פריטים (אפוד זוהר...)  ← R
 */
 const C = {
-  FIRST:      1,
-  LAST:       2,
-  PHONE:      3,
-  CITY:       4,
-  DOB_TYPE:   5,
-  DOB_G:      6,
-  DOB_H:      7,
-  CAR:        8,
-  KANANET:    9,
-  HAD_FREE:   10,
-  EREKET:     11,
-  HAD_ADV:    12,
-  HAD_BOTS:   13,
-  ITEMS:      17,
+  FIRST:        1,
+  LAST:         2,
+  PHONE:        3,
+  CITY:         4,
+  DOB_TYPE:     5,
+  DOB_G:        6,
+  DOB_H:        7,
+  CAR:          8,
+  KANANET:      9,
+  HAD_ADV:      12,  // הדרכה מתקדמת
+  HAD_KAN:      13,  // הדרכת כננות
+  HAD_BOTS:     14,  // תרגולי בוץ
+  HAD_CHOREF:   15,  // ריענון מפגש חורף 11/25
+  EREKET:       16,  // ערכת פתיחה
+  ITEMS:        17,  // פריטים (אפוד זוהר...)
+};
+
+// שמות הדרכות לפי אינדקס
+const HAD_LABELS = {
+  [C.HAD_ADV]:    'הדרכה מתקדמת',
+  [C.HAD_KAN]:    'הדרכת כננות',
+  [C.HAD_BOTS]:   'תרגולי בוץ',
+  [C.HAD_CHOREF]: 'ריענון מפגש חורף 11/25',
 };
 
 let DATA = [];
@@ -230,8 +263,18 @@ function isYes(v) {
   return t === 'כן' || t === 'פ' || t === 'TRUE' || t === 'true' || t === '✓' || t === 'תקינה';
 }
 
-function hasApod(row) {
-  return g(row, C.ITEMS).split(',').map(s=>s.trim()).some(s => s.includes('אפוד זוהר'));
+function getKananet(r) { return isYes(g(r, C.KANANET)); }
+function getEreket(r)  { return isYes(g(r, C.EREKET)); }
+function getApod(r)    {
+  return g(r, C.ITEMS).split(',').map(s=>s.trim()).some(s => s.includes('אפוד זוהר'));
+}
+
+function getHadList(r) {
+  const list = [];
+  [C.HAD_ADV, C.HAD_KAN, C.HAD_BOTS, C.HAD_CHOREF].forEach(idx => {
+    if (isYes(g(r, idx))) list.push(HAD_LABELS[idx]);
+  });
+  return list;
 }
 
 async function loadData() {
@@ -251,6 +294,7 @@ async function loadData() {
     document.getElementById('lastUpdated').textContent = 'עודכן: ' + new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('loadingScreen').style.display = 'none';
     document.getElementById('appContent').style.display = 'block';
+    updateCounts();
     render();
   } catch(e) {
     document.getElementById('loadingScreen').style.display = 'none';
@@ -262,18 +306,32 @@ async function loadData() {
   }
 }
 
+function updateCounts() {
+  // חשב כמה יש/אין מתוך כל הנתונים (ללא פילטרים אחרים)
+  let kanYes=0, kanNo=0, apodYes=0, apodNo=0, erekYes=0, erekNo=0;
+  DATA.forEach(row => {
+    const r = row._raw;
+    getKananet(r) ? kanYes++ : kanNo++;
+    getApod(r)    ? apodYes++ : apodNo++;
+    getEreket(r)  ? erekYes++ : erekNo++;
+  });
+
+  document.getElementById('cnt-kananet').innerHTML =
+    `<span class="cnt-yes">${kanYes}</span><span class="sep">/</span><span class="cnt-no">${kanNo}</span>`;
+  document.getElementById('cnt-apod').innerHTML =
+    `<span class="cnt-yes">${apodYes}</span><span class="sep">/</span><span class="cnt-no">${apodNo}</span>`;
+  document.getElementById('cnt-ereket').innerHTML =
+    `<span class="cnt-yes">${erekYes}</span><span class="sep">/</span><span class="cnt-no">${erekNo}</span>`;
+}
+
 function matchesFilters(row) {
   const r = row._raw;
-  const kananet = isYes(g(r, C.KANANET));
-  const ereket  = isYes(g(r, C.EREKET));
-  const apod    = hasApod(r);
-
-  if (F.kananet === 'yes' && !kananet) return false;
-  if (F.kananet === 'no'  &&  kananet) return false;
-  if (F.apod    === 'yes' && !apod)    return false;
-  if (F.apod    === 'no'  &&  apod)    return false;
-  if (F.ereket  === 'yes' && !ereket)  return false;
-  if (F.ereket  === 'no'  &&  ereket)  return false;
+  if (F.kananet === 'yes' && !getKananet(r)) return false;
+  if (F.kananet === 'no'  &&  getKananet(r)) return false;
+  if (F.apod    === 'yes' && !getApod(r))    return false;
+  if (F.apod    === 'no'  &&  getApod(r))    return false;
+  if (F.ereket  === 'yes' && !getEreket(r))  return false;
+  if (F.ereket  === 'no'  &&  getEreket(r))  return false;
   return true;
 }
 
@@ -329,16 +387,13 @@ function render() {
     const dobG      = g(r, C.DOB_G);
     const dobH      = g(r, C.DOB_H);
     const car       = g(r, C.CAR);
-    const kananet   = isYes(g(r, C.KANANET));
-    const ereket    = isYes(g(r, C.EREKET));
-    const apod      = hasApod(r);
+    const kananet   = getKananet(r);
+    const ereket    = getEreket(r);
+    const apod      = getApod(r);
+    const hadList   = getHadList(r);
 
     const isHebrew = dobType === 'עברי';
     const dob = isHebrew ? dobH : dobG;
-
-    const hadList = [];
-    if (isYes(g(r, C.HAD_ADV)))  hadList.push('הדרכה מתקדמת');
-    if (isYes(g(r, C.HAD_BOTS))) hadList.push('תרגולי בוץ');
 
     const fullName = (firstName + ' ' + lastName).trim();
     const phoneClean = phone.replace(/\D/g,'');
