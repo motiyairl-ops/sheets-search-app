@@ -23,88 +23,76 @@
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; direction: rtl; }
 
-  /* HEADER */
   .header {
     background: var(--surface);
-    padding: 20px 16px 14px;
+    padding: 16px 16px 12px;
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
   }
-  .header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .logo { width: 38px; height: 38px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .logo { width: 36px; height: 36px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; }
   .header-title-wrap { flex: 1; cursor: pointer; }
-  .header-title { font-size: 18px; font-weight: 700; }
-  .header-sub { font-size: 12px; color: var(--text2); margin-top: 1px; }
-  .refresh-btn { background: none; border: none; color: var(--text2); font-size: 22px; cursor: pointer; padding: 4px 8px; line-height: 1; }
+  .header-title { font-size: 17px; font-weight: 700; }
+  .header-sub { font-size: 11px; color: var(--text2); margin-top: 1px; }
+  .refresh-btn { background: none; border: none; color: var(--text2); font-size: 21px; cursor: pointer; padding: 4px 6px; line-height: 1; }
   .refresh-btn:active { color: var(--accent); }
 
-  /* SEARCH */
-  .search-wrap { position: relative; margin-bottom: 10px; }
+  .search-wrap { position: relative; margin-bottom: 12px; }
   .search-input {
     width: 100%; background: var(--bg); border: 1.5px solid var(--border);
-    border-radius: 12px; padding: 12px 16px 12px 42px;
-    font-size: 16px; font-family: 'Heebo', sans-serif; color: var(--text);
+    border-radius: 12px; padding: 11px 16px 11px 40px;
+    font-size: 15px; font-family: 'Heebo', sans-serif; color: var(--text);
     direction: rtl; transition: border-color 0.2s; -webkit-appearance: none;
   }
   .search-input:focus { outline: none; border-color: var(--accent); }
   .search-input::placeholder { color: var(--text2); }
-  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 17px; pointer-events: none; }
-  .clear-btn { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text2); font-size: 18px; cursor: pointer; display: none; padding: 4px; }
+  .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 16px; pointer-events: none; }
+  .clear-btn { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text2); font-size: 17px; cursor: pointer; display: none; padding: 4px; }
 
-  /* FILTER SECTIONS */
-  .filters-wrap { padding: 0 0 2px; }
-  .filter-section { margin-bottom: 4px; }
-  .filter-label { font-size: 10px; color: var(--text2); padding: 4px 16px 2px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .filter-row { display: flex; gap: 6px; padding: 4px 16px; overflow-x: auto; scrollbar-width: none; }
+  .filter-section { margin-bottom: 10px; }
+  .filter-title { font-size: 13px; font-weight: 700; color: var(--text); padding: 0 2px 6px; display: block; }
+  .filter-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
   .filter-row::-webkit-scrollbar { display: none; }
   .chip {
-    flex-shrink: 0; padding: 6px 12px; border-radius: 20px; font-size: 12px;
+    flex-shrink: 0; padding: 7px 14px; border-radius: 20px; font-size: 13px;
     font-family: 'Heebo', sans-serif; font-weight: 500; cursor: pointer;
     border: 1.5px solid var(--border); background: var(--surface2); color: var(--text2);
     transition: all 0.15s; white-space: nowrap;
   }
   .chip.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
-  .chip.active-blue { background: var(--blue); border-color: var(--blue); color: #000; font-weight: 700; }
 
-  /* DIVIDER */
-  .divider { height: 1px; background: var(--border); margin: 4px 0; }
-
-  /* COUNT */
   .count-bar { padding: 8px 16px 4px; font-size: 12px; color: var(--text2); }
   .count-bar span { color: var(--accent); font-weight: 700; }
 
-  /* LIST */
   .list { padding: 6px 16px 100px; }
 
-  /* CARD */
   .card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); margin-bottom: 8px; overflow: hidden;
-    cursor: pointer; transition: border-color 0.15s, transform 0.1s;
+    cursor: pointer; transition: border-color 0.15s;
   }
-  .card:active { transform: scale(0.985); }
+  .card:active { opacity: 0.9; }
   .card.open { border-color: var(--accent); }
 
-  .card-header { display: flex; align-items: center; gap: 12px; padding: 14px; }
+  .card-header { display: flex; align-items: center; gap: 10px; padding: 13px 14px; }
   .card-name { font-size: 16px; font-weight: 700; flex: 1; }
   .card-city { font-size: 12px; color: var(--text2); margin-top: 2px; }
-  .card-phone-preview { font-size: 12px; color: var(--text2); direction: ltr; text-align: left; }
-  .chevron { font-size: 13px; color: var(--text2); transition: transform 0.25s; flex-shrink: 0; margin-right: 4px; }
+  .card-phone-preview { font-size: 12px; color: var(--text2); direction: ltr; text-align: left; white-space: nowrap; }
+  .chevron { font-size: 13px; color: var(--text2); transition: transform 0.25s; flex-shrink: 0; }
   .card.open .chevron { transform: rotate(180deg); }
 
-  /* EXPANDED */
   .card-body { display: none; padding: 0 14px 14px; border-top: 1px solid var(--border); }
   .card.open .card-body { display: block; }
   .card-body-inner { padding-top: 12px; }
 
-  .field-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; }
-  .field-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; width: 20px; text-align: center; }
-  .field-label { font-size: 10px; color: var(--text2); margin-bottom: 1px; }
+  .field-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .field-icon { font-size: 15px; flex-shrink: 0; width: 20px; text-align: center; margin-top: 2px; }
+  .field-label { font-size: 10px; color: var(--text2); margin-bottom: 2px; }
   .field-value { font-size: 14px; font-weight: 500; line-height: 1.4; }
-  .field-value.phone { direction: ltr; color: var(--accent2); }
+  .field-value.phone { direction: ltr; color: var(--accent2); font-size: 16px; }
 
   .actions { display: flex; gap: 8px; margin-top: 14px; }
-  .btn { flex: 1; padding: 11px 8px; border-radius: 10px; border: none; font-size: 14px; font-family: 'Heebo', sans-serif; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; transition: opacity 0.15s; }
+  .btn { flex: 1; padding: 12px 8px; border-radius: 10px; border: none; font-size: 14px; font-family: 'Heebo', sans-serif; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
   .btn:active { opacity: 0.75; }
   .btn-call { background: var(--green); color: #000; }
   .btn-whatsapp { background: #25d366; color: #000; }
@@ -115,24 +103,21 @@
   .tag.no { background: rgba(248,113,113,0.12); color: var(--red); border-color: rgba(248,113,113,0.25); }
   .tag.blue { background: rgba(96,165,250,0.15); color: var(--blue); border-color: rgba(96,165,250,0.3); }
 
-  /* EMPTY */
   .empty { text-align: center; padding: 60px 20px; color: var(--text2); }
   .empty-icon { font-size: 44px; margin-bottom: 12px; }
   .empty-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
 
   mark { background: rgba(232,160,32,0.28); color: var(--accent2); border-radius: 3px; padding: 0 1px; }
 
-  /* LOADING */
   .loading-screen { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; z-index: 999; }
   .loading-logo { font-size: 52px; animation: pulse 1.2s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:0.7} }
-  .loading-text { font-size: 15px; color: var(--text2); }
-  .spinner { width: 34px; height: 34px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1);opacity:0.7} }
+  .loading-text { font-size: 14px; color: var(--text2); }
+  .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .error-banner { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); border-radius: 10px; padding: 12px 14px; margin: 10px 16px; font-size: 13px; color: var(--red); display: none; }
-
-  .last-updated { font-size: 11px; color: var(--text2); padding: 2px 16px 0; text-align: left; direction: ltr; }
+  .last-updated { font-size: 11px; color: var(--text2); padding: 4px 16px 0; text-align: left; direction: ltr; }
 </style>
 </head>
 <body>
@@ -151,8 +136,9 @@
         <div class="header-title">מתנדבי יחידת פנתר</div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
-      <button class="refresh-btn" onclick="loadData()" title="רענן">↻</button>
+      <button class="refresh-btn" onclick="loadData()">↻</button>
     </div>
+
     <div class="search-wrap">
       <input class="search-input" type="search" id="searchInput"
         placeholder="חפש שם, טלפון, יישוב, רכב..."
@@ -161,34 +147,22 @@
       <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
     </div>
 
-    <div class="filters-wrap">
-      <!-- שורה 1: כננת -->
-      <div class="filter-section">
-        <div class="filter-label">כננת</div>
-        <div class="filter-row">
-          <button class="chip active" data-group="kananet" data-val="" onclick="setFilter(this,'kananet','')">הכל</button>
-          <button class="chip" data-group="kananet" data-val="כן" onclick="setFilter(this,'kananet','כן')">✅ יש כננת</button>
-          <button class="chip" data-group="kananet" data-val="לא" onclick="setFilter(this,'kananet','לא')">❌ אין כננת</button>
-        </div>
+    <div class="filter-section">
+      <span class="filter-title">האם יש כננת?</span>
+      <div class="filter-row">
+        <button class="chip active" data-group="kananet" data-val="" onclick="setFilter(this,'kananet','')">הכל</button>
+        <button class="chip" data-group="kananet" data-val="כן" onclick="setFilter(this,'kananet','כן')">✅ יש כננת</button>
+        <button class="chip" data-group="kananet" data-val="לא" onclick="setFilter(this,'kananet','לא')">❌ אין כננת</button>
       </div>
-      <!-- שורה 2: יישוב -->
-      <div class="filter-section">
-        <div class="filter-label">סוג יישוב</div>
-        <div class="filter-row">
-          <button class="chip active" data-group="yishuv" data-val="" onclick="setFilter(this,'yishuv','')">הכל</button>
-          <button class="chip" data-group="yishuv" data-val="לועזי" onclick="setFilter(this,'yishuv','לועזי')">לועזי</button>
-          <button class="chip" data-group="yishuv" data-val="עברי" onclick="setFilter(this,'yishuv','עברי')">עברי</button>
-        </div>
-      </div>
-      <!-- שורה 3: הדרכות -->
-      <div class="filter-section">
-        <div class="filter-label">הדרכות</div>
-        <div class="filter-row">
-          <button class="chip active" data-group="hadracha" data-val="" onclick="setFilter(this,'hadracha','')">הכל</button>
-          <button class="chip" data-group="hadracha" data-val="מתקדמת" onclick="setFilter(this,'hadracha','מתקדמת')">מתקדמת</button>
-          <button class="chip" data-group="hadracha" data-val="כננות" onclick="setFilter(this,'hadracha','כננות')">כננות</button>
-          <button class="chip" data-group="hadracha" data-val="תרגולי בוץ" onclick="setFilter(this,'hadracha','תרגולי בוץ')">תרגולי בוץ</button>
-        </div>
+    </div>
+
+    <div class="filter-section" style="margin-bottom:4px">
+      <span class="filter-title">הדרכות</span>
+      <div class="filter-row">
+        <button class="chip active" data-group="hadracha" data-val="" onclick="setFilter(this,'hadracha','')">הכל</button>
+        <button class="chip" data-group="hadracha" data-val="adv"  onclick="setFilter(this,'hadracha','adv')">מתקדמת</button>
+        <button class="chip" data-group="hadracha" data-val="kan"  onclick="setFilter(this,'hadracha','kan')">כננות</button>
+        <button class="chip" data-group="hadracha" data-val="bots" onclick="setFilter(this,'hadracha','bots')">תרגולי בוץ</button>
       </div>
     </div>
   </div>
@@ -200,37 +174,40 @@
 </div>
 
 <script>
-const API_KEY = 'AIzaSyCKZvu3_u3hU6XETtQ5sgM_VDEWy-0om7c';
-const SHEET_ID = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
+const API_KEY    = 'AIzaSyCKZvu3_u3hU6XETtQ5sgM_VDEWy-0om7c';
+const SHEET_ID   = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
 const SHEET_NAME = 'Form Responses 1';
 
-// עמודות (0-based): A=0 חותמת זמן, B=1 שם פרטי, C=2 שם משפחה, D=3 טלפון,
-// E=4 יישוב(עיר), F=5 עברי/לועזי, G=6 תאריך לידה לועזי, H=7 מינין יום הולדת,
-// I=8 תאריך לידה עברי?, J=9 דגם רכב, K=10 כננת, L=11 הדרכה מתקדמת,
-// M=12 הדרכת כננות, N=13 תרגולי בוץ, O=14 מפגש חורף, P=15 תרגולי, Q=16 חסר, R=17 סמן
-const COL = {
-  FIRST:  1,
-  LAST:   2,
-  PHONE:  3,
-  CITY:   4,
-  YISHUV: 5,
-  DOB_G:  6,
-  DOB_H:  8,
-  CAR:    9,
-  KANANET: 10,
-  HADRACHA_ADV: 11,
-  HADRACHA_KAN: 12,
-  BOTS: 13,
-  CHOREF: 14,
-  NOTES: 17,
+/*
+  עמודות (0-based):
+  0=חותמת זמן  1=שם פרטי  2=שם משפחה  3=טלפון  4=יישוב(עיר)
+  5=עברי/לועזי(סוג תאריך)  6=ת.לידה לועזי  7=ת.לידה עברי  8=?
+  9=דגם רכב  10=כננת  11=הדרכה מתקדמת  12=הדרכת כננות
+  13=תרגולי בוץ  14=מפגש חורף  15=תרגולי  16=הערות  17=פריטים
+*/
+const C = {
+  FIRST:    1,
+  LAST:     2,
+  PHONE:    3,
+  CITY:     4,
+  DOB_TYPE: 5,
+  DOB_G:    6,
+  DOB_H:    7,
+  CAR:      9,
+  KANANET:  10,
+  HADR_ADV: 11,
+  HADR_KAN: 12,
+  BOTS:     13,
+  CHOREF:   14,
+  NOTES:    16,
 };
 
 let DATA = [];
-let headers = [];
 let openId = null;
-let filters = { kananet: '', yishuv: '', hadracha: '' };
+let filters = { kananet: '', hadracha: '' };
 
 function g(row, idx) { return ((row[idx]||'')+'').trim(); }
+function hasContent(v) { return v && v !== 'לא' && v !== 'לא רלוונטי'; }
 
 async function loadData() {
   document.getElementById('loadingScreen').style.display = 'flex';
@@ -240,11 +217,10 @@ async function loadData() {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
   try {
     const res = await fetch(url);
-    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message||`HTTP ${res.status}`); }
+    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `HTTP ${res.status}`); }
     const json = await res.json();
     const rows = json.values || [];
     if (rows.length < 2) throw new Error('הגיליון ריק');
-    headers = rows[0];
     DATA = rows.slice(1).filter(r => r.length > 2).map((r, i) => ({ _id: i, _raw: r }));
     document.getElementById('totalCount').textContent = `${DATA.length} מתנדבים`;
     document.getElementById('lastUpdated').textContent = 'עודכן: ' + new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
@@ -263,15 +239,11 @@ async function loadData() {
 
 function matchesFilters(row) {
   const r = row._raw;
-  if (filters.kananet && g(r, COL.KANANET) !== filters.kananet) return false;
-  if (filters.yishuv && g(r, COL.YISHUV) !== filters.yishuv) return false;
+  if (filters.kananet && g(r, C.KANANET) !== filters.kananet) return false;
   if (filters.hadracha) {
-    const fh = filters.hadracha;
-    const adv = g(r, COL.HADRACHA_ADV);
-    const kan = g(r, COL.HADRACHA_KAN);
-    const bots = g(r, COL.BOTS);
-    const all = [adv, kan, bots].join(' ');
-    if (!all.includes(fh)) return false;
+    if (filters.hadracha === 'adv'  && !hasContent(g(r, C.HADR_ADV))) return false;
+    if (filters.hadracha === 'kan'  && !hasContent(g(r, C.HADR_KAN))) return false;
+    if (filters.hadracha === 'bots' && !hasContent(g(r, C.BOTS)))     return false;
   }
   return true;
 }
@@ -281,29 +253,15 @@ function matchesSearch(row, q) {
   const r = row._raw;
   const lq = q.toLowerCase();
   const phoneQ = lq.replace(/\D/g,'');
-
-  // חיפוש בכל השדות
-  const searchFields = [
-    g(r, COL.FIRST), g(r, COL.LAST),
-    g(r, COL.PHONE), g(r, COL.CITY),
-    g(r, COL.YISHUV), g(r, COL.CAR),
-    g(r, COL.DOB_G), g(r, COL.DOB_H),
-    g(r, COL.KANANET),
-  ];
-  // גם שדות נוספים
-  for (let i = 11; i < r.length; i++) searchFields.push(g(r,i));
-
-  if (phoneQ.length >= 3) {
-    const phone = g(r, COL.PHONE).replace(/\D/g,'');
-    if (phone.includes(phoneQ)) return true;
-  }
-  return searchFields.some(f => f.toLowerCase().includes(lq));
+  if (phoneQ.length >= 3 && g(r, C.PHONE).replace(/\D/g,'').includes(phoneQ)) return true;
+  return [g(r,C.FIRST), g(r,C.LAST), g(r,C.CITY), g(r,C.CAR), g(r,C.DOB_G), g(r,C.DOB_H)]
+    .some(f => f.toLowerCase().includes(lq));
 }
 
 function hl(text, q) {
-  if (!q || !text) return text||'';
+  if (!q || !text) return text || '';
   const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  return String(text).replace(new RegExp(esc,'gi'), m=>`<mark>${m}</mark>`);
+  return String(text).replace(new RegExp(esc,'gi'), m => `<mark>${m}</mark>`);
 }
 
 function render() {
@@ -313,71 +271,91 @@ function render() {
 
   const list = document.getElementById('list');
   if (!results.length) {
-    list.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">לא נמצאו תוצאות</div><div>נסה מילות חיפוש אחרות או אפס פילטרים</div></div>`;
+    list.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">לא נמצאו תוצאות</div><div>נסה מילות חיפוש אחרות</div></div>`;
     return;
   }
 
   list.innerHTML = results.map(row => {
-    const r = row._raw;
-    const id = row._id;
+    const r   = row._raw;
+    const id  = row._id;
     const isOpen = openId === id;
 
-    const firstName = g(r, COL.FIRST);
-    const lastName  = g(r, COL.LAST);
-    const phone     = g(r, COL.PHONE);
-    const city      = g(r, COL.CITY);
-    const yishuv    = g(r, COL.YISHUV);
-    const dob       = g(r, COL.DOB_G) || g(r, COL.DOB_H) || '';
-    const car       = g(r, COL.CAR);
-    const kananet   = g(r, COL.KANANET);
-    const hadrAdv   = g(r, COL.HADRACHA_ADV);
-    const hadrKan   = g(r, COL.HADRACHA_KAN);
-    const bots      = g(r, COL.BOTS);
-    const choref    = g(r, COL.CHOREF);
-    const notes     = g(r, COL.NOTES);
+    const firstName = g(r, C.FIRST);
+    const lastName  = g(r, C.LAST);
+    const phone     = g(r, C.PHONE);
+    const city      = g(r, C.CITY);
+    const dobType   = g(r, C.DOB_TYPE); // "עברי" / "לועזי"
+    const dobG      = g(r, C.DOB_G);
+    const dobH      = g(r, C.DOB_H);
+    const car       = g(r, C.CAR);
+    const kananet   = g(r, C.KANANET);
+    const hadrAdv   = g(r, C.HADR_ADV);
+    const hadrKan   = g(r, C.HADR_KAN);
+    const bots      = g(r, C.BOTS);
+    const choref    = g(r, C.CHOREF);
+    const notes     = g(r, C.NOTES);
 
-    const fullName = firstName + ' ' + lastName;
+    // תאריך לידה לפי סוג
+    const dob = dobType === 'עברי' ? dobH : (dobG || dobH || '');
+
+    // הדרכות
+    const hadrList = [];
+    if (hasContent(hadrAdv)) hadrList.push('הדרכה מתקדמת');
+    if (hasContent(hadrKan)) hadrList.push('כננות');
+    if (hasContent(bots))    hadrList.push('תרגולי בוץ');
+    if (hasContent(choref))  hadrList.push('מפגש חורף');
+
+    const fullName   = firstName + ' ' + lastName;
     const phoneClean = phone.replace(/\D/g,'');
-    const waPhone = phoneClean.startsWith('972') ? phoneClean : '972'+phoneClean.replace(/^0/,'');
-
-    // Extra fields from col 11+
-    const extraParts = [];
-    if (hadrAdv && hadrAdv !== 'לא') extraParts.push(hadrAdv);
-    if (hadrKan && hadrKan !== 'לא') extraParts.push(hadrKan);
-    if (bots && bots !== 'לא') extraParts.push(bots);
-    if (choref && choref !== 'לא') extraParts.push(choref);
+    const waPhone    = phoneClean.startsWith('972') ? phoneClean : '972' + phoneClean.replace(/^0/,'');
 
     return `<div class="card ${isOpen?'open':''}" id="card-${id}" onclick="toggle(${id})">
       <div class="card-header">
         <div style="flex:1;min-width:0">
           <div class="card-name">${hl(fullName,q)}</div>
-          <div class="card-city">${hl(city,q)}${yishuv?' · '+yishuv:''}</div>
+          <div class="card-city">${hl(city,q)}</div>
         </div>
-        <div style="text-align:left">
+        <div style="text-align:left;flex-shrink:0">
           <div class="card-phone-preview">${hl(phone,q)}</div>
         </div>
         <div class="chevron">▾</div>
       </div>
       <div class="card-body">
         <div class="card-body-inner">
-          ${phone?`<div class="field-row"><span class="field-icon">📞</span><div><div class="field-label">טלפון</div><div class="field-value phone">${phone}</div></div></div>`:''}
-          ${city?`<div class="field-row"><span class="field-icon">📍</span><div><div class="field-label">יישוב</div><div class="field-value">${city}</div></div></div>`:''}
-          ${dob?`<div class="field-row"><span class="field-icon">🎂</span><div><div class="field-label">תאריך לידה</div><div class="field-value">${dob}</div></div></div>`:''}
-          ${car?`<div class="field-row"><span class="field-icon">🚙</span><div><div class="field-label">רכב</div><div class="field-value">${car}</div></div></div>`:''}
-          ${extraParts.length?`<div class="field-row"><span class="field-icon">📋</span><div><div class="field-label">הדרכות ואירועים</div><div class="field-value" style="font-size:13px;color:var(--text2);font-weight:400">${extraParts.join(' · ')}</div></div></div>`:''}
-          ${notes?`<div class="field-row"><span class="field-icon">📝</span><div><div class="field-label">הערות</div><div class="field-value" style="font-size:13px;color:var(--text2);font-weight:400">${notes}</div></div></div>`:''}
+          ${phone ? `<div class="field-row">
+            <span class="field-icon">📞</span>
+            <div><div class="field-label">טלפון</div><div class="field-value phone">${phone}</div></div>
+          </div>` : ''}
+          ${city ? `<div class="field-row">
+            <span class="field-icon">📍</span>
+            <div><div class="field-label">יישוב</div><div class="field-value">${city}</div></div>
+          </div>` : ''}
+          ${dob ? `<div class="field-row">
+            <span class="field-icon">🎂</span>
+            <div><div class="field-label">תאריך לידה</div><div class="field-value">${dob}</div></div>
+          </div>` : ''}
+          ${car ? `<div class="field-row">
+            <span class="field-icon">🚙</span>
+            <div><div class="field-label">רכב</div><div class="field-value">${car}</div></div>
+          </div>` : ''}
+          ${hadrList.length ? `<div class="field-row">
+            <span class="field-icon">🎓</span>
+            <div><div class="field-label">הדרכות</div><div class="field-value" style="font-size:13px">${hadrList.join(' · ')}</div></div>
+          </div>` : ''}
+          ${notes ? `<div class="field-row">
+            <span class="field-icon">📝</span>
+            <div><div class="field-label">הערות</div><div class="field-value" style="font-size:13px;color:var(--text2);font-weight:400">${notes}</div></div>
+          </div>` : ''}
 
           <div class="tags">
             <span class="tag ${kananet==='כן'?'yes':'no'}">כננת: ${kananet||'—'}</span>
-            ${yishuv?`<span class="tag">${yishuv}</span>`:''}
-            ${hadrAdv&&hadrAdv!=='לא'?`<span class="tag blue">הדרכה מתקדמת</span>`:''}
-            ${bots&&bots!=='לא'?`<span class="tag blue">תרגולי בוץ</span>`:''}
+            ${hadrList.map(h=>`<span class="tag blue">${h}</span>`).join('')}
           </div>
 
-          ${phone?`<div class="actions">
+          ${phone ? `<div class="actions">
             <a class="btn btn-call" href="tel:${phone}">📞 התקשר</a>
             <a class="btn btn-whatsapp" href="https://wa.me/${waPhone}">💬 וואטסאפ</a>
-          </div>`:''}
+          </div>` : ''}
         </div>
       </div>
     </div>`;
@@ -388,10 +366,13 @@ function toggle(id) {
   openId = (openId === id) ? null : id;
   render();
   if (openId !== null) {
-    setTimeout(()=>{
-      const el = document.getElementById('card-'+id);
-      if (el) el.scrollIntoView({behavior:'smooth',block:'nearest'});
-    }, 50);
+    setTimeout(() => {
+      const el = document.getElementById('card-' + id);
+      if (!el) return;
+      const headerH = document.querySelector('.header').offsetHeight;
+      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }, 60);
   }
 }
 
@@ -411,19 +392,20 @@ function clearSearch() {
 
 function resetAll() {
   clearSearch();
-  filters = { kananet: '', yishuv: '', hadracha: '' };
+  filters = { kananet: '', hadracha: '' };
   document.querySelectorAll('.chip').forEach(c => {
     c.classList.remove('active');
     if (c.dataset.val === '') c.classList.add('active');
   });
   openId = null;
   render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 document.getElementById('searchInput').addEventListener('input', function() {
-  const hasVal = this.value.length > 0;
-  document.getElementById('clearBtn').style.display = hasVal ? 'block' : 'none';
-  document.getElementById('searchIcon').style.display = hasVal ? 'none' : 'block';
+  const has = this.value.length > 0;
+  document.getElementById('clearBtn').style.display = has ? 'block' : 'none';
+  document.getElementById('searchIcon').style.display = has ? 'none' : 'block';
   render();
 });
 
