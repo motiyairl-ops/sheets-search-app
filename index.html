@@ -49,14 +49,12 @@
   .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text2); font-size: 18px; pointer-events: none; }
   .clear-btn { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text2); font-size: 20px; cursor: pointer; display: none; padding: 4px; }
 
-  /* FILTER GROUPS */
   .filter-groups { display: flex; flex-direction: column; gap: 8px; }
   .filter-group-row { display: flex; align-items: center; gap: 8px; }
-  .filter-group-label { font-size: 13px; font-weight: 600; color: var(--text2); flex-shrink: 0; width: 90px; }
-  .chips-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; }
-  .chips-row::-webkit-scrollbar { display: none; }
+  .filter-group-label { font-size: 14px; font-weight: 600; color: var(--text); flex-shrink: 0; width: 95px; }
+  .chips-row { display: flex; gap: 6px; }
   .chip {
-    flex-shrink: 0; padding: 7px 14px; border-radius: 20px; font-size: 13px;
+    flex-shrink: 0; padding: 8px 16px; border-radius: 20px; font-size: 14px;
     font-family: 'Heebo', sans-serif; font-weight: 500; cursor: pointer;
     border: 1.5px solid var(--border); background: var(--surface2); color: var(--text2);
     transition: all 0.15s; white-space: nowrap;
@@ -86,17 +84,18 @@
 
   .card-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
   .card.open .card-body { display: block; }
-  .card-body-inner { padding-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+  .card-body-inner { padding-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
 
   .field { }
   .field.wide { grid-column: 1 / -1; }
-  .field-label { font-size: 11px; color: var(--text2); margin-bottom: 3px; }
-  .field-value { font-size: 15px; font-weight: 600; line-height: 1.4; }
-  .field-value.phone { direction: ltr; color: var(--accent2); font-size: 17px; }
+  .field-label { font-size: 12px; color: var(--text2); margin-bottom: 3px; }
+  .field-value { font-size: 16px; font-weight: 600; line-height: 1.4; }
+  .field-value.phone { direction: ltr; color: var(--accent2); font-size: 18px; }
   .field-value.green { color: var(--green); }
   .field-value.red   { color: var(--red); }
+  .field-value.blue  { color: var(--blue); font-weight: 500; font-size: 15px; }
 
-  .actions { display: flex; gap: 10px; margin-top: 16px; grid-column: 1 / -1; }
+  .actions { display: flex; gap: 10px; margin-top: 4px; grid-column: 1 / -1; }
   .btn { flex: 1; padding: 14px 8px; border-radius: 12px; border: none; font-size: 16px; font-family: 'Heebo', sans-serif; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
   .btn:active { opacity: 0.75; }
   .btn-call { background: var(--green); color: #000; }
@@ -183,50 +182,41 @@ const SHEET_ID   = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
 const SHEET_NAME = 'Form Responses 1';
 
 /*
-  מיפוי עמודות מאומת (0-based):
-  B=1  שם פרטי
-  C=2  שם משפחה
-  D=3  טלפון
-  E=4  יישוב
-  F=5  סוג תאריך לידה (עברי/לועזי)
-  G=6  תאריך לידה לועזי
-  H=7  תאריך לידה עברי
-  I=8  יישוב עברי/לועזי (לא בשימוש)
-  J=9  דגם הרכב  ← רכב
-  K=10 האם מותקנת כננת (כן/לא)  ← כננת
-  L=11 סמן הדרכות עברת (טקסט חופשי)
-  M=12 הדרכה מתקדמת (פ = כן)
-  N=13 תרגולי בוץ (פ = כן)
-  O=14 ריענון / מפגש חורף (פ = כן)
-  P=15 ערכת פתיחה (פ = כן)
-  Q=16 חסר/הערות
-  R=17 פריטים (אפוד זוהר, מדבקה, שלט...)
-  S=18 הערות רצועות/ליקוד
-  T=19 תאריך הדרכה בסיסית
+  מיפוי מאומת מהתמונה (0-based, A=0):
+  B=1   שם פרטי
+  C=2   שם משפחה
+  D=3   טלפון
+  E=4   יישוב
+  F=5   סוג תאריך לידה (עברי/לועזי)
+  G=6   תאריך לידה לועזי
+  H=7   תאריך לידה עברי
+  I=8   (ריק / לא בשימוש)
+  J=9   דגם הרכב
+  K=10  האם מותקנת כננת  — פ = יש, ריק/"לא" = אין
+  L=11  סמן הדרכות עברת (טקסט חופשי)
+  M=12  הדרכה מתקדמת — פ = כן
+  N=13  תרגולי בוץ — פ = כן
+  O=14  ריענון / מפגש חורף — פ = כן
+  P=15  ערכת פתיחה — פ/"תקינה" = יש, "לא" = אין
+  Q=16  חסר / הערות
+  R=17  פריטים ברשות (אפוד זוהר, מדבקה, שלט...)
 */
 const C = {
-  FIRST:    1,
-  LAST:     2,
-  PHONE:    3,
-  CITY:     4,
-  DOB_TYPE: 5,
-  DOB_G:    6,
-  DOB_H:    7,
-  CAR:      9,
-  KANANET:  10,
-  HAD_FREE: 11,
-  HAD_ADV:  12,
-  HAD_BOTS: 13,
+  FIRST:      1,
+  LAST:       2,
+  PHONE:      3,
+  CITY:       4,
+  DOB_TYPE:   5,
+  DOB_G:      6,
+  DOB_H:      7,
+  CAR:        9,
+  KANANET:    10,
+  HAD_FREE:   11,
+  HAD_ADV:    12,
+  HAD_BOTS:   13,
   HAD_CHOREF: 14,
-  EREKET:   15,
-  ITEMS:    17,
-};
-
-// שמות הדרכות לפי אינדקס עמודה
-const HAD_NAMES = {
-  12: 'הדרכה מתקדמת',
-  13: 'תרגולי בוץ',
-  14: 'ריענון / מפגש חורף',
+  EREKET:     15,
+  ITEMS:      17,
 };
 
 let DATA = [];
@@ -235,14 +225,25 @@ let F = { kananet: null, apod: null, ereket: null };
 
 function g(row, idx) { return ((row[idx]||'')+'').trim(); }
 
-// "פ" = סימון וי בגוגל שיט
+// "פ" הוא הסימן בגוגל שיט לצ'קבוקס מסומן
 function isChecked(v) {
   const t = (v||'').trim();
-  return t === 'פ' || t === '✓' || t === 'TRUE' || t === 'true' || t === 'כן' || t === '1';
+  return t === 'פ' || t === 'TRUE' || t === 'true' || t === '✓' || t === 'כן' || t === 'תקינה';
 }
 
-function listIncludes(str, item) {
-  return str.split(',').map(s=>s.trim()).some(s => s.includes(item));
+function hasEreket(row) {
+  const v = g(row, C.EREKET);
+  // "לא" = אין, "פ"/"תקינה" = יש, ריק = לא ידוע (נחשב אין)
+  return isChecked(v);
+}
+
+function hasKananet(row) {
+  return isChecked(g(row, C.KANANET));
+}
+
+function hasApod(row) {
+  const items = g(row, C.ITEMS);
+  return items.split(',').map(s=>s.trim()).some(s => s.includes('אפוד זוהר'));
 }
 
 async function loadData() {
@@ -262,6 +263,14 @@ async function loadData() {
     document.getElementById('lastUpdated').textContent = 'עודכן: ' + new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('loadingScreen').style.display = 'none';
     document.getElementById('appContent').style.display = 'block';
+
+    // DEBUG: הדפס את 3 השורות הראשונות לקונסול לבדיקה
+    console.log('=== DEBUG שורות ראשונות ===');
+    DATA.slice(0,3).forEach((row,i) => {
+      const r = row._raw;
+      console.log(`שורה ${i+1}: שם=${g(r,1)} ${g(r,2)} | רכב(J9)=${g(r,9)} | כננת(K10)=${g(r,10)} | ערכת(P15)=${g(r,15)} | פריטים(R17)=${g(r,17)}`);
+    });
+
     render();
   } catch(e) {
     document.getElementById('loadingScreen').style.display = 'none';
@@ -273,18 +282,14 @@ async function loadData() {
   }
 }
 
-function getApod(row)   { return listIncludes(g(row, C.ITEMS), 'אפוד זוהר'); }
-function getEreket(row) { return isChecked(g(row, C.EREKET)); }
-function getKananet(row){ return g(row, C.KANANET) === 'כן'; }
-
 function matchesFilters(row) {
   const r = row._raw;
-  if (F.kananet === 'yes' && !getKananet(r)) return false;
-  if (F.kananet === 'no'  &&  getKananet(r)) return false;
-  if (F.apod    === 'yes' && !getApod(r))    return false;
-  if (F.apod    === 'no'  &&  getApod(r))    return false;
-  if (F.ereket  === 'yes' && !getEreket(r))  return false;
-  if (F.ereket  === 'no'  &&  getEreket(r))  return false;
+  if (F.kananet === 'yes' && !hasKananet(r)) return false;
+  if (F.kananet === 'no'  &&  hasKananet(r)) return false;
+  if (F.apod    === 'yes' && !hasApod(r))    return false;
+  if (F.apod    === 'no'  &&  hasApod(r))    return false;
+  if (F.ereket  === 'yes' && !hasEreket(r))  return false;
+  if (F.ereket  === 'no'  &&  hasEreket(r))  return false;
   return true;
 }
 
@@ -300,14 +305,20 @@ function matchesSearch(row, q) {
   const last  = g(r, C.LAST).toLowerCase();
   if (first.includes(lq) || last.includes(lq) || (first+' '+last).includes(lq)) return true;
 
-  const others = [g(r,C.CITY), g(r,C.CAR), g(r,C.DOB_G), g(r,C.DOB_H)];
-  return others.some(f => f.toLowerCase().includes(lq));
+  return [g(r,C.CITY), g(r,C.CAR), g(r,C.DOB_G), g(r,C.DOB_H)]
+    .some(f => f.toLowerCase().includes(lq));
 }
 
 function hl(text, q) {
   if (!q || !text) return text||'';
   const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   return String(text).replace(new RegExp(esc,'gi'), m=>`<mark>${m}</mark>`);
+}
+
+function yesNoHtml(bool) {
+  return bool
+    ? `<div class="field-value green">יש ✓</div>`
+    : `<div class="field-value red">אין</div>`;
 }
 
 function render() {
@@ -334,29 +345,22 @@ function render() {
     const dobG      = g(r, C.DOB_G);
     const dobH      = g(r, C.DOB_H);
     const car       = g(r, C.CAR);
-    const kananet   = g(r, C.KANANET);
-    const hadFree   = g(r, C.HAD_FREE);   // טקסט חופשי מעמודה L
-    const ereket    = getEreket(r);
-    const hasApod   = getApod(r);
+    const kananet   = hasKananet(r);
+    const ereket    = hasEreket(r);
+    const apod      = hasApod(r);
 
     const isHebrew = dobType === 'עברי';
     const dob = isHebrew ? dobH : dobG;
 
-    // הדרכות — כותרת העמודה אם מסומן
+    // הדרכות — שמות לפי עמודה
     const hadList = [];
     if (isChecked(g(r, C.HAD_ADV)))    hadList.push('הדרכה מתקדמת');
     if (isChecked(g(r, C.HAD_BOTS)))   hadList.push('תרגולי בוץ');
     if (isChecked(g(r, C.HAD_CHOREF))) hadList.push('ריענון / מפגש חורף');
-    // גם אם יש טקסט חופשי בעמודה L שלא נכלל — הוסף
-    if (hadFree && !hadList.length) hadList.push(hadFree);
 
     const fullName = (firstName + ' ' + lastName).trim();
     const phoneClean = phone.replace(/\D/g,'');
     const waPhone = phoneClean.startsWith('972') ? phoneClean : '972'+phoneClean.replace(/^0/,'');
-
-    const yesNo = (v) => v
-      ? `<span class="field-value green">יש ✓</span>`
-      : `<span class="field-value red">אין</span>`;
 
     return `<div class="card ${isOpen?'open':''}" id="card-${id}" onclick="toggle(${id})">
       <div class="card-header">
@@ -394,22 +398,22 @@ function render() {
 
           <div class="field">
             <div class="field-label">כננת</div>
-            <div class="field-value ${kananet==='כן'?'green':'red'}">${kananet||'—'}</div>
+            ${yesNoHtml(kananet)}
           </div>
 
           <div class="field">
             <div class="field-label">ערכת פתיחה</div>
-            ${yesNo(ereket)}
+            ${yesNoHtml(ereket)}
           </div>
 
           <div class="field">
             <div class="field-label">אפוד זוהר</div>
-            ${yesNo(hasApod)}
+            ${yesNoHtml(apod)}
           </div>
 
           ${hadList.length ? `<div class="field wide">
             <div class="field-label">הדרכות</div>
-            <div class="field-value" style="font-weight:500;color:var(--blue)">${hadList.join(' · ')}</div>
+            <div class="field-value blue">${hadList.join(' · ')}</div>
           </div>` : ''}
 
           <div class="actions">
@@ -427,12 +431,17 @@ function toggle(id) {
   if (openId === id) { openId = null; render(); return; }
   openId = id;
   render();
+  // גלילה למרכז המסך
   setTimeout(() => {
     const el = document.getElementById('card-' + id);
     if (!el) return;
     const headerH = document.querySelector('.header')?.offsetHeight || 0;
-    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
-    window.scrollTo({ top, behavior: 'smooth' });
+    const windowH = window.innerHeight;
+    const cardH   = el.offsetHeight;
+    const cardTop = el.getBoundingClientRect().top + window.scrollY;
+    // מרכז הכרטיס במסך, עם התחשבות בהדר
+    const target  = cardTop - headerH - Math.max(0, (windowH - headerH - cardH) / 2);
+    window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
   }, 60);
 }
 
@@ -443,19 +452,18 @@ function toggleF(group, val) {
 }
 
 function updateChips() {
-  const map = [
-    ['f-kananet-yes', 'kananet', 'yes'],
-    ['f-kananet-no',  'kananet', 'no' ],
-    ['f-apod-yes',    'apod',    'yes'],
-    ['f-apod-no',     'apod',    'no' ],
-    ['f-ereket-yes',  'ereket',  'yes'],
-    ['f-ereket-no',   'ereket',  'no' ],
-  ];
-  map.forEach(([id, group, val]) => {
+  [
+    ['f-kananet-yes','kananet','yes'],
+    ['f-kananet-no', 'kananet','no' ],
+    ['f-apod-yes',   'apod',   'yes'],
+    ['f-apod-no',    'apod',   'no' ],
+    ['f-ereket-yes', 'ereket', 'yes'],
+    ['f-ereket-no',  'ereket', 'no' ],
+  ].forEach(([id, group, val]) => {
     const el = document.getElementById(id);
     if (!el) return;
     el.className = 'chip';
-    if (F[group] === val) el.classList.add(val === 'yes' ? 'on-yes' : 'on-no');
+    if (F[group] === val) el.classList.add(val==='yes'?'on-yes':'on-no');
   });
 }
 
