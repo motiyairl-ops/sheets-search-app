@@ -66,11 +66,12 @@
   .filter-count {
     font-size: 13px; font-weight: 700;
     margin-right: auto; white-space: nowrap;
-    direction: ltr; text-align: left;
+    display: flex; align-items: center; gap: 2px;
+    flex-direction: row-reverse;
   }
   .filter-count .cnt-yes { color: var(--green); }
   .filter-count .cnt-no  { color: var(--red); }
-  .filter-count .sep { color: var(--text2); margin: 0 2px; }
+  .filter-count .sep { color: var(--text2); }
 
   .count-bar { padding: 10px 16px 4px; font-size: 14px; color: var(--text2); }
   .count-bar span { color: var(--accent); font-weight: 700; }
@@ -140,7 +141,7 @@
     <div class="header-top">
       <div class="logo">🐆</div>
       <div class="header-title-wrap" onclick="resetAll()">
-        <div class="header-title">מתנדבי יחידת פנתר</div>
+        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v12</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
       <button class="refresh-btn" onclick="loadData()">↻</button>
@@ -229,12 +230,12 @@ const C = {
   DOB_H:      7,
   CAR:        8,
   KANANET:    9,
-  HAD_ADV:    12,
-  HAD_KAN:    13,
-  HAD_BOTS:   14,
-  HAD_CHOREF: 15,
-  EREKET:     16,
-  ITEMS:      17,
+  HAD_ADV:    11,
+  HAD_KAN:    12,
+  HAD_BOTS:   13,
+  HAD_CHOREF: 14,
+  EREKET:     15,
+  ITEMS:      16,
 };
 
 const HAD_LABELS = [
