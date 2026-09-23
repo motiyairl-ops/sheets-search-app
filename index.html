@@ -148,6 +148,49 @@
 
   .error-banner { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); border-radius: 10px; padding: 12px 14px; margin: 10px 16px; font-size: 14px; color: var(--red); display: none; }
   .last-updated { font-size: 12px; color: var(--text2); padding: 4px 16px 0; text-align: left; direction: ltr; }
+
+  /* ── v37: תזכורת יום הולדת – מתג בסגנון iOS ── */
+  .bday-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 10px 14px; cursor: default;
+  }
+  .bday-text { min-width: 0; }
+  .bday-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .bday-status { font-size: 13px; font-weight: 700; margin-top: 1px; }
+  .bday-status.on  { color: var(--green); }
+  .bday-status.off { color: var(--red); }
+  .bday-status.saving { color: var(--text2); font-weight: 500; }
+
+  .ios-switch { position: relative; display: inline-block; width: 51px; height: 31px; flex-shrink: 0; }
+  .ios-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .ios-switch .slider {
+    position: absolute; inset: 0; cursor: pointer;
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 31px;
+    transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+  /* RTL כמו באייפון בעברית: כבוי = העיגול מימין, דלוק = העיגול משמאל */
+  .ios-switch .slider::before {
+    content: ''; position: absolute; top: 50%; right: 2px;
+    width: 25px; height: 25px; border-radius: 50%; background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    transform: translate(0, -50%); transition: transform 0.2s;
+  }
+  .ios-switch input:checked + .slider { background: var(--green); border-color: var(--green); }
+  .ios-switch input:checked + .slider::before { transform: translate(-20px, -50%); }
+  .ios-switch input:disabled + .slider { opacity: 0.55; cursor: default; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+    max-width: calc(100% - 32px); padding: 11px 16px; border-radius: 12px;
+    font-size: 14px; font-weight: 600; text-align: center; z-index: 1000;
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45); transition: opacity 0.2s, transform 0.2s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast.ok  { border-color: var(--green); color: var(--green); }
+  .toast.err { border-color: var(--red);   color: var(--red); }
 </style>
 </head>
 <body>
@@ -163,7 +206,7 @@
     <div class="header-top">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v36</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v37</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
       <button class="refresh-btn" onclick="loadData()">↻</button>
@@ -249,6 +292,10 @@ const API_KEY    = 'AIzaSyCKZvu3_u3hU6XETtQ5sgM_VDEWy-0om7c';
 const SHEET_ID   = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
 const SHEET_NAME = 'Form Responses 1';
 
+// v37: כתובת ה-Web App (Apps Script) לכתיבה חזרה לגיליון – עמודה V בלבד
+const WRITE_URL  = 'https://script.google.com/macros/s/AKfycbw8ar50uahHlQtg0Ek4p9B-hMwxgqZOxudzi3_IbZF8ssf_QLFuPt_JEKcyWhf3CYMgWg/exec';
+const WRITE_TIMEOUT_MS = 15000;
+
 /*
   מיפוי סופי מאומת מה-console:
   [0]  חותמת זמן
@@ -268,6 +315,7 @@ const SHEET_NAME = 'Form Responses 1';
   [14] ריענון מפגש חורף 11/25 (כן/לא/ריק)
   [15] ערכת פתיחה (תקינה/לא/ריק)
   [16] פריטים (אפוד זוהר, מדבקה, שלט...)
+  [21] תזכורת יום הולדת – עמודה V (ריק/כן = כן, לא = לא)
 */
 const C = {
   FIRST:      1,
@@ -287,6 +335,7 @@ const C = {
   ITEMS:      17,
   HAD_BASIC:  19,
   NOTES:      20,
+  BIRTHDAY_REMINDER: 21,
 };
 
 const HAD_LABELS = [
@@ -316,6 +365,13 @@ function getApod(r) {
 }
 function getHadList(r) {
   return HAD_LABELS.filter(h => isYes(g(r, h.idx))).map(h => h.name);
+}
+
+// v37: "לא" = false. כל ערך אחר, כולל תא ריק = true
+// מקבל שורה מ-DATA ({_id,_raw}) או מערך raw ישירות
+function getBirthdayReminder(row) {
+  const r = Array.isArray(row) ? row : (row && row._raw) || [];
+  return g(r, C.BIRTHDAY_REMINDER) !== 'לא';
 }
 
 async function loadData() {
@@ -446,6 +502,8 @@ function render() {
     const hadList   = getHadList(r);
     const hadBasic  = g(r, C.HAD_BASIC) || '—';
     const notes     = g(r, C.NOTES)     || '—';
+    const bdaySaving = BDAY_SAVING.has(id);
+    const bdayOn     = bdaySaving ? BDAY_SAVING.get(id) : getBirthdayReminder(r);
 
     const isHebrew = dobType === 'עברי' || dobType === "עב'";
     const dob = isHebrew ? dobH : dobG;
@@ -485,6 +543,17 @@ function render() {
           <div class="field">
             <div class="field-label">תאריך לידה${isHebrew ? ' (עברי)' : ''}</div>
             <div class="field-value">${dob || '—'}</div>
+          </div>
+
+          <div class="field wide bday-row" onclick="event.stopPropagation()">
+            <div class="bday-text">
+              <div class="bday-title">🎂 תזכורת יום הולדת</div>
+              <div class="bday-status ${bdaySaving ? 'saving' : (bdayOn ? 'on' : 'off')}" id="bday-status-${id}">${bdaySaving ? 'שומר...' : (bdayOn ? 'כן' : 'לא')}</div>
+            </div>
+            <label class="ios-switch" aria-label="תזכורת יום הולדת">
+              <input type="checkbox" id="bday-${id}" ${bdayOn ? 'checked' : ''} ${bdaySaving ? 'disabled' : ''} onchange="onBirthdayToggle(${id}, this)">
+              <span class="slider"></span>
+            </label>
           </div>
 
           <div class="field">
@@ -597,6 +666,95 @@ document.getElementById('searchInput').addEventListener('input', function() {
   document.getElementById('searchIcon').style.display = hv ? 'none' : 'block';
   render();
 });
+
+// ── v37: תזכורת יום הולדת – שמירה ל-Google Sheet דרך Web App ────
+// id -> הערך החדש (true/false) שנמצא כרגע בשמירה
+const BDAY_SAVING = new Map();
+
+function setBdayUI(id, on, saving) {
+  const input  = document.getElementById('bday-' + id);
+  const status = document.getElementById('bday-status-' + id);
+  if (input) { input.checked = on; input.disabled = saving; }
+  if (status) {
+    status.className   = 'bday-status ' + (saving ? 'saving' : (on ? 'on' : 'off'));
+    status.textContent = saving ? 'שומר...' : (on ? 'כן' : 'לא');
+  }
+}
+
+let toastTimer = null;
+function showToast(msg, type) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    document.body.appendChild(t);
+  }
+  t.className   = 'toast ' + (type || '');
+  t.textContent = msg;
+  void t.offsetWidth; // מאפשר אנימציה גם בהצגה חוזרת
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), type === 'err' ? 4000 : 2000);
+}
+
+async function onBirthdayToggle(id, input) {
+  const row = DATA.find(x => x._id === id);
+  if (!row) return;
+  const prev = getBirthdayReminder(row);
+  const next = input.checked;
+
+  if (BDAY_SAVING.has(id)) { input.checked = BDAY_SAVING.get(id); return; }
+  if (!WRITE_URL) {
+    input.checked = prev;
+    showToast('השמירה לגיליון עוד לא הוגדרה', 'err');
+    return;
+  }
+
+  const value = next ? 'כן' : 'לא';
+  BDAY_SAVING.set(id, next);
+  setBdayUI(id, next, true);
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), WRITE_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(WRITE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action:    'setBirthdayReminder',
+        timestamp: g(row._raw, 0),
+        phone:     g(row._raw, C.PHONE),
+        value:     value,
+      }),
+      redirect: 'follow',
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+
+    let data;
+    try { data = JSON.parse(await res.text()); }
+    catch (_) { throw new Error('תשובה לא תקינה מהשרת'); }
+
+    if (!data || data.ok !== true) throw new Error((data && (data.message || data.error)) || 'שגיאה לא ידועה');
+    if (data.value !== value)       throw new Error('הערך שנשמר לא תואם');
+
+    // עדכון הנתונים המקומיים כדי שהמתג לא "יקפוץ" ב-render הבא
+    while (row._raw.length <= C.BIRTHDAY_REMINDER) row._raw.push('');
+    row._raw[C.BIRTHDAY_REMINDER] = value;
+
+    BDAY_SAVING.delete(id);
+    if (DATA.includes(row)) setBdayUI(id, next, false);
+    showToast('נשמר ✓', 'ok');
+  } catch (e) {
+    BDAY_SAVING.delete(id);
+    if (DATA.includes(row)) setBdayUI(id, prev, false);
+    const msg = e.name === 'AbortError' ? 'אין תשובה מהשרת' : e.message;
+    showToast('השמירה נכשלה: ' + msg, 'err');
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 // ── Export filtered results as CSV ──────────────────────────────
 function exportCSV() {
