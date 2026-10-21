@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>הודעת יום הולדת</title>
+<link rel="apple-touch-icon" sizes="180x180" href="Icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* bday.html v1 – עמוד הכנת הודעה לבקשת גרפיקת יום הולדת */
+  :root {
+    --bg: #0d1520;
+    --surface: #112035;
+    --surface2: #1a2d45;
+    --accent: #e8a020;
+    --text: #f0f0f0;
+    --text2: #7a90a8;
+    --border: #1e3050;
+    --green: #34d399;
+    --red: #f87171;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--text);
+    min-height: 100vh; direction: rtl; padding: 24px 16px calc(24px + env(safe-area-inset-bottom));
+  }
+  .wrap { max-width: 520px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .sub { font-size: 14px; color: var(--text2); margin-bottom: 18px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 14px;
+  }
+  textarea {
+    width: 100%; min-height: 160px; resize: none; overflow: hidden;
+    background: var(--bg); color: var(--text); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 14px; font-family: 'Heebo', sans-serif;
+    font-size: 18px; line-height: 1.6; direction: rtl; -webkit-appearance: none;
+  }
+  textarea:focus { outline: none; border-color: var(--accent); }
+  .hint { font-size: 12px; color: var(--text2); margin-top: 8px; }
+  .copy-btn {
+    width: 100%; margin-top: 16px; padding: 18px; border: none; border-radius: 14px;
+    background: var(--accent); color: #000; font-family: 'Heebo', sans-serif;
+    font-size: 20px; font-weight: 700; cursor: pointer;
+  }
+  .copy-btn:active { opacity: 0.8; }
+  .copy-btn.done { background: var(--green); }
+  .empty { text-align: center; padding: 40px 10px; color: var(--text2); font-size: 16px; }
+  .empty b { display: block; color: var(--red); font-size: 18px; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎂 הודעה לקבוצת הגרפיקה</h1>
+  <div class="sub" id="sub"></div>
+  <div id="content"></div>
+</div>
+
+<script>
+// שמות מגיעים מהקישור במייל: bday.html?n=שם1&n=שם2
+const NAMES = new URLSearchParams(location.search)
+  .getAll('n')
+  .map(s => s.trim())
+  .filter(Boolean);
+
+function greeting(d) {
+  const h = d.getHours();
+  if (h >= 5 && h < 12)  return 'בוקר טוב';
+  if (h >= 12 && h < 17) return 'צהריים טובים';
+  return 'ערב טוב';
+}
+
+function buildMessage() {
+  const who = NAMES.length === 1 ? "הג'יפאי" : "הג'יפאים";
+  return [
+    greeting(new Date()) + ',',
+    'אשמח לקבל גרפיקת יום הולדת עבור ' + who,
+    ...NAMES,
+    'תודה רבה',
+  ].join('\n');
+}
+
+function autoGrow(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (_) {
+    // גיבוי לדפדפנים שלא מאפשרים clipboard API
+    const ta = document.getElementById('msg');
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    try { return document.execCommand('copy'); } catch (e) { return false; }
+  }
+}
+
+function render() {
+  const content = document.getElementById('content');
+  if (!NAMES.length) {
+    content.innerHTML = '<div class="card empty"><b>לא התקבלו שמות</b>יש לפתוח את העמוד מהכפתור שבמייל התזכורת</div>';
+    return;
+  }
+  document.getElementById('sub').textContent =
+    NAMES.length === 1 ? 'חוגג אחד' : NAMES.length + ' חוגגים';
+
+  content.innerHTML = `
+    <div class="card">
+      <textarea id="msg" spellcheck="false"></textarea>
+      <div class="hint">אפשר לערוך את הטקסט לפני ההעתקה</div>
+    </div>
+    <button class="copy-btn" id="copyBtn">📋 העתק הודעה</button>`;
+
+  const ta = document.getElementById('msg');
+  ta.value = buildMessage();
+  autoGrow(ta);
+  ta.addEventListener('input', () => { ta.dataset.edited = '1'; autoGrow(ta); });
+
+  const btn = document.getElementById('copyBtn');
+  btn.addEventListener('click', async () => {
+    const ok = await copyText(ta.value);
+    btn.textContent = ok ? '✓ הועתק – אפשר להדביק בוואטסאפ' : 'ההעתקה נכשלה – סמן והעתק ידנית';
+    btn.classList.toggle('done', ok);
+    setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 3000);
+  });
+
+  // אם העמוד נשאר פתוח וחוזרים אליו מאוחר יותר – לעדכן את הברכה (אלא אם נערך ידנית)
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && !ta.dataset.edited) {
+      ta.value = buildMessage();
+      autoGrow(ta);
+    }
+  });
+}
+
+render();
+</script>
+</body>
+</html>
