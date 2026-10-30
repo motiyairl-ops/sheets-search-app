@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>הודעת יום הולדת</title>
+<title>ימי הולדת – פנתר</title>
 <link rel="apple-touch-icon" sizes="180x180" href="Icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  /* bday.html v1 – עמוד הכנת הודעה לבקשת גרפיקת יום הולדת */
+  /* bday.html v2 – ברכות מוכנות עם גרפיקה שמורה + בקשת גרפיקה למי שאין */
   :root {
     --bg: #0d1520;
     --surface: #112035;
@@ -18,6 +18,7 @@
     --border: #1e3050;
     --green: #34d399;
     --red: #f87171;
+    --blue: #60a5fa;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
@@ -26,19 +27,40 @@
   }
   .wrap { max-width: 520px; margin: 0 auto; }
   h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  h2 { font-size: 18px; font-weight: 700; margin: 26px 0 10px; }
   .sub { font-size: 14px; color: var(--text2); margin-bottom: 18px; }
   .card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; padding: 14px;
+    border-radius: 16px; padding: 14px; margin-bottom: 14px;
   }
+  .person-name { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+  .person-note { font-size: 14px; color: var(--text2); margin-bottom: 10px; }
+  .gfx-img { width: 100%; border-radius: 12px; display: block; margin-bottom: 12px; background: var(--bg); }
+  .gfx-loading { text-align: center; color: var(--text2); padding: 30px 0; font-size: 14px; }
   textarea {
-    width: 100%; min-height: 160px; resize: none; overflow: hidden;
+    width: 100%; resize: none; overflow: hidden;
     background: var(--bg); color: var(--text); border: 1.5px solid var(--border);
-    border-radius: 12px; padding: 14px; font-family: 'Heebo', sans-serif;
-    font-size: 18px; line-height: 1.6; direction: rtl; -webkit-appearance: none;
+    border-radius: 12px; padding: 12px 14px; font-family: 'Heebo', sans-serif;
+    font-size: 17px; line-height: 1.6; direction: rtl; -webkit-appearance: none;
   }
+  textarea.big { min-height: 160px; font-size: 18px; }
   textarea:focus { outline: none; border-color: var(--accent); }
   .hint { font-size: 12px; color: var(--text2); margin-top: 8px; }
+  .btn-row { display: flex; gap: 10px; margin-top: 12px; }
+  .btn {
+    flex: 1; padding: 15px 8px; border: none; border-radius: 14px;
+    background: var(--accent); color: #000; font-family: 'Heebo', sans-serif;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+  .btn.share { background: #25d366; }
+  .btn.ghost { background: var(--surface2); color: var(--text); border: 1.5px dashed var(--border); }
+  .btn:active { opacity: 0.8; }
+  .btn.done { background: var(--green); color: #000; }
+  .btn:disabled { opacity: 0.6; }
+  .contact-link {
+    display: block; width: 100%; margin-top: 12px; padding: 8px; background: none; border: none;
+    color: var(--blue); font-family: 'Heebo', sans-serif; font-size: 13px; cursor: pointer; text-align: center;
+  }
   .copy-btn {
     width: 100%; margin-top: 16px; padding: 18px; border: none; border-radius: 14px;
     background: var(--accent); color: #000; font-family: 'Heebo', sans-serif;
@@ -48,97 +70,390 @@
   .copy-btn.done { background: var(--green); }
   .empty { text-align: center; padding: 40px 10px; color: var(--text2); font-size: 16px; }
   .empty b { display: block; color: var(--red); font-size: 18px; margin-bottom: 6px; }
+  .warn { font-size: 13px; color: var(--red); margin-bottom: 12px; }
+
+  .sheet-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1100; display: flex; align-items: flex-end; justify-content: center; }
+  .sheet { width: 100%; max-width: 520px; background: var(--surface); border-top-left-radius: 18px; border-top-right-radius: 18px; padding: 14px 16px calc(16px + env(safe-area-inset-bottom)); border: 1px solid var(--border); }
+  .sheet-opt { width: 100%; padding: 15px; margin-bottom: 8px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-family: 'Heebo', sans-serif; font-size: 17px; font-weight: 600; cursor: pointer; }
+  .sheet-opt.cancel { background: transparent; color: var(--text2); margin-bottom: 0; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+    max-width: calc(100% - 32px); padding: 11px 16px; border-radius: 12px;
+    font-size: 14px; font-weight: 600; text-align: center; z-index: 1200;
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45); transition: opacity 0.2s, transform 0.2s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast.ok  { border-color: var(--green); color: var(--green); }
+  .toast.err { border-color: var(--red);   color: var(--red); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>🎂 הודעה לקבוצת הגרפיקה</h1>
+  <h1>🎂 ימי הולדת</h1>
   <div class="sub" id="sub"></div>
-  <div id="content"></div>
+  <div id="content"><div class="card gfx-loading">טוען...</div></div>
 </div>
 
 <script>
 // שמות מגיעים מהקישור במייל: bday.html?n=שם1&n=שם2
 const NAMES = new URLSearchParams(location.search)
   .getAll('n')
-  .map(s => s.trim())
+  .map(s => s.replace(/\s+/g, ' ').trim())
   .filter(Boolean);
 
-function greeting(d) {
+const API_KEY    = 'AIzaSyCKZvu3_u3hU6XETtQ5sgM_VDEWy-0om7c';
+const SHEET_ID   = '1NSUOn5NBINur6UVJIhcnH8SmeslZb_m13nfBWWf6618';
+const SHEET_NAME = 'Form Responses 1';
+const MEDIA_URL  = 'https://script.google.com/macros/s/AKfycbxZL0EWCox_nqoH7q79JS5auPFMKRlVULras6Pd2cyWE7fZZ6zUoP6aQv-6-1yeqV6c/exec';
+const MEDIA_TIMEOUT_MS = 60000;
+
+// נוסח הברכה לקבוצת ידידים (התיוג נעשה ידנית בוואטסאפ)
+function greetingText(name) {
+  return '🎉 מזל טוב ' + name + '!\nיום הולדת שמח מכל חברי יחידת פנתר 🎈';
+}
+
+// ── עזרים ──────────────────────────────────────────────────────
+function normPhone(p) {
+  let d = String(p || '').replace(/\D/g, '');
+  if (d.startsWith('972')) d = '0' + d.slice(3);
+  return d;
+}
+function normName(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+function escHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+
+async function mediaCall(method, payload) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), MEDIA_TIMEOUT_MS);
+  try {
+    const opts = method === 'GET'
+      ? { redirect: 'follow', signal: controller.signal }
+      : { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload), redirect: 'follow', signal: controller.signal };
+    const url = method === 'GET' ? MEDIA_URL + '?' + new URLSearchParams(payload) : MEDIA_URL;
+    const res = await fetch(url, opts);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    let data;
+    try { data = JSON.parse(await res.text()); } catch (_) { throw new Error('תשובה לא תקינה מהשרת'); }
+    if (!data || data.ok !== true) throw new Error((data && data.error) || 'שגיאה לא ידועה');
+    return data;
+  } catch (e) {
+    if (e.name === 'AbortError') throw new Error('אין תשובה מהשרת');
+    throw e;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function copyToClipboard(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch (_) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+    let ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    ta.remove(); return ok;
+  }
+}
+
+let toastTimer = null;
+function showToast(msg, type) {
+  let t = document.getElementById('toast');
+  if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
+  t.className = 'toast ' + (type || ''); t.textContent = msg;
+  void t.offsetWidth; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), type === 'err' ? 4000 : 2000);
+}
+
+function actionSheet(options) {
+  const bg = document.createElement('div'); bg.className = 'sheet-bg';
+  const close = () => bg.remove();
+  bg.addEventListener('click', e => { if (e.target === bg) close(); });
+  const sheet = document.createElement('div'); sheet.className = 'sheet';
+  options.concat([{ label: 'ביטול', cancel: true }]).forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'sheet-opt' + (o.cancel ? ' cancel' : '');
+    b.textContent = o.label;
+    b.addEventListener('click', () => { close(); if (o.onClick) o.onClick(); });
+    sheet.appendChild(b);
+  });
+  bg.appendChild(sheet); document.body.appendChild(bg);
+}
+
+function base64ToBlob(b64, mime) {
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: mime || 'image/jpeg' });
+}
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1] || '');
+    r.onerror = () => reject(new Error('קריאת הקובץ נכשלה'));
+    r.readAsDataURL(blob);
+  });
+}
+
+// ── נתונים ─────────────────────────────────────────────────────
+// כל חוגג: { name, first, last, phone, city, found, hasGfx, file, url }
+let PEOPLE = [];
+
+async function loadSheetPeople() {
+  const range = encodeURIComponent(SHEET_NAME + '!B:E'); // שם פרטי, משפחה, טלפון, יישוב
+  const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const rows = ((await res.json()).values || []).slice(1);
+  return rows.map(r => ({
+    first: normName(r[0]), last: normName(r[1]),
+    phone: String(r[2] || '').trim(), city: normName(r[3]),
+  }));
+}
+
+async function init() {
+  if (!NAMES.length) {
+    document.getElementById('content').innerHTML =
+      '<div class="card empty"><b>לא התקבלו שמות</b>יש לפתוח את העמוד מהכפתור שבמייל התזכורת</div>';
+    return;
+  }
+  document.getElementById('sub').textContent = NAMES.length === 1 ? 'חוגג אחד' : NAMES.length + ' חוגגים';
+
+  let sheet = [], gfx = new Set(), loadError = '';
+  const [sheetRes, gfxRes] = await Promise.allSettled([
+    loadSheetPeople(),
+    mediaCall('GET', { action: 'listGraphics' }),
+  ]);
+  if (sheetRes.status === 'fulfilled') sheet = sheetRes.value; else loadError = 'לא הצלחתי לטעון את הטבלה';
+  if (gfxRes.status === 'fulfilled') gfx = new Set((gfxRes.value.phones || []).map(normPhone));
+  else loadError = loadError || 'לא הצלחתי לבדוק גרפיקות שמורות';
+
+  PEOPLE = NAMES.map(name => {
+    const matches = sheet.filter(p => normName(p.first + ' ' + p.last) === name);
+    const m = matches.find(p => gfx.has(normPhone(p.phone))) || matches[0];
+    return m
+      ? { name, first: m.first, last: m.last, phone: m.phone, city: m.city, found: true, hasGfx: gfx.has(normPhone(m.phone)) }
+      : { name, first: name, last: '', phone: '', city: '', found: false, hasGfx: false };
+  });
+
+  render(loadError);
+  PEOPLE.forEach((p, i) => { if (p.hasGfx) loadGraphic(i); });
+}
+
+async function loadGraphic(i) {
+  const p = PEOPLE[i];
+  try {
+    const d = await mediaCall('GET', { action: 'getGraphic', phone: normPhone(p.phone) });
+    if (!d.found) { p.hasGfx = false; renderPerson(i); renderRequest(); return; }
+    setGraphic(i, base64ToBlob(d.data, d.mime));
+  } catch (e) {
+    const box = document.getElementById('gfx-' + i);
+    if (box) box.innerHTML = '<div class="gfx-loading">⚠️ טעינת התמונה נכשלה – רענן את העמוד</div>';
+  }
+}
+
+function setGraphic(i, blob) {
+  const p = PEOPLE[i];
+  const ext = (blob.type.split('/')[1] || 'jpg').replace('jpeg', 'jpg');
+  p.file = new File([blob], 'יום הולדת - ' + p.name + '.' + ext, { type: blob.type || 'image/jpeg' });
+  if (p.url) URL.revokeObjectURL(p.url);
+  p.url = URL.createObjectURL(blob);
+  p.hasGfx = true;
+  renderPerson(i);
+  renderRequest();
+}
+
+// ── תצוגה ──────────────────────────────────────────────────────
+function render(loadError) {
+  document.getElementById('content').innerHTML =
+    (loadError ? `<div class="warn">⚠️ ${escHtml(loadError)}</div>` : '') +
+    PEOPLE.map((_, i) => `<div class="card" id="person-${i}"></div>`).join('') +
+    '<div id="request"></div>';
+  PEOPLE.forEach((_, i) => renderPerson(i));
+  renderRequest();
+}
+
+function renderPerson(i) {
+  const p = PEOPLE[i];
+  const el = document.getElementById('person-' + i);
+  if (!el) return;
+
+  if (p.hasGfx) {
+    el.innerHTML = `
+      <div class="person-name">🎂 ${escHtml(p.name)}</div>
+      <div id="gfx-${i}">${p.url
+        ? `<img class="gfx-img" src="${p.url}" alt="גרפיקה">`
+        : '<div class="gfx-loading">טוען גרפיקה...</div>'}</div>
+      <textarea id="greet-${i}" spellcheck="false" rows="2"></textarea>
+      <div class="btn-row">
+        <button class="btn" id="copy-${i}">1️⃣ העתק ברכה</button>
+        <button class="btn share" id="share-${i}" ${p.file ? '' : 'disabled'}>2️⃣ שתף תמונה</button>
+      </div>
+      <div class="hint">מעתיקים את הברכה, משתפים את התמונה לקבוצה, מדביקים ככיתוב ומתייגים.</div>
+      <button class="contact-link" id="contact-${i}">התיוג לא תופס? שמור איש קשר</button>`;
+    const ta = document.getElementById('greet-' + i);
+    ta.value = greetingText(p.name);
+    autoGrow(ta);
+    ta.addEventListener('input', () => autoGrow(ta));
+    document.getElementById('copy-' + i).onclick = async e => {
+      const b = e.currentTarget;
+      const ok = await copyToClipboard(ta.value);
+      b.textContent = ok ? '✓ הועתק' : 'ההעתקה נכשלה';
+      b.classList.toggle('done', ok);
+      setTimeout(() => { b.textContent = '1️⃣ העתק ברכה'; b.classList.remove('done'); }, 2500);
+    };
+    document.getElementById('share-' + i).onclick = () => shareImage(i);
+  } else {
+    el.innerHTML = `
+      <div class="person-name">🎂 ${escHtml(p.name)}</div>
+      <div class="person-note">${p.found ? 'אין גרפיקה שמורה – השם נכלל בהודעה לקבוצת הגרפיקה למטה.' : '⚠️ לא נמצא בטבלה לפי השם, לכן אי אפשר להצמיד גרפיקה מכאן.'}</div>
+      ${p.found && p.phone ? `<button class="btn ghost" id="attach-${i}" style="width:100%">🖼 הצמד גרפיקה שקיבלתי</button>` : ''}
+      ${p.found && p.phone ? `<button class="contact-link" id="contact-${i}">התיוג לא תופס? שמור איש קשר</button>` : ''}`;
+    const a = document.getElementById('attach-' + i);
+    if (a) a.onclick = () => actionSheet([
+      { label: '🖼 בחר מהגלריה', onClick: () => pickFile(i) },
+      { label: '📋 הדבק תמונה שהעתקתי', onClick: () => pasteImage(i) },
+    ]);
+  }
+  const c = document.getElementById('contact-' + i);
+  if (c) c.onclick = () => saveContact(p);
+}
+
+function renderRequest() {
+  const box = document.getElementById('request');
+  if (!box) return;
+  const missing = PEOPLE.filter(p => !p.hasGfx).map(p => p.name);
+  if (!missing.length) { box.innerHTML = ''; return; }
+
+  const keep = document.getElementById('msg');
+  const edited = keep && keep.dataset.edited;
+  const oldVal = keep ? keep.value : '';
+
+  box.innerHTML = `
+    <h2>📨 הודעה לקבוצת הגרפיקה</h2>
+    <div class="card">
+      <textarea class="big" id="msg" spellcheck="false"></textarea>
+      <div class="hint">אפשר לערוך את הטקסט לפני ההעתקה</div>
+    </div>
+    <button class="copy-btn" id="copyBtn">📋 העתק הודעה</button>`;
+
+  const ta = document.getElementById('msg');
+  ta.value = edited ? oldVal : requestMessage(missing);
+  if (edited) ta.dataset.edited = '1';
+  autoGrow(ta);
+  ta.addEventListener('input', () => { ta.dataset.edited = '1'; autoGrow(ta); });
+
+  const btn = document.getElementById('copyBtn');
+  btn.onclick = async () => {
+    const ok = await copyToClipboard(ta.value);
+    btn.textContent = ok ? '✓ הועתק – אפשר להדביק בוואטסאפ' : 'ההעתקה נכשלה – סמן והעתק ידנית';
+    btn.classList.toggle('done', ok);
+    setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 3000);
+  };
+}
+
+function timeGreeting(d) {
   const h = d.getHours();
   if (h >= 5 && h < 12)  return 'בוקר טוב';
   if (h >= 12 && h < 17) return 'צהריים טובים';
   return 'ערב טוב';
 }
 
-function buildMessage() {
-  const who = NAMES.length === 1 ? "הג'יפאי" : "הג'יפאים";
-  return [
-    greeting(new Date()) + ',',
-    'אשמח לקבל גרפיקת יום הולדת עבור ' + who,
-    ...NAMES,
-    'תודה רבה',
-  ].join('\n');
+function requestMessage(names) {
+  const who = names.length === 1 ? "הג'יפאי" : "הג'יפאים";
+  return [timeGreeting(new Date()) + ',', 'אשמח לקבל גרפיקת יום הולדת עבור ' + who, ...names, 'תודה רבה'].join('\n');
 }
 
-function autoGrow(el) {
-  el.style.height = 'auto';
-  el.style.height = el.scrollHeight + 'px';
-}
-
-async function copyText(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch (_) {
-    // גיבוי לדפדפנים שלא מאפשרים clipboard API
-    const ta = document.getElementById('msg');
-    ta.focus();
-    ta.select();
-    ta.setSelectionRange(0, text.length);
-    try { return document.execCommand('copy'); } catch (e) { return false; }
-  }
-}
-
-function render() {
-  const content = document.getElementById('content');
-  if (!NAMES.length) {
-    content.innerHTML = '<div class="card empty"><b>לא התקבלו שמות</b>יש לפתוח את העמוד מהכפתור שבמייל התזכורת</div>';
-    return;
-  }
-  document.getElementById('sub').textContent =
-    NAMES.length === 1 ? 'חוגג אחד' : NAMES.length + ' חוגגים';
-
-  content.innerHTML = `
-    <div class="card">
-      <textarea id="msg" spellcheck="false"></textarea>
-      <div class="hint">אפשר לערוך את הטקסט לפני ההעתקה</div>
-    </div>
-    <button class="copy-btn" id="copyBtn">📋 העתק הודעה</button>`;
-
+// אם העמוד נשאר פתוח וחוזרים אליו מאוחר יותר – לעדכן את ברכת השעה (אלא אם נערך ידנית)
+document.addEventListener('visibilitychange', () => {
   const ta = document.getElementById('msg');
-  ta.value = buildMessage();
-  autoGrow(ta);
-  ta.addEventListener('input', () => { ta.dataset.edited = '1'; autoGrow(ta); });
+  if (document.visibilityState === 'visible' && ta && !ta.dataset.edited) {
+    ta.value = requestMessage(PEOPLE.filter(p => !p.hasGfx).map(p => p.name));
+    autoGrow(ta);
+  }
+});
 
-  const btn = document.getElementById('copyBtn');
-  btn.addEventListener('click', async () => {
-    const ok = await copyText(ta.value);
-    btn.textContent = ok ? '✓ הועתק – אפשר להדביק בוואטסאפ' : 'ההעתקה נכשלה – סמן והעתק ידנית';
-    btn.classList.toggle('done', ok);
-    setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 3000);
-  });
-
-  // אם העמוד נשאר פתוח וחוזרים אליו מאוחר יותר – לעדכן את הברכה (אלא אם נערך ידנית)
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible' && !ta.dataset.edited) {
-      ta.value = buildMessage();
-      autoGrow(ta);
-    }
-  });
+// ── פעולות ─────────────────────────────────────────────────────
+async function shareImage(i) {
+  const p = PEOPLE[i];
+  if (!p.file) return;
+  if (navigator.canShare && navigator.canShare({ files: [p.file] })) {
+    try { await navigator.share({ files: [p.file] }); }
+    catch (e) { if (e.name !== 'AbortError') showToast('השיתוף נכשל – לחיצה ארוכה על התמונה תאפשר להעתיק אותה', 'err'); }
+  } else {
+    showToast('שיתוף לא נתמך כאן – לחיצה ארוכה על התמונה תאפשר להעתיק או לשמור', 'err');
+  }
 }
 
-render();
+function pickFile(i) {
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = 'image/*'; input.style.display = 'none';
+  input.addEventListener('change', () => {
+    const f = input.files && input.files[0];
+    input.remove();
+    if (f) uploadGraphic(i, f);
+  });
+  document.body.appendChild(input);
+  input.click();
+}
+
+async function pasteImage(i) {
+  try {
+    if (!navigator.clipboard || !navigator.clipboard.read) throw new Error('unsupported');
+    for (const item of await navigator.clipboard.read()) {
+      const type = item.types.find(t => t.startsWith('image/'));
+      if (type) return uploadGraphic(i, await item.getType(type));
+    }
+    showToast('אין תמונה בלוח – העתק את התמונה בוואטסאפ ונסה שוב', 'err');
+  } catch (e) {
+    showToast('ההדבקה לא נתמכה כאן – בחר מהגלריה', 'err');
+  }
+}
+
+async function uploadGraphic(i, blob) {
+  const p = PEOPLE[i];
+  const btn = document.getElementById('attach-' + i);
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ שומר גרפיקה...'; }
+  try {
+    const data = await blobToBase64(blob);
+    await mediaCall('POST', {
+      action: 'uploadGraphic', phone: normPhone(p.phone),
+      name: normName(p.first + ' ' + p.last), mime: blob.type || 'image/jpeg', data,
+    });
+    showToast('הגרפיקה נשמרה ✓', 'ok');
+    setGraphic(i, blob);
+  } catch (e) {
+    showToast('השמירה נכשלה: ' + e.message, 'err');
+    if (btn) { btn.disabled = false; btn.textContent = '🖼 הצמד גרפיקה שקיבלתי'; }
+  }
+}
+
+// שמירת איש קשר – אותו מבנה כמו באפליקציה (בלי תמונת הלוגו)
+function saveContact(p) {
+  const d = String(p.phone || '').replace(/\D/g, '');
+  const tel = d.startsWith('972') ? '+' + d : d.startsWith('0') ? '+972' + d.slice(1) : p.phone;
+  const fn = normName(p.first + ' ' + p.last);
+  const vcard = [
+    'BEGIN:VCARD', 'VERSION:3.0',
+    `N:${p.last};${p.first};;;`,
+    `FN:${fn}`,
+    `TEL;TYPE=CELL:${tel}`,
+    p.city ? `ADR;TYPE=HOME:;;${p.city};;;;` : '',
+    'ORG:יחידת פנתר', 'TITLE:מתנדב', 'NOTE:פנתר 4X4',
+    'END:VCARD',
+  ].filter(Boolean).join('\r\n') + '\r\n';
+  const url = URL.createObjectURL(new Blob([vcard], { type: 'text/vcard;charset=utf-8' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = fn + '.vcf'; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+init();
 </script>
 </body>
 </html>

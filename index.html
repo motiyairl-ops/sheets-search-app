@@ -187,13 +187,99 @@
     position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
     transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
     max-width: calc(100% - 32px); padding: 11px 16px; border-radius: 12px;
-    font-size: 14px; font-weight: 600; text-align: center; z-index: 1000;
+    font-size: 14px; font-weight: 600; text-align: center; z-index: 1200;
     background: var(--surface2); border: 1px solid var(--border); color: var(--text);
     box-shadow: 0 6px 20px rgba(0,0,0,0.45); transition: opacity 0.2s, transform 0.2s;
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .toast.ok  { border-color: var(--green); color: var(--green); }
   .toast.err { border-color: var(--red);   color: var(--red); }
+
+  /* ── v39: גרפיקת יום הולדת ── */
+  .gfx-row { grid-column: 1 / -1; }
+  .gfx-btn {
+    width: 100%; padding: 12px 8px; border-radius: 12px; cursor: pointer;
+    background: var(--surface2); border: 1.5px dashed var(--border); color: var(--text2);
+    font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .gfx-btn.has { border-style: solid; border-color: var(--green); color: var(--green); background: rgba(52,211,153,0.1); }
+  .gfx-btn:disabled { opacity: 0.6; cursor: default; }
+  .gfx-btn:active { opacity: 0.75; }
+
+  /* ── v39: כפתור הודעות בכותרת ── */
+  .msg-btn {
+    background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px;
+    color: var(--accent2); font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 700;
+    padding: 6px 10px; cursor: pointer; white-space: nowrap;
+  }
+  .msg-btn:active { background: var(--accent); color: #000; }
+
+  /* ── v39: תפריט פעולות (action sheet) ── */
+  .sheet-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1100;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .sheet {
+    width: 100%; max-width: 520px; background: var(--surface); border-top-left-radius: 18px; border-top-right-radius: 18px;
+    padding: 14px 16px calc(16px + env(safe-area-inset-bottom)); border: 1px solid var(--border);
+  }
+  .sheet-title { font-size: 14px; color: var(--text2); text-align: center; margin-bottom: 12px; }
+  .sheet-opt {
+    width: 100%; padding: 15px; margin-bottom: 8px; border-radius: 12px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text); font-family: 'Heebo', sans-serif; font-size: 17px; font-weight: 600; cursor: pointer;
+  }
+  .sheet-opt.danger { color: var(--red); }
+  .sheet-opt.cancel { background: transparent; color: var(--text2); margin-bottom: 0; }
+
+  /* ── v39: מסך הודעות קבועות ── */
+  .tpl-screen {
+    position: fixed; inset: 0; background: var(--bg); z-index: 1050;
+    display: flex; flex-direction: column;
+  }
+  .tpl-head {
+    display: flex; align-items: center; gap: 10px; padding: calc(16px + env(safe-area-inset-top)) 16px 12px;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+  }
+  .tpl-head-title { flex: 1; font-size: 19px; font-weight: 700; }
+  .tpl-head button {
+    background: none; border: none; color: var(--text2); font-size: 16px; font-family: 'Heebo', sans-serif;
+    font-weight: 700; cursor: pointer; padding: 6px 4px;
+  }
+  .tpl-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 16px calc(40px + env(safe-area-inset-bottom)); }
+  .tpl-item {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 14px; margin-bottom: 10px; cursor: pointer;
+  }
+  .tpl-item:active { opacity: 0.85; }
+  .tpl-item-title { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .tpl-item-prev { font-size: 14px; color: var(--text2); white-space: pre-line; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .tpl-label { font-size: 13px; color: var(--text2); margin: 12px 0 6px; }
+  .tpl-input, .tpl-text {
+    width: 100%; background: var(--surface); color: var(--text); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 12px 14px; font-family: 'Heebo', sans-serif; font-size: 17px;
+    direction: rtl; -webkit-appearance: none;
+  }
+  .tpl-text { min-height: 180px; line-height: 1.6; resize: none; overflow: hidden; }
+  .tpl-input:focus, .tpl-text:focus { outline: none; border-color: var(--accent); }
+  .tpl-hint { font-size: 12px; color: var(--text2); margin-top: 6px; }
+  .tpl-main-btn {
+    width: 100%; margin-top: 14px; padding: 16px; border: none; border-radius: 14px;
+    background: var(--accent); color: #000; font-family: 'Heebo', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer;
+  }
+  .tpl-main-btn.done { background: var(--green); }
+  .tpl-main-btn:disabled { opacity: 0.6; }
+  .tpl-sec-row { display: flex; gap: 10px; margin-top: 10px; }
+  .tpl-sec-btn {
+    flex: 1; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface2);
+    color: var(--text2); font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .tpl-sec-btn.danger { color: var(--red); }
+  .tpl-add {
+    width: 100%; padding: 14px; border-radius: 14px; border: 1.5px dashed var(--accent);
+    background: transparent; color: var(--accent); font-family: 'Heebo', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; margin-bottom: 14px;
+  }
+  .tpl-empty { text-align: center; color: var(--text2); padding: 30px 10px; font-size: 15px; }
 </style>
 </head>
 <body>
@@ -209,9 +295,10 @@
     <div class="header-top">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v38</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v39</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
+      <button class="msg-btn" onclick="openTemplates()">📝 הודעות</button>
       <button class="refresh-btn" onclick="loadData()">↻</button>
     </div>
 
@@ -298,6 +385,10 @@ const SHEET_NAME = 'Form Responses 1';
 // v37: כתובת ה-Web App (Apps Script) לכתיבה חזרה לגיליון – עמודה V בלבד
 const WRITE_URL  = 'https://script.google.com/macros/s/AKfycbw8ar50uahHlQtg0Ek4p9B-hMwxgqZOxudzi3_IbZF8ssf_QLFuPt_JEKcyWhf3CYMgWg/exec';
 const WRITE_TIMEOUT_MS = 15000;
+
+// v39: סקריפט הקבצים (גרפיקות + הודעות קבועות) – תיקייה בדרייב, לא נוגע בטבלה
+const MEDIA_URL  = 'https://script.google.com/macros/s/AKfycbxZL0EWCox_nqoH7q79JS5auPFMKRlVULras6Pd2cyWE7fZZ6zUoP6aQv-6-1yeqV6c/exec';
+const MEDIA_TIMEOUT_MS = 60000;
 
 /*
   מיפוי סופי מאומת מה-console:
@@ -396,6 +487,7 @@ async function loadData() {
     document.getElementById('appContent').style.display = 'block';
     updateCounts();
     render();
+    loadGraphics(); // v39: ברקע – לא מעכב את הטעינה
   } catch(e) {
     document.getElementById('loadingScreen').style.display = 'none';
     document.getElementById('appContent').style.display = 'block';
@@ -594,6 +686,8 @@ function render() {
             <div class="field-label">הערות נוספות</div>
             <div class="field-value">${notes}</div>
           </div>
+
+          <div class="gfx-row" onclick="event.stopPropagation()">${gfxButtonHtml(id, phone)}</div>
 
           <div class="actions">
             <a class="btn btn-call" href="tel:${phone}">📞 התקשר</a>
@@ -840,6 +934,429 @@ function saveContact(name, phone, city) {
   a.download = `${name}.vcf`;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+// ════════════════════════════════════════════════════════════════
+// v39: עזרים משותפים – קריאות לסקריפט הקבצים, העתקה, תפריט פעולות
+// ════════════════════════════════════════════════════════════════
+
+function normPhone(p) {
+  let d = String(p || '').replace(/\D/g, '');
+  if (d.startsWith('972')) d = '0' + d.slice(3);
+  return d;
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+// מסיר סימני כיוון נסתרים שמשבשים קישורים בוואטסאפ (נכנסים בהעתקה מהפתקים)
+function cleanText(s) {
+  return String(s || '').replace(/[​-‏‪-‮⁦-⁩﻿]/g, '');
+}
+
+async function mediaCall(method, payload) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), MEDIA_TIMEOUT_MS);
+  try {
+    let res;
+    if (method === 'GET') {
+      const qs = new URLSearchParams(payload).toString();
+      res = await fetch(MEDIA_URL + '?' + qs, { redirect: 'follow', signal: controller.signal });
+    } else {
+      res = await fetch(MEDIA_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+        redirect: 'follow',
+        signal: controller.signal,
+      });
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    let data;
+    try { data = JSON.parse(await res.text()); }
+    catch (_) { throw new Error('תשובה לא תקינה מהשרת'); }
+    if (!data || data.ok !== true) throw new Error((data && data.error) || 'שגיאה לא ידועה');
+    return data;
+  } catch (e) {
+    if (e.name === 'AbortError') throw new Error('אין תשובה מהשרת');
+    throw e;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function copyToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (_) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    ta.remove();
+    return ok;
+  }
+}
+
+// תפריט פעולות מלמטה. options: [{label, danger, onClick}]
+function actionSheet(title, options) {
+  const bg = document.createElement('div');
+  bg.className = 'sheet-bg';
+  const close = () => bg.remove();
+  bg.addEventListener('click', e => { if (e.target === bg) close(); });
+  const sheet = document.createElement('div');
+  sheet.className = 'sheet';
+  if (title) {
+    const t = document.createElement('div');
+    t.className = 'sheet-title';
+    t.textContent = title;
+    sheet.appendChild(t);
+  }
+  options.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'sheet-opt' + (o.danger ? ' danger' : '');
+    b.textContent = o.label;
+    b.addEventListener('click', () => { close(); o.onClick(); });
+    sheet.appendChild(b);
+  });
+  const c = document.createElement('button');
+  c.className = 'sheet-opt cancel';
+  c.textContent = 'ביטול';
+  c.addEventListener('click', close);
+  sheet.appendChild(c);
+  bg.appendChild(sheet);
+  document.body.appendChild(bg);
+}
+
+// ════════════════════════════════════════════════════════════════
+// v39: גרפיקת יום הולדת – הצמדה לפי מספר טלפון
+// ════════════════════════════════════════════════════════════════
+
+let GFX_STATE = 'loading';     // loading | ready | error
+let GFX = new Set();           // טלפונים (מנורמלים) שיש להם גרפיקה
+const GFX_BUSY = new Set();    // טלפונים שנמצאים כרגע בהעלאה/מחיקה
+
+async function loadGraphics() {
+  GFX_STATE = 'loading';
+  try {
+    const data = await mediaCall('GET', { action: 'listGraphics' });
+    GFX = new Set((data.phones || []).map(normPhone));
+    GFX_STATE = 'ready';
+  } catch (e) {
+    GFX_STATE = 'error';
+  }
+  render();
+}
+
+function gfxButtonHtml(id, phone) {
+  const p = normPhone(phone);
+  if (!p) return `<button class="gfx-btn" disabled>🖼 אין טלפון – אי אפשר להצמיד גרפיקה</button>`;
+  if (GFX_BUSY.has(p))          return `<button class="gfx-btn" disabled>⏳ שומר גרפיקה...</button>`;
+  if (GFX_STATE === 'loading')  return `<button class="gfx-btn" disabled>🖼 בודק גרפיקה...</button>`;
+  if (GFX_STATE === 'error')    return `<button class="gfx-btn" onclick="loadGraphics()">🖼 לא הצלחתי לבדוק גרפיקה – לחץ לנסות שוב</button>`;
+  if (GFX.has(p))               return `<button class="gfx-btn has" onclick="gfxMenu(${id})">🖼 יש גרפיקה ✓</button>`;
+  return `<button class="gfx-btn" onclick="gfxAttach(${id})">🖼 הצמד גרפיקה</button>`;
+}
+
+function rowById(id) { return DATA.find(x => x._id === id); }
+
+function gfxAttach(id, replacing) {
+  actionSheet(replacing ? 'החלפת גרפיקה' : 'הצמדת גרפיקה', [
+    { label: '🖼 בחר מהגלריה', onClick: () => gfxPickFile(id) },
+    { label: '📋 הדבק תמונה שהעתקתי', onClick: () => gfxPaste(id) },
+  ]);
+}
+
+function gfxMenu(id) {
+  const row = rowById(id);
+  if (!row) return;
+  const name = (g(row._raw, C.FIRST) + ' ' + g(row._raw, C.LAST)).trim();
+  actionSheet('גרפיקה של ' + name, [
+    { label: '🔄 החלף גרפיקה', onClick: () => gfxAttach(id, true) },
+    { label: '🗑 מחק גרפיקה', danger: true, onClick: () => gfxDelete(id) },
+  ]);
+}
+
+function gfxPickFile(id) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.style.display = 'none';
+  input.addEventListener('change', () => {
+    const file = input.files && input.files[0];
+    input.remove();
+    if (file) gfxUpload(id, file);
+  });
+  document.body.appendChild(input);
+  input.click();
+}
+
+async function gfxPaste(id) {
+  try {
+    if (!navigator.clipboard || !navigator.clipboard.read) throw new Error('unsupported');
+    const items = await navigator.clipboard.read();
+    for (const item of items) {
+      const type = item.types.find(t => t.startsWith('image/'));
+      if (type) {
+        const blob = await item.getType(type);
+        return gfxUpload(id, blob);
+      }
+    }
+    showToast('אין תמונה בלוח – העתק את התמונה בוואטסאפ ונסה שוב', 'err');
+  } catch (e) {
+    showToast('ההדבקה לא נתמכה כאן – בחר מהגלריה', 'err');
+  }
+}
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1] || '');
+    r.onerror = () => reject(new Error('קריאת הקובץ נכשלה'));
+    r.readAsDataURL(blob);
+  });
+}
+
+async function gfxUpload(id, blob) {
+  const row = rowById(id);
+  if (!row) return;
+  const phone = normPhone(g(row._raw, C.PHONE));
+  const name  = (g(row._raw, C.FIRST) + ' ' + g(row._raw, C.LAST)).replace(/\s+/g, ' ').trim();
+  if (!phone || GFX_BUSY.has(phone)) return;
+
+  GFX_BUSY.add(phone);
+  render();
+  try {
+    const data = await blobToBase64(blob);
+    await mediaCall('POST', { action: 'uploadGraphic', phone, name, mime: blob.type || 'image/jpeg', data });
+    GFX.add(phone);
+    showToast('הגרפיקה נשמרה ✓', 'ok');
+  } catch (e) {
+    showToast('השמירה נכשלה: ' + e.message, 'err');
+  } finally {
+    GFX_BUSY.delete(phone);
+    render();
+  }
+}
+
+async function gfxDelete(id) {
+  const row = rowById(id);
+  if (!row) return;
+  const phone = normPhone(g(row._raw, C.PHONE));
+  const name  = (g(row._raw, C.FIRST) + ' ' + g(row._raw, C.LAST)).trim();
+  if (!confirm('למחוק את הגרפיקה של ' + name + '?\n(הקובץ יעבור לפח בדרייב)')) return;
+
+  GFX_BUSY.add(phone);
+  render();
+  try {
+    await mediaCall('POST', { action: 'deleteGraphic', phone });
+    GFX.delete(phone);
+    showToast('הגרפיקה נמחקה', 'ok');
+  } catch (e) {
+    showToast('המחיקה נכשלה: ' + e.message, 'err');
+  } finally {
+    GFX_BUSY.delete(phone);
+    render();
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+// v39: הודעות קבועות – נשמרות בדרייב (templates.json)
+// מבנה: [{ id, title, text }]   {שם} מוחלף בשם שמקלידים
+// ════════════════════════════════════════════════════════════════
+
+let TPL = null;          // null = עוד לא נטען
+let TPL_SAVING = false;
+
+function tplScreen() {
+  let s = document.getElementById('tplScreen');
+  if (!s) {
+    s = document.createElement('div');
+    s.id = 'tplScreen';
+    s.className = 'tpl-screen';
+    document.body.appendChild(s);
+  }
+  return s;
+}
+
+function tplShell(title, bodyHtml, backFn) {
+  const s = tplScreen();
+  s.innerHTML = `
+    <div class="tpl-head">
+      ${backFn ? '<button id="tplBack">→ חזרה</button>' : ''}
+      <div class="tpl-head-title">${escHtml(title)}</div>
+      <button id="tplClose">✕ סגור</button>
+    </div>
+    <div class="tpl-body">${bodyHtml}</div>`;
+  document.getElementById('tplClose').onclick = closeTemplates;
+  if (backFn) document.getElementById('tplBack').onclick = backFn;
+  return s;
+}
+
+function autoGrowEl(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+async function openTemplates() {
+  document.body.style.overflow = 'hidden';
+  if (TPL === null) {
+    tplShell('הודעות קבועות', '<div class="tpl-empty">טוען הודעות...</div>');
+    try {
+      const data = await mediaCall('GET', { action: 'listTemplates' });
+      TPL = Array.isArray(data.templates) ? data.templates : [];
+    } catch (e) {
+      tplShell('הודעות קבועות', `<div class="tpl-empty">⚠️ לא הצלחתי לטעון את ההודעות<br>${escHtml(e.message)}<br><br><button class="tpl-sec-btn" id="tplRetry">נסה שוב</button></div>`);
+      document.getElementById('tplRetry').onclick = openTemplates;
+      return;
+    }
+  }
+  tplList();
+}
+
+function closeTemplates() {
+  const s = document.getElementById('tplScreen');
+  if (s) s.remove();
+  document.body.style.overflow = '';
+}
+
+function tplList() {
+  const items = TPL.map((t, i) => `
+    <div class="tpl-item" data-i="${i}">
+      <div class="tpl-item-title">${escHtml(t.title || 'ללא שם')}</div>
+      <div class="tpl-item-prev">${escHtml(t.text)}</div>
+    </div>`).join('');
+  tplShell('הודעות קבועות', `
+    <button class="tpl-add" id="tplAdd">＋ הודעה חדשה</button>
+    ${items || '<div class="tpl-empty">אין עדיין הודעות.<br>לחץ "הודעה חדשה" כדי להוסיף.</div>'}`);
+  document.getElementById('tplAdd').onclick = () => tplEdit(-1);
+  document.querySelectorAll('.tpl-item').forEach(el => {
+    el.onclick = () => tplUse(Number(el.dataset.i));
+  });
+}
+
+function tplFill(text, name) {
+  const n = (name || '').trim();
+  return cleanText(text).replace(/\{שם\}/g, n || '{שם}');
+}
+
+function tplUse(i) {
+  const t = TPL[i];
+  if (!t) return tplList();
+  const hasName = /\{שם\}/.test(t.text);
+  tplShell(t.title || 'הודעה', `
+    ${hasName ? `
+      <div class="tpl-label">שם הנמען</div>
+      <input class="tpl-input" id="tplName" type="text" placeholder="הקלד שם..." autocomplete="off" autocorrect="off">` : ''}
+    <div class="tpl-label">ההודעה (אפשר לערוך לפני ההעתקה)</div>
+    <textarea class="tpl-text" id="tplOut" spellcheck="false"></textarea>
+    <button class="tpl-main-btn" id="tplCopy">📋 העתק הודעה</button>
+    <div class="tpl-sec-row">
+      <button class="tpl-sec-btn" id="tplEditBtn">✏️ ערוך תבנית</button>
+      <button class="tpl-sec-btn danger" id="tplDelBtn">🗑 מחק</button>
+    </div>`, tplList);
+
+  const out = document.getElementById('tplOut');
+  const nameEl = document.getElementById('tplName');
+  let edited = false;
+  const refresh = () => { if (!edited) { out.value = tplFill(t.text, nameEl ? nameEl.value : ''); autoGrowEl(out); } };
+  refresh();
+  out.addEventListener('input', () => { edited = true; autoGrowEl(out); });
+  if (nameEl) {
+    nameEl.addEventListener('input', () => { edited = false; refresh(); });
+    setTimeout(() => nameEl.focus(), 50);
+  }
+
+  const btn = document.getElementById('tplCopy');
+  btn.onclick = async () => {
+    if (nameEl && !nameEl.value.trim() && !edited) {
+      showToast('כדאי להקליד שם קודם', 'err');
+      nameEl.focus();
+      return;
+    }
+    const ok = await copyToClipboard(cleanText(out.value));
+    btn.textContent = ok ? '✓ הועתק – אפשר להדביק בוואטסאפ' : 'ההעתקה נכשלה – סמן והעתק ידנית';
+    btn.classList.toggle('done', ok);
+    setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 2500);
+  };
+  document.getElementById('tplEditBtn').onclick = () => tplEdit(i);
+  document.getElementById('tplDelBtn').onclick = () => tplDelete(i);
+}
+
+function tplEdit(i) {
+  const isNew = i < 0;
+  const t = isNew ? { title: '', text: '' } : TPL[i];
+  tplShell(isNew ? 'הודעה חדשה' : 'עריכת הודעה', `
+    <div class="tpl-label">שם ההודעה (לזיהוי ברשימה)</div>
+    <input class="tpl-input" id="tplTitle" type="text" placeholder="למשל: מתנדב חדש" value="${escHtml(t.title)}">
+    <div class="tpl-label">נוסח ההודעה</div>
+    <textarea class="tpl-text" id="tplText" spellcheck="false" placeholder="שלום {שם}, ..."></textarea>
+    <div class="tpl-sec-row">
+      <button class="tpl-sec-btn" id="tplInsName">➕ הוסף {שם} במקום הסמן</button>
+    </div>
+    <div class="tpl-hint">כתוב {שם} בכל מקום שבו יופיע שם הנמען. כדאי לשים קישור בשורה נפרדת.</div>
+    <button class="tpl-main-btn" id="tplSave">💾 שמור</button>`,
+    () => isNew ? tplList() : tplUse(i));
+
+  const ta = document.getElementById('tplText');
+  ta.value = t.text || '';
+  autoGrowEl(ta);
+  ta.addEventListener('input', () => autoGrowEl(ta));
+
+  document.getElementById('tplInsName').onclick = () => {
+    const s = ta.selectionStart ?? ta.value.length;
+    const e = ta.selectionEnd ?? ta.value.length;
+    ta.value = ta.value.slice(0, s) + '{שם}' + ta.value.slice(e);
+    ta.focus();
+    ta.setSelectionRange(s + 4, s + 4);
+    autoGrowEl(ta);
+  };
+
+  document.getElementById('tplSave').onclick = async () => {
+    const title = document.getElementById('tplTitle').value.trim();
+    const text  = cleanText(ta.value).trim();
+    if (!text) { showToast('ההודעה ריקה', 'err'); return; }
+    const updated = TPL.slice();
+    if (isNew) updated.push({ id: Date.now().toString(36), title: title || 'הודעה', text });
+    else updated[i] = Object.assign({}, updated[i], { title: title || 'הודעה', text });
+    const ok = await tplSaveAll(updated, document.getElementById('tplSave'));
+    if (ok) tplUse(isNew ? TPL.length - 1 : i);
+  };
+}
+
+async function tplDelete(i) {
+  const t = TPL[i];
+  if (!t || !confirm('למחוק את ההודעה "' + (t.title || '') + '"?')) return;
+  const updated = TPL.filter((_, k) => k !== i);
+  const ok = await tplSaveAll(updated, document.getElementById('tplDelBtn'));
+  if (ok) tplList();
+}
+
+async function tplSaveAll(updated, btn) {
+  if (TPL_SAVING) return false;
+  TPL_SAVING = true;
+  const label = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'שומר...'; }
+  try {
+    await mediaCall('POST', { action: 'saveTemplates', templates: updated });
+    TPL = updated;
+    showToast('נשמר ✓', 'ok');
+    return true;
+  } catch (e) {
+    showToast('השמירה נכשלה: ' + e.message, 'err');
+    if (btn) { btn.disabled = false; btn.textContent = label; }
+    return false;
+  } finally {
+    TPL_SAVING = false;
+  }
 }
 
 loadData();
