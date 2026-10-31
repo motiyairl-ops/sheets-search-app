@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="Icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  /* bday.html v2 – ברכות מוכנות עם גרפיקה שמורה + בקשת גרפיקה למי שאין */
+  /* bday.html v3 – ברכות מוכנות עם גרפיקה שמורה + בקשת גרפיקה למי שאין */
   :root {
     --bg: #0d1520;
     --surface: #112035;
@@ -433,6 +433,12 @@ async function uploadGraphic(i, blob) {
   }
 }
 
+// "שם משפחה, פנתר, יישוב" – כמו באפליקציה
+function panterLast(last, city) {
+  return [String(last || '').trim(), 'פנתר', String(city || '').trim()].filter(Boolean).join(', ');
+}
+function vEsc(v) { return String(v || '').replace(/\\/g, '\\\\').replace(/([,;])/g, '\\$1'); }
+
 // שמירת איש קשר – אותו מבנה כמו באפליקציה (בלי תמונת הלוגו)
 function saveContact(p) {
   const d = String(p.phone || '').replace(/\D/g, '');
@@ -440,8 +446,8 @@ function saveContact(p) {
   const fn = normName(p.first + ' ' + p.last);
   const vcard = [
     'BEGIN:VCARD', 'VERSION:3.0',
-    `N:${p.last};${p.first};;;`,
-    `FN:${fn}`,
+    `N:${vEsc(panterLast(p.last, p.city))};${vEsc(p.first)};;;`,
+    `FN:${vEsc(panterLast(fn, p.city))}`,
     `TEL;TYPE=CELL:${tel}`,
     p.city ? `ADR;TYPE=HOME:;;${p.city};;;;` : '',
     'ORG:יחידת פנתר', 'TITLE:מתנדב', 'NOTE:פנתר 4X4',

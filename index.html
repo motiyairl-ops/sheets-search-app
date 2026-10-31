@@ -266,6 +266,13 @@
   .bd-item-gfx.no  { color: var(--text2); }
   .bd-when { font-size: 12px; color: var(--accent); font-weight: 700; white-space: nowrap; }
   .bd-export { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+  .bd-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 6px; overflow: hidden; }
+  .bd-card.open { border-color: var(--accent); }
+  .bd-card .bd-item { background: none; border: none; border-radius: 0; margin: 0; cursor: pointer; }
+  .bd-card .chevron { font-size: 13px; color: var(--text2); transition: transform 0.25s; }
+  .bd-card.open .chevron { transform: rotate(180deg); }
+  .bd-card .card-body { display: block; padding: 0 12px 12px; border-top: 1px solid var(--border); }
+  .heb-next { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 2px; }
 
   /* ── v39: כפתור הודעות בכותרת ── */
   .msg-btn {
@@ -355,7 +362,7 @@
     <div class="header-top">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v40</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v41</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
       <button class="msg-btn" onclick="openBirthdays()" aria-label="ימי הולדת">🎂</button>
@@ -635,6 +642,11 @@ function yesNo(bool) {
 }
 
 function render() {
+  renderMain();
+  if (document.getElementById('bdList')) renderBdList(); // v41: מסך ימי ההולדת פתוח – לרענן גם אותו
+}
+
+function renderMain() {
   const q = document.getElementById('searchInput').value;
   const results = DATA.filter(row => matchesFilters(row) && matchesSearch(row, q));
   document.getElementById('countText').innerHTML = `נמצאו <span>${results.length}</span> מתנדבים`;
@@ -690,8 +702,46 @@ function render() {
         <div class="chevron">▾</div>
       </div>
       <div class="card-body">
-        <div class="card-body-inner">
+        <div class="card-body-inner">${cardBodyInner(row)}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
 
+// v41: תוכן הכרטיס הפתוח – משותף למסך הראשי ולמסך ימי ההולדת
+function cardBodyInner(row) {
+  const r = row._raw;
+  const id = row._id;
+    const firstName = g(r, C.FIRST);
+    const lastName  = g(r, C.LAST);
+    const phone     = g(r, C.PHONE);
+    const city      = g(r, C.CITY);
+    const dobType   = g(r, C.DOB_TYPE).replace(/['"]/g, '').trim();
+    const dobG      = g(r, C.DOB_G);
+    const dobH      = g(r, C.DOB_H);
+    const car       = g(r, C.CAR);
+    const kananet   = getKananet(r);
+    const ereket    = getEreket(r);
+    const apod      = getApod(r);
+    const hadList   = getHadList(r);
+    const hadBasic  = g(r, C.HAD_BASIC) || '—';
+    const notes     = g(r, C.NOTES)     || '—';
+    const bdaySaving = BDAY_SAVING.has(id);
+    const bdayOn     = bdaySaving ? BDAY_SAVING.get(id) : getBirthdayReminder(r);
+
+    const isHebrew = dobType === 'עברי' || dobType === "עב'";
+    const dob = isHebrew ? dobH : dobG;
+
+    const fullName = (firstName + ' ' + lastName).trim();
+    const phoneClean = phone.replace(/\D/g, '');
+    const waPhone = phoneClean.startsWith('972') ? phoneClean : '972' + phoneClean.replace(/^0/, '');
+
+    const hadDisplay = hadList.length
+      ? `<div class="field-value blue">${hadList.join(' · ')}</div>`
+      : `<div class="field-value red">לא</div>`;
+
+  return `
           <div class="field wide">
             <div class="field-label">טלפון</div>
             <div class="field-value phone">${phone || '—'}</div>
@@ -705,6 +755,7 @@ function render() {
           <div class="field">
             <div class="field-label">תאריך לידה${isHebrew ? ' (עברי)' : ''}</div>
             <div class="field-value">${dob || '—'}</div>
+            ${isHebrew ? nextHebHtml(dobH) : ''}
           </div>
 
 
@@ -760,11 +811,7 @@ function render() {
             <a class="btn btn-whatsapp" href="https://wa.me/${waPhone}">💬 וואטסאפ</a>
             <button class="save-contact-btn" onclick="event.stopPropagation();saveContact('${fullName.replace(/'/g,"\\'")}','${phone}','${city.replace(/'/g,"\\'")}')">👤 שמור</button>
           </div>
-
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+`;
 }
 
 function toggle(id) {
@@ -996,6 +1043,13 @@ function foldVcardLine(label, data) {
   return lines.join('\r\n');
 }
 
+// v41: "שם משפחה, פנתר, יישוב" – כדי לזהות באנשי הקשר שמדובר במתנדב פנתר
+function panterLast(last, city) {
+  return [String(last || '').trim(), 'פנתר', String(city || '').trim()].filter(Boolean).join(', ');
+}
+// בריחה לפי RFC 2426 – פסיק ונקודה-פסיק בתוך שדה
+function vEsc(v) { return String(v || '').replace(/\\/g, '\\\\').replace(/([,;])/g, '\\$1'); }
+
 function saveContact(name, phone, city) {
   const nameParts = name.trim().split(' ');
   const lastName  = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
@@ -1009,8 +1063,8 @@ function saveContact(name, phone, city) {
   const vcardLines = [
     'BEGIN:VCARD',
     'VERSION:3.0',
-    `N:${lastName};${firstName};;;`,
-    `FN:${name}`,
+    `N:${vEsc(panterLast(lastName, city))};${vEsc(firstName)};;;`,
+    `FN:${vEsc(panterLast(name, city))}`,
     `TEL;TYPE=CELL:${tel}`,
     city ? `ADR;TYPE=HOME:;;${city};;;;` : '',
     'ORG:יחידת פנתר',
@@ -1649,8 +1703,12 @@ function whenText(d) {
   return '';
 }
 
+let BD_OPEN = null; // _id של מתנדב פתוח במסך ימי ההולדת
+
 function openBirthdays() {
   if (!BD_FROM) BD_FROM = startOfDay(new Date());
+  BD_OPEN = null;
+  if (openId !== null) { openId = null; renderMain(); }
   document.body.style.overflow = 'hidden';
   renderBirthdays();
 }
@@ -1700,12 +1758,17 @@ function renderBdList() {
       html += `<div class="bd-day">יום ${DAY_NAMES[h.date.getDay()]} ${ddmm(h.date)}${w ? ' · ' + w : ''}</div>`;
       lastKey = key;
     }
-    html += `<div class="bd-item">
-      <div class="bd-item-main">
-        <div class="bd-item-name">${escHtml(h.name)}</div>
-        <div class="bd-item-sub">${escHtml(h.city)}${h.city ? ' · ' : ''}(${escHtml(h.label)})</div>
+    const isOpen = BD_OPEN === h.row._id;
+    html += `<div class="bd-card ${isOpen ? 'open' : ''}" id="bd-card-${h.row._id}">
+      <div class="bd-item" data-id="${h.row._id}">
+        <div class="bd-item-main">
+          <div class="bd-item-name">${escHtml(h.name)}</div>
+          <div class="bd-item-sub">${escHtml(h.city)}${h.city ? ' · ' : ''}(${escHtml(h.label)})</div>
+        </div>
+        <div class="bd-item-gfx ${GFX_STATE !== 'ready' ? 'no' : (h.hasGfx ? 'yes' : 'no')}">${GFX_STATE !== 'ready' ? '' : (h.hasGfx ? '🖼 ✓' : 'אין גרפיקה')}</div>
+        <div class="chevron">▾</div>
       </div>
-      <div class="bd-item-gfx ${GFX_STATE !== 'ready' ? 'no' : (h.hasGfx ? 'yes' : 'no')}">${GFX_STATE !== 'ready' ? '' : (h.hasGfx ? '🖼 ✓' : 'אין גרפיקה')}</div>
+      ${isOpen ? `<div class="card-body"><div class="card-body-inner">${cardBodyInner(h.row)}</div></div>` : ''}
     </div>`;
   }
   html += `<div class="bd-export">
@@ -1713,6 +1776,16 @@ function renderBdList() {
     <button class="tpl-main-btn" id="bdCmd" style="background:var(--surface2);color:var(--text);border:1.5px solid var(--border)">📋 רשימת חוגגים לשליחה</button>
   </div>`;
   box.innerHTML = html;
+
+  box.querySelectorAll('.bd-item[data-id]').forEach(el => el.onclick = () => {
+    const id = +el.dataset.id;
+    BD_OPEN = BD_OPEN === id ? null : id;
+    renderBdList();
+    if (BD_OPEN !== null) setTimeout(() => {
+      const c = document.getElementById('bd-card-' + id);
+      if (c) c.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 30);
+  });
 
   const req = document.getElementById('bdReq');
   if (req) req.onclick = () => bdCompose('בקשה לקבוצת הגרפיקה', bdRequestText(hits.filter(h => !h.hasGfx)));
@@ -1758,6 +1831,31 @@ function bdCompose(title, text) {
     btn.classList.toggle('done', ok);
     setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 2500);
   };
+}
+
+// v41: מתי התאריך העברי יוצא בלוח הלועזי (המופע הקרוב, כולל היום)
+const HEB_NEXT_CACHE = new Map();
+function nextHebDate(hebText) {
+  if (HEB_NEXT_CACHE.has(hebText)) return HEB_NEXT_CACHE.get(hebText);
+  const parsed = parseHebrewKey(hebText);
+  let found = null;
+  if (parsed) {
+    const today = startOfDay(new Date());
+    for (let i = 0; i < 400 && !found; i++) {
+      const d = addDays(today, i);
+      if (hebMatches(parsed, hebTarget(d))) found = d;
+    }
+  }
+  HEB_NEXT_CACHE.set(hebText, found);
+  return found;
+}
+
+function nextHebHtml(hebText) {
+  if (!hebText) return '';
+  const d = nextHebDate(hebText);
+  if (!d) return '';
+  const w = whenText(d);
+  return `<div class="heb-next">📅 השנה יוצא ב: יום ${DAY_NAMES[d.getDay()]} ${ddmm(d)}/${d.getFullYear()}${w ? ' (' + w + ')' : ''}</div>`;
 }
 
 loadData();
