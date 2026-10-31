@@ -195,17 +195,77 @@
   .toast.ok  { border-color: var(--green); color: var(--green); }
   .toast.err { border-color: var(--red);   color: var(--red); }
 
-  /* ── v39: גרפיקת יום הולדת ── */
-  .gfx-row { grid-column: 1 / -1; }
+  /* ── v40: גרפיקת יום הולדת – כפתורים קטנים בתוך תיבת יום ההולדת ── */
+  .gfx-mini { display: flex; gap: 6px; margin-top: 2px; }
   .gfx-btn {
-    width: 100%; padding: 12px 8px; border-radius: 12px; cursor: pointer;
-    background: var(--surface2); border: 1.5px dashed var(--border); color: var(--text2);
-    font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 6px 10px; border-radius: 9px; cursor: pointer; white-space: nowrap;
+    background: var(--bg); border: 1px solid var(--border); color: var(--text2);
+    font-family: 'Heebo', sans-serif; font-size: 13px; font-weight: 700;
   }
-  .gfx-btn.has { border-style: solid; border-color: var(--green); color: var(--green); background: rgba(52,211,153,0.1); }
+  .gfx-btn.has { border-color: var(--green); color: var(--green); }
   .gfx-btn:disabled { opacity: 0.6; cursor: default; }
   .gfx-btn:active { opacity: 0.75; }
+
+  /* ── v40: צפייה בגרפיקה ── */
+  .viewer-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1150;
+    display: flex; flex-direction: column; padding: calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
+  }
+  .viewer-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .viewer-title { flex: 1; font-size: 17px; font-weight: 700; }
+  .viewer-close { background: none; border: none; color: var(--text2); font-size: 16px; font-weight: 700; font-family: 'Heebo', sans-serif; cursor: pointer; padding: 6px; }
+  .viewer-img-wrap { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; color: var(--text2); }
+  .viewer-img-wrap img { max-width: 100%; max-height: 100%; border-radius: 12px; object-fit: contain; }
+  .viewer-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .viewer-actions button {
+    flex: 1; padding: 13px 6px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2);
+    color: var(--text); font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .viewer-actions .share { background: #25d366; color: #000; border: none; }
+  .viewer-actions .danger { color: var(--red); }
+
+  /* ── v40: סינונים מתקפלים ── */
+  .filter-toggle {
+    width: 100%; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px;
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text2); cursor: pointer;
+    font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 600; text-align: right;
+  }
+  .filter-toggle.active { border-color: var(--accent); color: var(--accent); }
+  .filter-toggle .ft-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .filter-toggle .ft-arrow { transition: transform 0.2s; }
+  .filter-toggle.open .ft-arrow { transform: rotate(180deg); }
+  .filter-clear { color: var(--text2); font-size: 15px; padding: 0 4px; }
+  .filter-groups.collapsed { display: none; }
+  .filter-groups { margin-top: 10px; }
+
+  /* ── v40: מסך ימי הולדת ── */
+  .bd-controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+  .bd-line { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 15px; color: var(--text2); }
+  .bd-line input {
+    background: var(--surface); color: var(--text); border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 8px 10px; font-family: 'Heebo', sans-serif; font-size: 16px; -webkit-appearance: none;
+  }
+  .bd-line input[type=number] { width: 70px; text-align: center; }
+  .bd-line input:focus { outline: none; border-color: var(--accent); }
+  .bd-chip {
+    padding: 7px 12px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface2);
+    color: var(--text2); font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .bd-chip.on { border-color: var(--accent); color: var(--accent); }
+  .bd-summary { font-size: 14px; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+  .bd-day { font-size: 13px; color: var(--text2); font-weight: 700; margin: 14px 0 6px; }
+  .bd-item {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 10px 12px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
+  }
+  .bd-item-main { flex: 1; min-width: 0; }
+  .bd-item-name { font-size: 16px; font-weight: 700; }
+  .bd-item-sub { font-size: 13px; color: var(--text2); }
+  .bd-item-gfx { font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .bd-item-gfx.yes { color: var(--green); }
+  .bd-item-gfx.no  { color: var(--text2); }
+  .bd-when { font-size: 12px; color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .bd-export { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
 
   /* ── v39: כפתור הודעות בכותרת ── */
   .msg-btn {
@@ -295,9 +355,10 @@
     <div class="header-top">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v39</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v40</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
+      <button class="msg-btn" onclick="openBirthdays()" aria-label="ימי הולדת">🎂</button>
       <button class="msg-btn" onclick="openTemplates()">📝 הודעות</button>
       <button class="refresh-btn" onclick="loadData()">↻</button>
     </div>
@@ -310,7 +371,13 @@
       <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
     </div>
 
-    <div class="filter-groups">
+    <button class="filter-toggle" id="filterToggle" onclick="toggleFilters()">
+      <span>⚙️</span><span class="ft-text" id="filterToggleText">סינון</span>
+      <span class="filter-clear" id="filterClear" style="display:none" onclick="event.stopPropagation();clearFilters()">✕</span>
+      <span class="ft-arrow">▾</span>
+    </button>
+
+    <div class="filter-groups collapsed" id="filterGroups">
       <div class="filter-group-row">
         <span class="filter-group-label">כננת</span>
         <div class="chips-and-count">
@@ -680,14 +747,13 @@ function render() {
               </label>
               <div class="bday-status ${bdaySaving ? 'saving' : (bdayOn ? 'on' : 'off')}" id="bday-status-${id}">${bdaySaving ? 'שומר...' : (bdayOn ? 'כן' : 'לא')}</div>
             </div>
+            <div class="gfx-mini">${gfxButtonHtml(id, phone)}</div>
           </div>
 
           <div class="field col-right">
             <div class="field-label">הערות נוספות</div>
             <div class="field-value">${notes}</div>
           </div>
-
-          <div class="gfx-row" onclick="event.stopPropagation()">${gfxButtonHtml(id, phone)}</div>
 
           <div class="actions">
             <a class="btn btn-call" href="tel:${phone}">📞 התקשר</a>
@@ -704,6 +770,7 @@ function render() {
 function toggle(id) {
   if (openId === id) { openId = null; render(); return; }
   openId = id;
+  setFiltersOpen(false); // v40: הסינונים נסגרים כשפותחים מתנדב
   render();
   setTimeout(() => {
     const el = document.getElementById('card-' + id);
@@ -724,7 +791,35 @@ function toggle(id) {
 function toggleF(group, val) {
   F[group] = (F[group] === val) ? null : val;
   updateChips();
+  updateFilterToggle();
   render();
+}
+
+// v40: סינונים מתקפלים
+const F_NAMES = { kananet: 'כננת', apod: 'אפוד', ereket: 'ערכה' };
+
+function setFiltersOpen(open) {
+  document.getElementById('filterGroups').classList.toggle('collapsed', !open);
+  document.getElementById('filterToggle').classList.toggle('open', open);
+}
+
+function toggleFilters() {
+  const open = document.getElementById('filterGroups').classList.contains('collapsed');
+  setFiltersOpen(open);
+}
+
+function clearFilters() {
+  F = { kananet: null, apod: null, ereket: null };
+  updateChips();
+  updateFilterToggle();
+  render();
+}
+
+function updateFilterToggle() {
+  const active = Object.keys(F).filter(k => F[k]).map(k => F_NAMES[k] + ' ' + (F[k] === 'yes' ? 'יש' : 'אין'));
+  document.getElementById('filterToggleText').textContent = active.length ? 'סינון: ' + active.join(' · ') : 'סינון';
+  document.getElementById('filterToggle').classList.toggle('active', active.length > 0);
+  document.getElementById('filterClear').style.display = active.length ? '' : 'none';
 }
 
 function updateChips() {
@@ -1058,12 +1153,74 @@ async function loadGraphics() {
 
 function gfxButtonHtml(id, phone) {
   const p = normPhone(phone);
-  if (!p) return `<button class="gfx-btn" disabled>🖼 אין טלפון – אי אפשר להצמיד גרפיקה</button>`;
-  if (GFX_BUSY.has(p))          return `<button class="gfx-btn" disabled>⏳ שומר גרפיקה...</button>`;
-  if (GFX_STATE === 'loading')  return `<button class="gfx-btn" disabled>🖼 בודק גרפיקה...</button>`;
-  if (GFX_STATE === 'error')    return `<button class="gfx-btn" onclick="loadGraphics()">🖼 לא הצלחתי לבדוק גרפיקה – לחץ לנסות שוב</button>`;
-  if (GFX.has(p))               return `<button class="gfx-btn has" onclick="gfxMenu(${id})">🖼 יש גרפיקה ✓</button>`;
+  if (!p) return '';
+  if (GFX_BUSY.has(p))          return `<button class="gfx-btn" disabled>⏳ שומר...</button>`;
+  if (GFX_STATE === 'loading')  return `<button class="gfx-btn" disabled>🖼 ...</button>`;
+  if (GFX_STATE === 'error')    return `<button class="gfx-btn" onclick="loadGraphics()">🖼 נסה שוב</button>`;
+  if (GFX.has(p)) return `
+    <button class="gfx-btn has" onclick="gfxView(${id})">👁 הצג</button>
+    <button class="gfx-btn" onclick="gfxAttach(${id}, true)">🔄 החלף</button>`;
   return `<button class="gfx-btn" onclick="gfxAttach(${id})">🖼 הצמד גרפיקה</button>`;
+}
+
+// v40: צפייה בגרפיקה – נטענת רק כשלוחצים "הצג", ונשמרת בזיכרון עד רענון
+const GFX_CACHE = new Map(); // phone -> Blob
+
+async function gfxView(id) {
+  const row = rowById(id);
+  if (!row) return;
+  const phone = normPhone(g(row._raw, C.PHONE));
+  const name  = (g(row._raw, C.FIRST) + ' ' + g(row._raw, C.LAST)).replace(/\s+/g, ' ').trim();
+
+  const bg = document.createElement('div');
+  bg.className = 'viewer-bg';
+  bg.innerHTML = `
+    <div class="viewer-top">
+      <div class="viewer-title">🖼 ${escHtml(name)}</div>
+      <button class="viewer-close">✕ סגור</button>
+    </div>
+    <div class="viewer-img-wrap">טוען גרפיקה...</div>
+    <div class="viewer-actions">
+      <button class="share" disabled>📤 שתף</button>
+      <button class="replace">🔄 החלף</button>
+      <button class="danger">🗑 מחק</button>
+    </div>`;
+  document.body.appendChild(bg);
+  let url = null;
+  const close = () => { bg.remove(); if (url) URL.revokeObjectURL(url); };
+  bg.querySelector('.viewer-close').onclick = close;
+  bg.querySelector('.replace').onclick = () => { close(); gfxAttach(id, true); };
+  bg.querySelector('.danger').onclick = () => { close(); gfxDelete(id); };
+
+  try {
+    let blob = GFX_CACHE.get(phone);
+    if (!blob) {
+      const d = await mediaCall('GET', { action: 'getGraphic', phone });
+      if (!d.found) throw new Error('לא נמצאה גרפיקה');
+      const bin = atob(d.data);
+      const arr = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+      blob = new Blob([arr], { type: d.mime || 'image/jpeg' });
+      GFX_CACHE.set(phone, blob);
+    }
+    if (!bg.isConnected) return;
+    url = URL.createObjectURL(blob);
+    bg.querySelector('.viewer-img-wrap').innerHTML = `<img src="${url}" alt="גרפיקה">`;
+    const ext = (blob.type.split('/')[1] || 'jpg').replace('jpeg', 'jpg');
+    const file = new File([blob], 'יום הולדת - ' + name + '.' + ext, { type: blob.type || 'image/jpeg' });
+    const shareBtn = bg.querySelector('.share');
+    shareBtn.disabled = false;
+    shareBtn.onclick = async () => {
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try { await navigator.share({ files: [file] }); }
+        catch (e) { if (e.name !== 'AbortError') showToast('השיתוף נכשל', 'err'); }
+      } else {
+        showToast('שיתוף לא נתמך כאן – לחיצה ארוכה על התמונה', 'err');
+      }
+    };
+  } catch (e) {
+    if (bg.isConnected) bg.querySelector('.viewer-img-wrap').textContent = '⚠️ ' + e.message;
+  }
 }
 
 function rowById(id) { return DATA.find(x => x._id === id); }
@@ -1138,6 +1295,7 @@ async function gfxUpload(id, blob) {
     const data = await blobToBase64(blob);
     await mediaCall('POST', { action: 'uploadGraphic', phone, name, mime: blob.type || 'image/jpeg', data });
     GFX.add(phone);
+    GFX_CACHE.set(phone, blob);
     showToast('הגרפיקה נשמרה ✓', 'ok');
   } catch (e) {
     showToast('השמירה נכשלה: ' + e.message, 'err');
@@ -1159,6 +1317,7 @@ async function gfxDelete(id) {
   try {
     await mediaCall('POST', { action: 'deleteGraphic', phone });
     GFX.delete(phone);
+    GFX_CACHE.delete(phone);
     showToast('הגרפיקה נמחקה', 'ok');
   } catch (e) {
     showToast('המחיקה נכשלה: ' + e.message, 'err');
@@ -1357,6 +1516,248 @@ async function tplSaveAll(updated, btn) {
   } finally {
     TPL_SAVING = false;
   }
+}
+
+// ════════════════════════════════════════════════════════════════
+// v40: מסך ימי הולדת – מחושב מהנתונים שכבר נטענו (בלי פנייה לשרת)
+// הלוגיקה העברית זהה לסקריפט התזכורות (AutoSortNames)
+// ════════════════════════════════════════════════════════════════
+
+const DAY_NAMES = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+let BD_FROM = null;   // Date
+let BD_DAYS = 7;
+
+function pad2(n) { return String(n).padStart(2, '0'); }
+function ddmm(d) { return pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1); }
+function startOfDay(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
+function addDays(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
+function toInputDate(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+
+// --- עברי (מועתק מהסקריפט) ---
+function normalizeMonth(m) {
+  let x = String(m || '').trim().replace(/\s+/g, ' ').replace(/[׳']/g, '');
+  if (x.startsWith('ב') && x.length > 1) x = x.substring(1).trim();
+  if (x.startsWith('ה') && x.length > 1) x = x.substring(1).trim();
+  const map = {
+    'ניסן':'ניסן','אייר':'אייר','סיון':'סיון','סיוון':'סיון','תמוז':'תמוז','אב':'אב','אלול':'אלול','תשרי':'תשרי',
+    'חשון':'חשוון','חשוון':'חשוון','מרחשון':'חשוון','מרחשוון':'חשוון','כסלו':'כסלו','כסליו':'כסלו',
+    'טבת':'טבת','שבט':'שבט','אדר':'אדר','אדר א':'אדר א','אדר ב':'אדר ב'
+  };
+  return map[x] || x;
+}
+
+function hebrewDayTokenToNumber(token) {
+  const t = String(token || '').trim().replace(/[׳״'"]/g, '');
+  if (!t) return null;
+  if (/^\d+$/.test(t)) return parseInt(t, 10);
+  const values = { 'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,'כ':20,'ך':20,'ל':30 };
+  let sum = 0;
+  for (const ch of t) { if (!values[ch]) return null; sum += values[ch]; }
+  return sum;
+}
+
+function parseHebrewKey(s) {
+  const parts = String(s || '').trim().replace(/\s+/g, ' ').split(' ');
+  if (parts.length < 2) return null;
+  const dayNum = hebrewDayTokenToNumber(parts[0]);
+  if (!dayNum) return null;
+  let month = parts[1];
+  const part3 = parts[2] ? String(parts[2]).trim().replace(/[׳']/g, '') : '';
+  if ((month === 'באדר' || month === 'האדר') && part3 === 'ב') month = 'אדר ב';
+  else if ((month === 'באדר' || month === 'האדר') && part3 === 'א') month = 'אדר א';
+  else {
+    month = normalizeMonth(month);
+    if (month === 'אדר' && part3 === 'ב') month = 'אדר ב';
+    if (month === 'אדר' && part3 === 'א') month = 'אדר א';
+  }
+  month = normalizeMonth(month);
+  return month ? { dayNum, month } : null;
+}
+
+function isHebrewLeapYear(y) { return [0, 3, 6, 8, 11, 14, 17].includes(y % 19); }
+
+function adjustAdar(month, hebYear) {
+  const leap = isHebrewLeapYear(hebYear);
+  if (!leap && (month === 'אדר א' || month === 'אדר ב')) return 'אדר';
+  if (leap && month === 'אדר') return 'אדר ב';
+  return month;
+}
+
+const HEB_DAY_FMT   = new Intl.DateTimeFormat('en-u-ca-hebrew', { day: 'numeric' });
+const HEB_YEAR_FMT  = new Intl.DateTimeFormat('en-u-ca-hebrew', { year: 'numeric' });
+const HEB_MONTH_FMT = new Intl.DateTimeFormat('he-u-ca-hebrew', { month: 'long' });
+
+function hebTarget(d) {
+  const dayNum = parseInt(HEB_DAY_FMT.format(d), 10);
+  const year   = parseInt(HEB_YEAR_FMT.format(d), 10);
+  const month  = normalizeMonth(HEB_MONTH_FMT.format(d));
+  let alt30Month = null;
+  if (dayNum === 1) {
+    const prev = addDays(d, -1);
+    if (parseInt(HEB_DAY_FMT.format(prev), 10) === 29) alt30Month = normalizeMonth(HEB_MONTH_FMT.format(prev));
+  }
+  return { dayNum, year, month, alt30Month };
+}
+
+function hebMatches(parsed, t) {
+  const personMonth = adjustAdar(parsed.month, t.year);
+  if (parsed.dayNum === t.dayNum && personMonth === t.month) return true;
+  if (parsed.dayNum === 30 && t.alt30Month && personMonth === adjustAdar(t.alt30Month, t.year)) return true;
+  return false;
+}
+
+// --- לועזי: "04/04/1979" -> "0404" (ddmm) ---
+function gregKey(s) {
+  const m = String(s || '').match(/^\s*(\d{1,2})[\/.\-](\d{1,2})/);
+  return m ? pad2(m[1]) + pad2(m[2]) : null;
+}
+
+// מחזיר [{ date, row, name, city, phone, label, hasGfx }]
+function computeBirthdays(from, days) {
+  const dates = [];
+  for (let i = 0; i < days; i++) {
+    const d = addDays(from, i);
+    dates.push({ d, gKey: pad2(d.getDate()) + pad2(d.getMonth() + 1), heb: hebTarget(d) });
+  }
+  const hits = [];
+  for (const row of DATA) {
+    const r = row._raw;
+    if (!getBirthdayReminder(r)) continue;
+    const name  = (g(r, C.FIRST) + ' ' + g(r, C.LAST)).replace(/\s+/g, ' ').trim() || '(ללא שם)';
+    const mode  = g(r, C.DOB_TYPE);
+    const base  = { row, name, city: g(r, C.CITY), phone: g(r, C.PHONE), hasGfx: GFX.has(normPhone(g(r, C.PHONE))) };
+    if (mode.includes('לועז')) {
+      const k = gregKey(g(r, C.DOB_G));
+      if (!k) continue;
+      for (const t of dates) if (t.gKey === k) hits.push({ ...base, date: t.d, label: 'לועזי' });
+    } else if (mode.includes('עבר')) {
+      const hebText = g(r, C.DOB_H);
+      const parsed = parseHebrewKey(hebText);
+      if (!parsed) continue;
+      for (const t of dates) if (hebMatches(parsed, t.heb)) hits.push({ ...base, date: t.d, label: 'עברי: ' + hebText.replace(/\s+/g, ' ') });
+    }
+  }
+  hits.sort((a, b) => (a.date - b.date) || a.name.localeCompare(b.name, 'he'));
+  return hits;
+}
+
+function whenText(d) {
+  const diff = Math.round((startOfDay(d) - startOfDay(new Date())) / 86400000);
+  if (diff === 0) return 'היום';
+  if (diff === 1) return 'מחר';
+  if (diff > 1) return 'בעוד ' + diff + ' ימים';
+  return '';
+}
+
+function openBirthdays() {
+  if (!BD_FROM) BD_FROM = startOfDay(new Date());
+  document.body.style.overflow = 'hidden';
+  renderBirthdays();
+}
+
+function renderBirthdays() {
+  const s = tplShell('🎂 ימי הולדת', `
+    <div class="bd-controls">
+      <div class="bd-line">מתאריך <input type="date" id="bdFrom" value="${toInputDate(BD_FROM)}">
+        <button class="bd-chip" id="bdToday">היום</button></div>
+      <div class="bd-line">למשך <input type="number" id="bdDays" min="1" max="366" inputmode="numeric" value="${BD_DAYS}"> ימים
+        ${[7, 14, 30].map(n => `<button class="bd-chip ${BD_DAYS === n ? 'on' : ''}" data-n="${n}">${n}</button>`).join('')}</div>
+    </div>
+    <div id="bdList"></div>`);
+
+  document.getElementById('bdFrom').onchange = e => {
+    const v = e.target.value;
+    if (!v) return;
+    const [y, m, d] = v.split('-').map(Number);
+    BD_FROM = new Date(y, m - 1, d);
+    renderBdList();
+  };
+  document.getElementById('bdToday').onclick = () => { BD_FROM = startOfDay(new Date()); renderBirthdays(); };
+  document.getElementById('bdDays').oninput = e => {
+    const n = parseInt(e.target.value, 10);
+    if (n >= 1 && n <= 366) { BD_DAYS = n; s.querySelectorAll('.bd-chip[data-n]').forEach(c => c.classList.toggle('on', +c.dataset.n === n)); renderBdList(); }
+  };
+  s.querySelectorAll('.bd-chip[data-n]').forEach(c => c.onclick = () => { BD_DAYS = +c.dataset.n; renderBirthdays(); });
+  renderBdList();
+}
+
+function renderBdList() {
+  const box = document.getElementById('bdList');
+  if (!box) return;
+  const hits = computeBirthdays(BD_FROM, BD_DAYS);
+  const to = addDays(BD_FROM, BD_DAYS - 1);
+  if (!hits.length) {
+    box.innerHTML = `<div class="tpl-empty">אין ימי הולדת בין ${ddmm(BD_FROM)} ל-${ddmm(to)} 🎈</div>`;
+    return;
+  }
+  const missing = hits.filter(h => !h.hasGfx).length;
+  let html = `<div class="bd-summary">${hits.length} חוגגים בין ${ddmm(BD_FROM)} ל-${ddmm(to)}${missing ? ` · ${missing} בלי גרפיקה` : ''}</div>`;
+  let lastKey = '';
+  for (const h of hits) {
+    const key = h.date.toDateString();
+    if (key !== lastKey) {
+      const w = whenText(h.date);
+      html += `<div class="bd-day">יום ${DAY_NAMES[h.date.getDay()]} ${ddmm(h.date)}${w ? ' · ' + w : ''}</div>`;
+      lastKey = key;
+    }
+    html += `<div class="bd-item">
+      <div class="bd-item-main">
+        <div class="bd-item-name">${escHtml(h.name)}</div>
+        <div class="bd-item-sub">${escHtml(h.city)}${h.city ? ' · ' : ''}(${escHtml(h.label)})</div>
+      </div>
+      <div class="bd-item-gfx ${GFX_STATE !== 'ready' ? 'no' : (h.hasGfx ? 'yes' : 'no')}">${GFX_STATE !== 'ready' ? '' : (h.hasGfx ? '🖼 ✓' : 'אין גרפיקה')}</div>
+    </div>`;
+  }
+  html += `<div class="bd-export">
+    ${missing ? `<button class="tpl-main-btn" id="bdReq">📋 בקשה לקבוצת הגרפיקה (${missing})</button>` : ''}
+    <button class="tpl-main-btn" id="bdCmd" style="background:var(--surface2);color:var(--text);border:1.5px solid var(--border)">📋 רשימת חוגגים לשליחה</button>
+  </div>`;
+  box.innerHTML = html;
+
+  const req = document.getElementById('bdReq');
+  if (req) req.onclick = () => bdCompose('בקשה לקבוצת הגרפיקה', bdRequestText(hits.filter(h => !h.hasGfx)));
+  document.getElementById('bdCmd').onclick = () => bdCompose('רשימת חוגגים', bdListText(hits, BD_FROM, to));
+}
+
+function bdRequestText(list) {
+  const h = new Date().getHours();
+  const greet = (h >= 5 && h < 12) ? 'בוקר טוב' : (h >= 12 && h < 17) ? 'צהריים טובים' : 'ערב טוב';
+  const names = [...new Set(list.map(x => x.name))];
+  const who = names.length === 1 ? "הג'יפאי" : "הג'יפאים";
+  return [greet + ',', 'אשמח לקבל גרפיקת יום הולדת עבור ' + who, ...names, 'תודה רבה'].join('\n');
+}
+
+function bdListText(hits, from, to) {
+  const lines = ['🎂 ימי הולדת בין ' + ddmm(from) + ' ל-' + ddmm(to) + ':', ''];
+  let lastKey = '';
+  for (const h of hits) {
+    const key = h.date.toDateString();
+    if (key !== lastKey) {
+      if (lastKey) lines.push('');
+      lines.push('יום ' + DAY_NAMES[h.date.getDay()] + ' ' + ddmm(h.date) + ':');
+      lastKey = key;
+    }
+    lines.push('• ' + h.name + ' (' + h.label + ')');
+  }
+  return lines.join('\n');
+}
+
+function bdCompose(title, text) {
+  tplShell(title, `
+    <div class="tpl-label">אפשר לערוך לפני ההעתקה</div>
+    <textarea class="tpl-text" id="bdOut" spellcheck="false"></textarea>
+    <button class="tpl-main-btn" id="bdCopy">📋 העתק הודעה</button>`, renderBirthdays);
+  const out = document.getElementById('bdOut');
+  out.value = text;
+  autoGrowEl(out);
+  out.addEventListener('input', () => autoGrowEl(out));
+  const btn = document.getElementById('bdCopy');
+  btn.onclick = async () => {
+    const ok = await copyToClipboard(cleanText(out.value));
+    btn.textContent = ok ? '✓ הועתק – אפשר להדביק בוואטסאפ' : 'ההעתקה נכשלה – סמן והעתק ידנית';
+    btn.classList.toggle('done', ok);
+    setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 2500);
+  };
 }
 
 loadData();
