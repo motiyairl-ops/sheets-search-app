@@ -422,6 +422,18 @@
   .ep-phone { direction: ltr; text-align: right; }
   .ep-in.bad, .tpl-input.bad { border-color: var(--red); background: rgba(248,113,113,0.08); }
   .ep-note { font-size: 13px; color: var(--text2); }
+  /* ── v47 ── */
+  .tr-sec-title { font-size: 16px; font-weight: 800; color: var(--text2); margin: 18px 0 8px; }
+  .tr-test-row.one { white-space: nowrap; }
+  .tr-test-row.one span { white-space: nowrap; }
+  .tr-next { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 19px; margin-top: 4px; }
+  .tr-next-arrow { font-size: 30px; line-height: 1; }
+  .tr-act { white-space: normal; line-height: 1.25; }
+  .msg-preview {
+    margin-top: 6px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px;
+    padding: 10px 12px; font-size: 15px; line-height: 1.55; white-space: pre-wrap; color: var(--text);
+  }
+  .tr-track-note { margin-top: 14px; font-size: 14px; color: var(--text2); line-height: 1.5; background: var(--surface); border-radius: 10px; padding: 10px 12px; }
   .heb-next { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 2px; }
 
   /* ── v39: כפתור הודעות בכותרת ── */
@@ -511,7 +523,7 @@
   <div class="hdr-title" id="hdrTitle">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v46</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v47</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
       <button class="refresh-btn" onclick="loadData()" aria-label="רענון">↻</button>
@@ -2393,7 +2405,7 @@ function trList() {
   TR_CUR = null;
   const filled = filledSet();
   const list = (TRAININGS || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
-  const items = list.map(t => {
+  const card = t => {
     const c = trCounts(t, filled);
     const counts = t.stage === 'הרשמה' ? `נרשמו ${c.reg}` : `נרשמו ${c.reg} · הגיעו ${c.came}${t.track ? ` · מילאו טופס ${c.filled}` : ''}`;
     return `<div class="tpl-item" data-id="${escHtml(t.id)}">
@@ -2401,10 +2413,15 @@ function trList() {
       <div class="tpl-item-title">${escHtml(t.type || 'הדרכה')} · ${isoToHe(t.date)}</div>
       <div class="tr-sub">${[t.time, t.place].filter(Boolean).map(escHtml).join(' · ')}${t.time || t.place ? '<br>' : ''}${counts}</div>
     </div>`;
-  }).join('');
+  };
+  const active = list.filter(t => t.stage !== 'סגורה').map(card).join('');
+  const past = list.filter(t => t.stage === 'סגורה').map(card).join('');
   tplShell('🎓 הדרכות', `
     <button class="tpl-add" id="trNew">＋ הדרכה חדשה</button>
-    ${items || '<div class="tpl-empty">אין עדיין הדרכות</div>'}
+    <div class="tr-sec-title">פעילות</div>
+    ${active || '<div class="tpl-hint">אין הדרכות פעילות</div>'}
+    <div class="tr-sec-title">📚 הדרכות שהסתיימו</div>
+    ${past || '<div class="tpl-hint">עוד אין הדרכות שהסתיימו</div>'}
     <button class="tr-big-btn ghost" id="trTypes">⚙️ סוגי הדרכות</button>`);
   document.getElementById('trNew').onclick = trWizard;
   document.getElementById('trTypes').onclick = trTypesScreen;
@@ -2424,7 +2441,7 @@ function trDetailsFields(t) {
       <div><div class="tpl-label">שעה</div><input class="tpl-input" type="time" id="trTime" value="${escHtml(t.time || '')}"></div>
       <div style="flex:2"><div class="tpl-label">מקום</div><input class="tpl-input" id="trPlace" value="${escHtml(t.place || '')}" placeholder="למשל: בית המתנדב צפת"></div>
     </div>
-    <label class="tr-test-row"><input type="checkbox" id="trTest" ${t.test ? 'checked' : ''}> 🧪 הדרכת ניסיון <span>(לא נרשם בטאב המעקב, אפשר למחוק בסוף)</span></label>`;
+    <label class="tr-test-row one"><input type="checkbox" id="trTest" ${t.test ? 'checked' : ''}> 🧪 הדרכת ניסיון <span>(לא נרשם במעקב)</span></label>`;
 }
 function trReadDetails(t) {
   t.date = document.getElementById('trDate').value || isoToday();
@@ -2615,25 +2632,24 @@ function trView() {
   else summary = `הגיעו <b>${c.came}</b> מתוך <b>${c.reg}</b>${c.no ? ` · לא הגיעו <b>${c.no}</b>` : ''}${t.track ? ` · מילאו טופס <b>${c.filled}</b>` : ''}`;
 
   let top = '', bottom = '';
+  const nextBtn = label => `<button class="tr-big-btn tr-next" id="trNext"><span>${label}</span><span class="tr-next-arrow">⬅</span></button>`;
   if (stage === 'הרשמה') {
-    top = `<div class="tr-btn-row">
-        <button class="tr-big-btn half" id="trImport">📥 עדכן מוואטסאפ</button>
+    top = `
+      ${nextBtn('✅ התחל הדרכה')}
+      <button class="tr-big-btn ghost" id="trShare">📤 שלח רשימת נרשמים</button>
+      <div class="tr-btn-row" style="margin-top:10px">
+        <button class="tr-big-btn half ghost" id="trImport">📥 הדבק רשימה מעודכנת מוואטסאפ</button>
         <button class="tr-big-btn half ghost" id="trAdd">＋ הוסף משתתף</button>
       </div>`;
-    bottom = `
-      <button class="tr-big-btn ghost" id="trShare">📤 שלח רשימת נרשמים</button>
-      <button class="tr-big-btn" id="trNext">✅ התחל הדרכה ←</button>
-      <div class="tpl-hint" style="text-align:center">ביום ההדרכה: מסמנים מי הגיע ושולחים טופס</div>`;
   } else if (stage === 'יום ההדרכה') {
-    top = `<div class="tr-btn-row"><button class="tr-big-btn ghost" id="trAdd">＋ הוסף משתתף שהגיע</button></div>`;
-    bottom = `
+    top = `
+      ${nextBtn('🔒 סגור הדרכה')}
       <button class="tr-big-btn ghost" id="trShare">📤 שלח רשימת משתתפים</button>
-      <button class="tr-big-btn" id="trNext">🔒 סגור הדרכה ←</button>
-      <button class="tr-link-btn" id="trBack">→ חזרה לשלב ההרשמה</button>`;
+      <div class="tr-btn-row" style="margin-top:10px"><button class="tr-big-btn ghost" id="trAdd">＋ הוסף משתתף שהגיע</button></div>`;
+    bottom = `<button class="tr-link-btn" id="trBack">→ חזרה לשלב ההרשמה</button>`;
   } else {
-    bottom = `
-      <button class="tr-big-btn ghost" id="trShare">📤 שלח רשימת משתתפים</button>
-      <button class="tr-link-btn" id="trReopen">🔓 פתח מחדש לעריכה</button>`;
+    top = `<button class="tr-big-btn ghost" id="trShare">📤 שלח רשימת משתתפים</button>`;
+    bottom = `<button class="tr-link-btn" id="trReopen">🔓 פתח מחדש לעריכה</button>`;
   }
 
   tplShell(`${t.type || 'הדרכה'} · ${isoToHe(t.date)}`, `
@@ -2682,15 +2698,15 @@ function trPersonRow(t, p, i, filled) {
   let actions = '';
   if (stage === 'הרשמה') {
     actions = `
-      ${!cancel && p.phone && t.msgReminder ? `<button class="tr-act send" data-send="${i}" data-kind="reminder">🔔 תזכורת</button>` : ''}
-      <button class="tr-act ${cancel ? 'on-no' : ''}" data-st="${i}" data-v="ביטל">${cancel ? '↩︎ החזר' : '✗ ביטל'}</button>`;
+      ${!cancel && p.phone && t.msgReminder ? `<button class="tr-act send" data-send="${i}" data-kind="reminder">🔔 שלח הודעת תזכורת</button>` : ''}
+      <button class="tr-act ${cancel ? 'on-no' : ''}" data-st="${i}" data-v="ביטל">${cancel ? '↩︎ החזר לרשימה' : '✗ ביטל / לא מגיע'}</button>`;
   } else if (stage === 'יום ההדרכה') {
     actions = cancel ? '' : `
       <button class="tr-act ${came ? 'on-yes' : ''}" data-st="${i}" data-v="הגיע">✓ הגיע</button>
       <button class="tr-act ${no ? 'on-no' : ''}" data-st="${i}" data-v="לא הגיע">✗ לא הגיע</button>
-      ${came && p.phone && t.msgFinal ? `<button class="tr-act send" data-send="${i}" data-kind="final">📋 שלח טופס</button>` : ''}`;
+      ${came && p.phone && t.msgFinal ? `<button class="tr-act send" data-send="${i}" data-kind="final">${t.track ? '📋 שלח טופס' : '💬 שלח הודעה'}</button>` : ''}`;
   } else {
-    actions = came && p.phone && t.msgFinal && !f ? `<button class="tr-act send" data-send="${i}" data-kind="final">📋 שלח טופס שוב</button>` : '';
+    actions = came && p.phone && t.msgFinal && t.track && !f ? `<button class="tr-act send" data-send="${i}" data-kind="final">📋 שלח טופס שוב</button>` : '';
   }
   return `<div class="tr-person ${cancel || no ? 'no' : ''}">
     <div class="tr-p-main" ${stage !== 'סגורה' ? `data-edit="${i}"` : ''}>
@@ -2811,35 +2827,80 @@ function trCloseScreen() {
 
 // ── עריכת פרטי הדרכה והודעות ──
 function trEdit(t) {
-  const tpls = TPL || [];
-  const sel = (id, cur) => `<select class="tpl-input" id="${id}">
-      <option value="" ${!cur ? 'selected' : ''}>🚫 בלי הודעה</option>
-      ${tpls.map(x => `<option ${x.title === cur ? 'selected' : ''}>${escHtml(x.title)}</option>`).join('')}
-      ${cur && !tplByTitle(cur) ? `<option selected>${escHtml(cur)}</option>` : ''}
-    </select>`;
-  tplShell('פרטי ההדרכה', `
-    ${trDetailsFields(t)}
-    <div class="tpl-label" style="margin-top:16px">🔔 הודעת תזכורת (בשלב ההרשמה)</div>
-    ${sel('trMsgRem', t.msgReminder)}
-    <div class="tpl-label">📋 הודעת סיום (למי שהגיע)</div>
-    ${sel('trMsgFin', t.msgFinal)}
-    <label class="tr-test-row"><input type="checkbox" id="trTrack" ${t.track ? 'checked' : ''}> 📋 מעקב מילוי טופס <span>(תגיות "מילא טופס" והוספה לטאב המעקב)</span></label>
-    <div class="tpl-hint">את נוסח ההודעות עורכים ב"📝 הודעות". אפשר להשתמש ב-{שם}, {תאריך}, {שעה}, {מקום}</div>
-    <button class="tr-big-btn" id="trSave">💾 שמור</button>
-    <button class="tr-big-btn danger" id="trDel">🗑 מחק הדרכה</button>`, trView);
-  document.getElementById('trMsgFin').onchange = e => {
-    const tp = tplByTitle(e.target.value);
-    document.getElementById('trTrack').checked = !!(tp && FORM_LINK_RE.test(tp.text));
+  const draft = { reminder: t.msgReminder, final: t.msgFinal };
+  const d = { ...t };  // עותק – נשמר רק בלחיצה על "שמור"
+  const render = () => {
+    trReadDetailsSafe(d);
+    tplShell('פרטי ההדרכה', `
+      ${trDetailsFields(d)}
+      ${msgBlock('reminder', '🔔 הודעת תזכורת (נשלחת בשלב ההרשמה)', draft.reminder)}
+      ${msgBlock('final', '📋 הודעת סיום (נשלחת למי שהגיע)', draft.final)}
+      <div class="tr-track-note">${(() => { const tp = tplByTitle(draft.final);
+        return tp && FORM_LINK_RE.test(tp.text)
+          ? '📋 הודעת הסיום כוללת קישור לטופס – יוצג מי מילא, ובסגירה מי שלא מילא יתווסף לטאב המעקב'
+          : 'ℹ️ הודעת הסיום בלי קישור לטופס – אין מעקב מילוי טופס'; })()}</div>
+      <button class="tr-big-btn" id="trSave">💾 שמור</button>
+      <button class="tr-big-btn danger" id="trDel">🗑 מחק הדרכה</button>
+      <div class="tpl-hint" style="text-align:center">מחיקה מוחקת את ההדרכה ואת רשימת המשתתפים שלה מטאב "הדרכות". טאב המעקב לא משתנה.</div>`, trView);
+    ['reminder', 'final'].forEach(kind => {
+      const sel = document.getElementById('msg-' + kind);
+      sel.onchange = async () => {
+        if (sel.value === '__new__') {
+          const title = (prompt('שם להודעה החדשה:') || '').trim();
+          if (!title) { sel.value = draft[kind] || ''; return; }
+          if (tplByTitle(title)) { showToast('כבר יש הודעה בשם הזה', 'err'); sel.value = draft[kind] || ''; return; }
+          const ok = await tplSaveAll((TPL || []).concat([{ id: Date.now().toString(36), title, text: '' }]), null);
+          if (!ok) return;
+          draft[kind] = title; render(); openMsgEditor(kind); return;
+        }
+        draft[kind] = sel.value; render();
+      };
+      const ed = document.getElementById('edit-' + kind);
+      if (ed) ed.onclick = () => openMsgEditor(kind);
+    });
+    document.getElementById('trSave').onclick = () => {
+      trReadDetails(d);
+      Object.assign(t, { date: d.date, type: d.type, time: d.time, place: d.place, test: d.test });
+      t.msgReminder = draft.reminder;
+      t.msgFinal = draft.final;
+      const tp = tplByTitle(t.msgFinal);
+      t.track = !!(tp && FORM_LINK_RE.test(tp.text));
+      trSaveNow(); trView();
+    };
+    document.getElementById('trDel').onclick = () => trDelete(t);
   };
-  document.getElementById('trSave').onclick = () => {
-    trReadDetails(t);
-    t.msgReminder = document.getElementById('trMsgRem').value;
-    t.msgFinal = document.getElementById('trMsgFin').value;
-    t.track = document.getElementById('trTrack').checked && !!t.msgFinal;
-    trSaveNow(); trView();
+  const msgBlock = (kind, label, cur) => {
+    const tp = tplByTitle(cur);
+    const sample = { name: 'ישראל ישראלי' };
+    return `<div class="tpl-label" style="margin-top:16px">${label}</div>
+      <select class="tpl-input" id="msg-${kind}">
+        <option value="" ${!cur ? 'selected' : ''}>🚫 בלי הודעה</option>
+        ${(TPL || []).map(x => `<option ${x.title === cur ? 'selected' : ''}>${escHtml(x.title)}</option>`).join('')}
+        <option value="__new__">➕ הודעה חדשה...</option>
+      </select>
+      ${tp ? `<div class="msg-preview" id="prev-${kind}">${escHtml(fillVars(tp.text, sample, d)) || '<i>(ההודעה ריקה)</i>'}</div>
+        <button class="tr-act" id="edit-${kind}" style="width:100%;margin-top:6px">✏️ ערוך נוסח</button>` : ''}`;
   };
-  document.getElementById('trDel').onclick = () => trDelete(t);
+  const openMsgEditor = kind => {
+    const tp = tplByTitle(draft[kind]);
+    if (!tp) return;
+    const box = document.getElementById('prev-' + kind);
+    const btn = document.getElementById('edit-' + kind);
+    box.outerHTML = `<textarea class="tpl-text" id="ta-${kind}" spellcheck="false" style="margin-top:6px">${escHtml(tp.text)}</textarea>
+      <div class="tpl-hint">אפשר להשתמש ב-{שם}, {תאריך}, {שעה}, {מקום}. שינוי הנוסח משנה את ההודעה בכל מקום שבו היא בשימוש.</div>`;
+    const ta = document.getElementById('ta-' + kind);
+    autoGrowEl(ta); ta.oninput = () => autoGrowEl(ta); ta.focus();
+    btn.textContent = '💾 שמור נוסח';
+    btn.classList.add('on-yes');
+    btn.onclick = async () => {
+      const upd = (TPL || []).map(x => x.title === tp.title ? { ...x, text: cleanText(ta.value).trim() } : x);
+      btn.disabled = true; btn.textContent = 'שומר...';
+      if (await tplSaveAll(upd, null)) render(); else { btn.disabled = false; btn.textContent = '💾 שמור נוסח'; }
+    };
+  };
+  render();
 }
+function trReadDetailsSafe(t) { if (document.getElementById('trDate')) trReadDetails(t); }
 
 async function trDelete(t) {
   const msg = t.test
@@ -2912,15 +2973,15 @@ function parseImportLine(line) {
 }
 
 function trImport() {
-  pasteScreen('עדכון מוואטסאפ',
-    '<div class="wz-hint">העתק שוב את הודעת ההרשמה המעודכנת מהקבוצה והדבק כאן. רק שמות חדשים יתווספו.</div>',
+  pasteScreen('הדבקת רשימה מעודכנת',
+    '<div class="wz-hint">העתק שוב את הודעת ההרשמה מקבוצת הוואטסאפ (עם השמות שנוספו מאז) והדבק כאן.<br>רק שמות חדשים יתווספו – מי שכבר ברשימה לא ייכנס פעמיים.</div>',
     trView, txt => {
       const t = TR_CUR;
       const existing = new Set(t.people.map(x => normPhone(x.phone)));
       const found = parsePeople(txt).map(x => ({ ...x, dup: existing.has(x.phone), on: !existing.has(x.phone) }));
       found.sort((a, b) => a.dup - b.dup);
       const fresh = found.filter(x => !x.dup).length;
-      tplShell('עדכון מוואטסאפ', `
+      tplShell('הדבקת רשימה מעודכנת', `
         <div class="tr-summary">${fresh ? `נמצאו <b>${fresh}</b> חדשים` : 'אין שמות חדשים'} · ${found.length - fresh} כבר ברשימה</div>
         ${editablePeople(found)}
         ${fresh ? '<button class="tr-big-btn" id="impAdd">＋ הוסף את החדשים</button>' : '<button class="tr-big-btn ghost" id="impBack">חזרה</button>'}`, trView);
