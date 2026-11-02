@@ -43,7 +43,7 @@
   .hdr-title .logo img { width: 100%; height: 100%; object-fit: cover; }
   .hdr-title .header-title { font-size: 23px; font-weight: 800; white-space: nowrap; }
   .hdr-title .ver { font-size: 12px; font-weight: 400; color: var(--text2); }
-  .toolbar { display: flex; gap: 8px; padding: 2px 16px 12px; background: var(--surface); }
+  .toolbar { display: flex; gap: 6px; padding: 2px 16px 12px; background: var(--surface); }
   .tb-btn {
     flex: 1; min-height: 58px; border-radius: 14px; cursor: pointer;
     background: var(--surface2); border: 1px solid var(--border); color: var(--text);
@@ -308,6 +308,45 @@
   .area-dist { font-size: 13px; color: var(--accent2); font-weight: 700; white-space: nowrap; direction: rtl; }
   .area-phone { font-size: 13px; color: var(--text2); direction: ltr; }
   .area-unknown { font-size: 12px; color: var(--text2); margin-top: 14px; line-height: 1.6; }
+  /* ── v44: הדרכות ── */
+  .tr-sub { font-size: 14px; color: var(--text2); }
+  .tr-test { font-size: 13px; color: var(--accent); font-weight: 700; }
+  .tr-test-row { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 16px; }
+  .tr-test-row input { width: 22px; height: 22px; }
+  .tr-test-row span { font-size: 13px; color: var(--text2); }
+  .tr-test-banner { background: rgba(232,160,32,0.15); border: 1px solid var(--accent); color: var(--accent); border-radius: 10px; padding: 8px 12px; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .tr-summary { font-size: 16px; color: var(--text2); margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+  .tr-summary b { color: var(--text); font-size: 18px; }
+  .tr-save { font-size: 12px; margin-right: auto; color: var(--text2); }
+  .tr-save.saved { color: var(--green); }
+  .tr-save.error { color: var(--red); cursor: pointer; }
+  .tr-person { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px; margin-bottom: 8px; }
+  .tr-person.no { opacity: 0.55; }
+  .tr-p-main { cursor: pointer; }
+  .tr-p-name { font-size: 19px; font-weight: 700; }
+  .tr-p-sub { font-size: 15px; color: var(--text2); margin-top: 2px; }
+  .tr-p-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .tr-tag { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 8px; background: var(--surface2); }
+  .tr-tag.ok { color: var(--green); }
+  .tr-tag.wait { color: var(--accent); }
+  .tr-tag.sent { color: var(--blue); }
+  .tr-p-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .tr-st, .tr-send {
+    flex: 1; padding: 12px 6px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface2);
+    color: var(--text2); font-family: 'Heebo', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+  .tr-st.on-yes { background: rgba(52,211,153,0.2); border-color: var(--green); color: var(--green); }
+  .tr-st.on-no  { background: rgba(248,113,113,0.15); border-color: var(--red); color: var(--red); }
+  .tr-send { background: #25d366; border-color: #25d366; color: #000; flex: 1.3; }
+  select.tpl-input { -webkit-appearance: none; appearance: none; }
+  .imp-row { display: flex; gap: 10px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; margin-bottom: 8px; }
+  .imp-row.dup { opacity: 0.5; }
+  .imp-row input[type=checkbox] { width: 22px; height: 22px; margin-top: 8px; flex-shrink: 0; }
+  .imp-main { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .imp-in { background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-family: 'Heebo', sans-serif; font-size: 16px; }
+  .tr-type-row { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; margin-bottom: 8px; font-size: 17px; }
+  .tr-type-row span { flex: 1; }
+  .tr-type-row .tpl-sec-btn { flex: 0 0 auto; padding: 8px 12px; }
   .heb-next { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 2px; }
 
   /* ── v39: כפתור הודעות בכותרת ── */
@@ -397,7 +436,7 @@
   <div class="hdr-title" id="hdrTitle">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAAAAAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABGAFADASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAcDBQQGCAL/xAAxEAACAQMDAwMCBgICAwAAAAABAgMEBREABhIHEyEiMVEIQRQVI2FxgRYyQqGRsfH/xAAZAQADAQEBAAAAAAAAAAAAAAAAAwQFAgH/xAArEQABBAIAAwYHAQAAAAAAAAABAAIDERIhBCIxE0FRYXGBIzIzkbHR8PH/2gAMAwEAAhEDEQA/AOy9GjVFvu91Vh23U11vo1r68ACmpS3Hutnz5+AMk/sNegXpeE0LKvdK7e3XfYe07vW2m4S3Geuope1NDT0hbicA55EhcefnWPuvrPT7eekoq2wVKXGsQdqn72eJIOORC4xn7DzjPjwdJLbVubcu+Lh1CmpkVZHLSRsgmg/FzTrBG4Vx5QIxl4tnHDJ8HVEUIO39FJNxOw2M7TPh+qXYTScZLVuBEzjkIYm/vAk9tbhtbrf013BIkMG44aKoc4ENejU5z8Zb0/8AekV27BHQ9QL3VbdoZztW+1klHmiTt1InRo0RhgBljcCXjjAByMDWuX7bVDZOh8sdTb6L85VqCaapaAfiVeqZpBHzz4VYVTK493J04wRHQsKccTM3ZIP9/q7dikSWNZInV0YAqynII+QdetJr6VLVPt/oxSV9Qs8kt1qTUxQdw+iNmCRqoY4UELy8Y/204KWojqELRk5BwykYZT8EfY6je3FxHgtGN+bQ46tS6NGjXC7RpNddKWnvt+S0JWduugov0BKJFp6cyP66mR1IC9tVGBkEswxpy6WnXXbkN42zVzx28tXRKrpLDB3ZZogf1IgAQScDPEHzg4ycjTIjTkmcWwhc+V29obTb5rHTQyGyNRvHG1wjWsEsoBIZPuq9wZBHk8snGBql2Zf63a265xTRTV1FXYd6fun9VVBbB84kQMGUg+CF9x76lvexUqrFtyrtFXU87nTVdZO1aDHFFSxOqrMVAJRTnGPJPg+M41PbdtmJIoxvyw0zCiNAJIqOpdliZyW9RjGCeRBPx41oDCljfFy9Fc2V99bspq2baFhob9aZjWmuSaULM0lWgRkl5SA/poqiNgMcRjyQdYG5LX1wq9n1W379tS8VxqHj5VvbWWQRJjEOIyRw5KrZxkEe+NT7O27eNibgpr3DfqO3CqpGe11lZK1NTT5xxEyZL8WXLKCuD4J44AOy3/df1B9l5aVKK6U6DLSWKSGpAH2PFD3P/I15dHlr3TWtJZz3fkuibTaltm3rXbIVJpaOlhgCIMMnBQA6/uMeR/8ACjOq29d79M+t8F/ujtV7WrqeOmSGEeiSJPLjiSMTqWLA/cHHtkDX+ku+OqG5N7x0FyqrnT00MbyTgwyKXOOCJhzgEuyk+M4UnWxbwux3t01e1blSlT8zLG03FSVU1sWcMUPlASGViPBBY8V/5Ttj7N9O2q3SiWO2WCOnsuhLRcKO62uludvnSopKqJZoZU9nRhkEf1rK0j/pBu9eNqXbZl4hmp6/b1Xx7Up9SRy5YL/AYPj7YIx4xp4ankZg4tVcT+0YHI0tev8AVXOlsdmktddUUcsdzWYtAvJ5eMb4j4n/AGBJGR8DPjGQytaH10sUt52JLNToXqLVL+YQovuzRxuMD98Nn+tEdZC0TAlhpLJr3L1Doqsfkz0qU8TUHFGIdh3I5DICsLcckhCD75J8n21e2U23bBuzF1tt8rVt8KVlRTxRQ1MckcjGJQSCpA5kZyoGAc6l6dVNTe4Em/yn8HVCgpqikWa4LTisQK6SkO6OvON1TICg4PkjIbWRZbbSbnrhuC9V092oqWr7FVWUNuqZyyoMcDPTOc8eQZf0+P3++q6xsdygsuo96X3UK73WdbUbUlJVS0dEsUlQ9JC1SccRxVH5uEUAHwWALe+ANUViuW84LnHV8qyvZWDSxxukkyID6ioUl0IHkYGBjyMaY3VWPbVLVW+h2jebnVW+tgc1YmnYofXgIVKBwR2zkHPxg+2qe7We8Q/itvbXqltNPYzAteaORUqKitkALMxBD9uIsqL7DIOPUcB7HjGqUz2OyJv7J59P0/znb9slurzTVtPVT2+8RmpkWKoFPIRlkHgliY2wfGGYex1i9SOndNU217RbYamjprdmqpIkpxOlQGh7PaCohKYJGCfUfJz4JC06D79bb9BPW3qC63KuqrlUVRdSgUs6qkhxzVnYmM5IVlz8MNMzc/V+1tYrnXULXCGqeiEcdNJRSIAQxyQ5UZPqCjBxlh9/eVzHtfpWxyRvj5uq9fTHTTf4TZrvVw1Et0mpZaGtepBWdBBOQqtn/YKGGOXkDOD9tOjSb+lmrmrduXY1FeayWmuDI7MhVldkjLqck5wVwCCR4wPbTk0mb5yqeH+mEagr6YVdHLTGWaHuLjuQvwdf3B+x1Po0pOXDXWbae4unO7aqhFZPJaLjO1VRzPEjJLk+rKleIlXODgDxgjx7ZVPvjrJsTbdFDRStT2UoXgqordDPTy8iSW7yqQzZzkk5z767D3htmy7ssctmv1DHWUkhDAN4ZGHsyn3Vh8j+PYnXPtZ036q9MLpUVvT64NebPO5eWiKKcj4eA4VjjA5R4J+NXxzteKcBfn3rJl4Z8Ti5hNHw6hKqr6h3HcVzor1uGaCrrCvYnkEYQNxJKjCEYyrY8HyQffyDf3Tdlt25f94q8DfmNTeZKxm5ZFRDy7tPgEEDPPBYYwoHn7Gn3PfrHc75JV722Hd7fcHHGRLfOlEn8dt4f+yxP76kp73sWshho7P0sud4qY4xFT/jrtPUYUE4XhCBkDJwMgDT8R4fhTCXZ5t+/wClsewuqvTq39PKDZG9dnz3Wmp2eSSfhFMGldy7MFYqy+WIGDkgah6q7i6Z3a4bQu2w6Clou3VyLWU8VuMDlQE4sQBghSCPBJ86t9gdI9+7guC1lfZrHsy2l+RK2uFqnHwiuHYfy7D+9dNbZ2/b7Ba4KGjRn7S4M8oBlkJ92YgDyf2AHwNIkkYx1jr6quGKWVtO0PMb0l59LVHNH0+luU9K1K1ZU+lHGGKxoqciPfywYjPuMH76bOjRqJ7snErRjZg0NRo0aNcrtGjRo0IXiSKOReMiK6/DDI0RQxRLxijRB8KoH/rRo0IXvRo0aEI0aNGhC//Z" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v43</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v44</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
       <button class="refresh-btn" onclick="loadData()" aria-label="רענון">↻</button>
@@ -406,8 +445,8 @@
   <div class="toolbar">
     <button class="tb-btn" onclick="openArea()"><span class="tb-ic">📍</span><span class="tb-lb">אזור</span></button>
     <button class="tb-btn" onclick="openBirthdays()"><span class="tb-ic">🎂</span><span class="tb-lb">ימי הולדת</span></button>
+    <button class="tb-btn" onclick="openTrainings()"><span class="tb-ic">🎓</span><span class="tb-lb">הדרכות</span></button>
     <button class="tb-btn" onclick="openTemplates()"><span class="tb-ic">📝</span><span class="tb-lb">הודעות</span></button>
-    <button class="tb-btn" onclick="exportCSV()"><span class="tb-ic">📤</span><span class="tb-lb">ייצוא</span></button>
   </div>
 
   <div class="header hdr-search" id="hdrSearch">
@@ -1924,6 +1963,9 @@ const PLACE_ALIASES = {
   'גש': "ג'ש (גוש חלב)",
   'חיספין': 'חספין',
   'בוקעאתה': 'בוקעאתא',
+  'מעאר': 'מגאר',
+  'מגאר': 'מגאר',
+  'מגדלאלכרום': 'מגד אל-כרום',
 };
 
 const PLACE_INDEX = new Map(PLACES.map(p => [placeKey(p[0]), p]));
@@ -1964,8 +2006,8 @@ function renderArea() {
           <div class="area-sugg" id="areaSugg" style="display:none"></div>
         </span>
       </div>
-      <div class="bd-line">ברדיוס <input type="number" id="areaRadius" min="1" max="200" inputmode="numeric" value="${AREA.radius}"> ק"מ
-        ${[5, 10, 20, 30].map(n => `<button class="bd-chip ${AREA.radius === n ? 'on' : ''}" data-r="${n}">${n}</button>`).join('')}</div>
+      <div class="bd-line">ברדיוס <input type="number" id="areaRadius" min="0" max="200" inputmode="numeric" value="${AREA.radius}"> ק"מ
+        ${[0, 5, 10, 20, 30].map(n => `<button class="bd-chip ${AREA.radius === n ? 'on' : ''}" data-r="${n}">${n === 0 ? 'רק ביישוב' : n}</button>`).join('')}</div>
       <div class="bd-line">
         <button class="bd-chip ${AREA.kananet ? 'on' : ''}" id="areaKan">🪝 רק עם כננת</button>
         <button class="bd-chip" id="areaReset" style="margin-right:auto">🔄 חיפוש חדש</button>
@@ -1997,7 +2039,7 @@ function renderArea() {
 
   document.getElementById('areaRadius').oninput = e => {
     const n = parseFloat(e.target.value);
-    if (n > 0 && n <= 200) {
+    if (n >= 0 && n <= 200) {
       AREA.radius = n; saveArea();
       s.querySelectorAll('.bd-chip[data-r]').forEach(c => c.classList.toggle('on', +c.dataset.r === n));
       renderAreaList();
@@ -2039,7 +2081,7 @@ function areaResults() {
     const p = findPlace(city);
     if (!p) { if (city) unknown.push(name + ' (' + city + ')'); continue; }
     const d = distKm(center, p);
-    if (d <= AREA.radius) list.push({ row, name, city: city.replace(/\s+/g, ' '), place: p[0], phone: g(r, C.PHONE), d });
+    if (AREA.radius === 0 ? p === center : d <= AREA.radius) list.push({ row, name, city: city.replace(/\s+/g, ' '), place: p[0], phone: g(r, C.PHONE), d });
   }
   list.sort((a, b) => (a.d - b.d) || a.name.localeCompare(b.name, 'he'));
   return { center, list, unknown };
@@ -2057,7 +2099,7 @@ function renderAreaList() {
   const sent = new Set(AREA.sent);
   const hasSent = sent.size > 0;
   const fresh = list.filter(x => !sent.has(normPhone(x.phone)));
-  let html = `<div class="bd-summary">${list.length} כוננים${AREA.kananet ? ' עם כננת' : ''} ברדיוס ${AREA.radius} ק"מ מ${escHtml(center[0])}${hasSent && fresh.length ? ` · ${fresh.length} חדשים` : ''}</div>`;
+  let html = `<div class="bd-summary">${list.length} כוננים${AREA.kananet ? ' עם כננת' : ''} ${escHtml(areaWhere(center))}${hasSent && fresh.length ? ` · ${fresh.length} חדשים` : ''}</div>`;
 
   for (const x of list) {
     const id = x.row._id;
@@ -2076,7 +2118,7 @@ function renderAreaList() {
       ${isOpen ? `<div class="card-body"><div class="card-body-inner">${cardBodyInner(x.row)}</div></div>` : ''}
     </div>`;
   }
-  if (!list.length) html += '<div class="tpl-empty">אין כוננים ברדיוס הזה – נסה להגדיל</div>';
+  if (!list.length) html += `<div class="tpl-empty">${AREA.radius === 0 ? 'אין כוננים ביישוב הזה' : 'אין כוננים ברדיוס הזה – נסה להגדיל'}</div>`;
 
   if (list.length) html += `<div class="bd-export">
     ${hasSent && fresh.length ? `<button class="tpl-main-btn" id="areaNew">📋 העתק רק את החדשים (${fresh.length})</button>` : ''}
@@ -2098,11 +2140,15 @@ function renderAreaList() {
 }
 
 // v43: הודעה מקובצת לפי יישוב (מהקרוב לרחוק), כותרות מודגשות בוואטסאפ (*...*)
+function areaWhere(center) {
+  return AREA.radius === 0 ? 'ב' + center[0] : `ברדיוס ${AREA.radius} ק"מ מ${center[0]}`;
+}
+
 function areaText(center, arr, isAddition) {
   const kan = AREA.kananet ? ' עם כננת' : '';
   const head = isAddition
-    ? `*תוספת: ${arr.length} כוננים${kan} חדשים ברדיוס ${AREA.radius} ק"מ מ${center[0]}*`
-    : `*${arr.length} כוננים${kan} ברדיוס ${AREA.radius} ק"מ מ${center[0]}*`;
+    ? `*תוספת: ${arr.length} כוננים${kan} חדשים ${areaWhere(center)}*`
+    : `*${arr.length} כוננים${kan} ${areaWhere(center)}*`;
   const groups = new Map();
   for (const x of arr) {
     if (!groups.has(x.place)) groups.set(x.place, { d: x.d, people: [], names: {} });
@@ -2142,6 +2188,387 @@ function areaCompose(title, text, people) {
     btn.classList.toggle('done', ok);
     setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 2500);
   };
+}
+
+// ════════════════════════════════════════════════════════════════
+// v44: הדרכות – רשימת משתתפים, נוכחות, שליחת קישור לטופס בוואטסאפ
+// נשמר בגיליון (טאב "הדרכות") דרך סקריפט הקבצים. הדרכת ניסיון לא נוגעת בטאב המעקב.
+// ════════════════════════════════════════════════════════════════
+
+let TRAININGS = null;        // null = עוד לא נטען
+let TR_TYPES = null;
+let TR_CUR = null;           // ההדרכה הפתוחה
+let TR_SAVE_TIMER = null;
+let TR_SAVE_STATE = '';      // '' | 'saving' | 'saved' | 'error'
+const TR_MSG_KEY = 'panther-tr-msg';
+
+function trUid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function isoToday() { return toInputDate(new Date()); }
+function isoToHe(iso) { const m = String(iso || '').match(/(\d{4})-(\d{2})-(\d{2})/); return m ? `${m[3]}/${m[2]}/${m[1]}` : (iso || ''); }
+function firstName(n) { return String(n || '').trim().split(/\s+/)[0] || ''; }
+
+// מי מילא טופס – לפי 9 הספרות האחרונות של הטלפון מול הנתונים שכבר נטענו
+function filledSet() {
+  const s = new Set();
+  DATA.forEach(r => { const d = String(g(r._raw, C.PHONE)).replace(/\D/g, ''); if (d.length >= 9) s.add(d.slice(-9)); });
+  return s;
+}
+function hasFilled(phone, set) { const d = String(phone || '').replace(/\D/g, ''); return d.length >= 9 && set.has(d.slice(-9)); }
+
+async function openTrainings() {
+  document.body.style.overflow = 'hidden';
+  if (openId !== null) { openId = null; renderMain(); }
+  if (TRAININGS === null) {
+    tplShell('🎓 הדרכות', '<div class="tpl-empty">טוען הדרכות...</div>');
+    try {
+      const [a, b] = await Promise.all([
+        mediaCall('GET', { action: 'listTrainings' }),
+        mediaCall('GET', { action: 'listTrainingTypes' }),
+      ]);
+      TRAININGS = a.trainings || [];
+      TR_TYPES = b.types || [];
+      if (TPL === null) mediaCall('GET', { action: 'listTemplates' }).then(d => { TPL = d.templates || []; }).catch(() => {});
+    } catch (e) {
+      tplShell('🎓 הדרכות', `<div class="tpl-empty">⚠️ לא הצלחתי לטעון<br>${escHtml(e.message)}<br><br><button class="tpl-sec-btn" id="trRetry">נסה שוב</button></div>`);
+      document.getElementById('trRetry').onclick = openTrainings;
+      return;
+    }
+  }
+  trList();
+}
+
+function trCounts(t, filled) {
+  const ppl = t.people || [];
+  const came = ppl.filter(p => p.status === 'הגיע');
+  return { reg: ppl.length, came: came.length, filled: came.filter(p => hasFilled(p.phone, filled)).length };
+}
+
+function trList() {
+  TR_CUR = null;
+  const filled = filledSet();
+  const list = (TRAININGS || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const items = list.map(t => {
+    const c = trCounts(t, filled);
+    return `<div class="tpl-item" data-id="${escHtml(t.id)}">
+      <div class="tpl-item-title">${t.test ? '<span class="tr-test">🧪 ניסיון</span> ' : ''}${escHtml(t.type || 'הדרכה')} · ${isoToHe(t.date)}</div>
+      <div class="tr-sub">נרשמו ${c.reg} · הגיעו ${c.came} · מילאו טופס ${c.filled}</div>
+    </div>`;
+  }).join('');
+  tplShell('🎓 הדרכות', `
+    <button class="tpl-add" id="trNew">＋ הדרכה חדשה</button>
+    ${items || '<div class="tpl-empty">אין עדיין הדרכות</div>'}
+    <button class="tpl-sec-btn" id="trTypes" style="width:100%;margin-top:14px">⚙️ סוגי הדרכות</button>`);
+  document.getElementById('trNew').onclick = () => trEdit(null);
+  document.getElementById('trTypes').onclick = trTypesScreen;
+  document.querySelectorAll('.tpl-item[data-id]').forEach(el => el.onclick = () => trOpen(el.dataset.id));
+}
+
+// ── יצירה / עריכה של פרטי הדרכה ──
+function trEdit(t) {
+  const isNew = !t;
+  const cur = t || { id: trUid(), date: isoToday(), type: (TR_TYPES && TR_TYPES[0]) || 'הדרכה בסיסית', test: false, people: [] };
+  const types = (TR_TYPES || []).slice();
+  if (cur.type && !types.includes(cur.type)) types.push(cur.type);
+  tplShell(isNew ? 'הדרכה חדשה' : 'עריכת הדרכה', `
+    <div class="tpl-label">תאריך</div>
+    <input class="tpl-input" type="date" id="trDate" value="${escHtml(cur.date)}">
+    <div class="tpl-label">סוג הדרכה</div>
+    <select class="tpl-input" id="trType">${types.map(x => `<option ${x === cur.type ? 'selected' : ''}>${escHtml(x)}</option>`).join('')}</select>
+    <label class="tr-test-row"><input type="checkbox" id="trTest" ${cur.test ? 'checked' : ''}> 🧪 הדרכת ניסיון <span>(לא נרשם בטאב המעקב)</span></label>
+    <button class="tpl-main-btn" id="trSave">${isNew ? 'צור הדרכה' : '💾 שמור'}</button>
+    ${isNew ? '' : '<button class="tpl-sec-btn danger" id="trDel" style="width:100%;margin-top:10px">🗑 מחק הדרכה</button>'}`,
+    () => isNew ? trList() : trView());
+  document.getElementById('trSave').onclick = () => {
+    cur.date = document.getElementById('trDate').value || isoToday();
+    cur.type = document.getElementById('trType').value;
+    cur.test = document.getElementById('trTest').checked;
+    if (isNew) TRAININGS.push(cur);
+    TR_CUR = cur;
+    trSaveNow();
+    trView();
+  };
+  const del = document.getElementById('trDel');
+  if (del) del.onclick = () => trDelete(cur);
+}
+
+async function trDelete(t) {
+  const msg = t.test
+    ? 'למחוק את הדרכת הניסיון?'
+    : 'למחוק את ההדרכה מטאב "הדרכות"?\n\nמה שכבר נרשם בטאב "ניהול שמות ווטסאפ" (פניות שנשלחו) לא יימחק.';
+  if (!confirm(msg)) return;
+  try {
+    await mediaCall('POST', { action: 'deleteTraining', id: t.id });
+    TRAININGS = TRAININGS.filter(x => x.id !== t.id);
+    showToast('ההדרכה נמחקה', 'ok');
+    trList();
+  } catch (e) { showToast('המחיקה נכשלה: ' + e.message, 'err'); }
+}
+
+// ── שמירה לגיליון (עם השהיה קצרה, כדי לאחד כמה שינויים מהירים) ──
+function trSaveSoon() {
+  TR_SAVE_STATE = 'saving'; trSaveBadge();
+  clearTimeout(TR_SAVE_TIMER);
+  TR_SAVE_TIMER = setTimeout(trSaveNow, 800);
+}
+async function trSaveNow() {
+  clearTimeout(TR_SAVE_TIMER);
+  const t = TR_CUR;
+  if (!t) return;
+  TR_SAVE_STATE = 'saving'; trSaveBadge();
+  try {
+    await mediaCall('POST', { action: 'saveTraining', training: t });
+    TR_SAVE_STATE = 'saved';
+  } catch (e) {
+    TR_SAVE_STATE = 'error';
+    showToast('השמירה לגיליון נכשלה: ' + e.message, 'err');
+  }
+  trSaveBadge();
+}
+function trSaveBadge() {
+  const el = document.getElementById('trSaveState');
+  if (!el) return;
+  el.textContent = TR_SAVE_STATE === 'saving' ? 'שומר...' : TR_SAVE_STATE === 'saved' ? '✓ נשמר' : TR_SAVE_STATE === 'error' ? '⚠️ לא נשמר – לחץ לנסות שוב' : '';
+  el.className = 'tr-save ' + TR_SAVE_STATE;
+  el.onclick = TR_SAVE_STATE === 'error' ? trSaveNow : null;
+}
+
+// ── מסך הדרכה ──
+function trOpen(id) {
+  TR_CUR = TRAININGS.find(t => t.id === id) || null;
+  TR_SAVE_STATE = '';
+  if (TR_CUR) trView(); else trList();
+}
+
+function trMsgOptions() {
+  const tpls = TPL || [];
+  let sel = '';
+  try { sel = localStorage.getItem(TR_MSG_KEY) || ''; } catch (_) {}
+  if (!tpls.some(x => x.id === sel)) {
+    const def = tpls.find(x => /טופס/.test(x.title || '')) || tpls[0];
+    sel = def ? def.id : '';
+  }
+  return { tpls, sel };
+}
+
+function trView() {
+  const t = TR_CUR;
+  if (!t) return trList();
+  const filled = filledSet();
+  const c = trCounts(t, filled);
+  const { tpls, sel } = trMsgOptions();
+  const order = { 'הגיע': 0, 'נרשם': 1, 'לא הגיע': 2 };
+  const ppl = (t.people || []).map((p, i) => ({ p, i }))
+    .sort((a, b) => (order[a.p.status] ?? 1) - (order[b.p.status] ?? 1));
+
+  const rows = ppl.map(({ p, i }) => {
+    const f = hasFilled(p.phone, filled);
+    const came = p.status === 'הגיע', no = p.status === 'לא הגיע';
+    return `<div class="tr-person ${no ? 'no' : ''}">
+      <div class="tr-p-main" data-edit="${i}">
+        <div class="tr-p-name">${escHtml(p.name || '(ללא שם)')}</div>
+        <div class="tr-p-sub">${escHtml(p.city || '')}${p.city ? ' · ' : ''}<span class="area-phone">${escHtml(p.phone || 'אין טלפון')}</span></div>
+        <div class="tr-p-tags">
+          ${f ? '<span class="tr-tag ok">✓ מילא טופס</span>' : (came ? '<span class="tr-tag wait">⏳ עוד לא מילא</span>' : '')}
+          ${p.sentAt ? `<span class="tr-tag sent">✉️ נשלח ${escHtml(p.sentAt)}</span>` : ''}
+        </div>
+      </div>
+      <div class="tr-p-actions">
+        <button class="tr-st ${came ? 'on-yes' : ''}" data-st="${i}" data-v="הגיע">✓ הגיע</button>
+        <button class="tr-st ${no ? 'on-no' : ''}" data-st="${i}" data-v="לא הגיע">✗ לא</button>
+        ${!no && p.phone ? `<button class="tr-send" data-send="${i}">💬 שלח</button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  tplShell(`${t.type || 'הדרכה'} · ${isoToHe(t.date)}`, `
+    ${t.test ? '<div class="tr-test-banner">🧪 הדרכת ניסיון – לא נרשם בטאב המעקב</div>' : ''}
+    <div class="tr-summary">נרשמו <b>${c.reg}</b> · הגיעו <b>${c.came}</b> · מילאו טופס <b>${c.filled}</b>
+      <span id="trSaveState" class="tr-save"></span></div>
+    <div class="tpl-sec-row" style="margin-top:0">
+      <button class="tpl-sec-btn" id="trImport">📥 ייבוא רשימה</button>
+      <button class="tpl-sec-btn" id="trAdd">＋ משתתף</button>
+      <button class="tpl-sec-btn" id="trEditBtn">✏️ פרטים</button>
+    </div>
+    <div class="tpl-label">הודעה לשליחה</div>
+    ${tpls.length
+      ? `<select class="tpl-input" id="trMsg">${tpls.map(x => `<option value="${escHtml(x.id)}" ${x.id === sel ? 'selected' : ''}>${escHtml(x.title || 'הודעה')}</option>`).join('')}</select>`
+      : '<div class="tpl-hint">אין הודעות קבועות – צור הודעה ב"📝 הודעות" (למשל "קישור לטופס")</div>'}
+    <div style="margin-top:14px">${rows || '<div class="tpl-empty">אין משתתפים – ייבא רשימה מוואטסאפ או הוסף ידנית</div>'}</div>`,
+    trList);
+  trSaveBadge();
+
+  const msgSel = document.getElementById('trMsg');
+  if (msgSel) msgSel.onchange = () => { try { localStorage.setItem(TR_MSG_KEY, msgSel.value); } catch (_) {} };
+  document.getElementById('trImport').onclick = trImport;
+  document.getElementById('trAdd').onclick = () => trPerson(-1);
+  document.getElementById('trEditBtn').onclick = () => trEdit(t);
+
+  document.querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
+    const p = t.people[+b.dataset.st];
+    p.status = p.status === b.dataset.v ? 'נרשם' : b.dataset.v;
+    trSaveSoon(); trView();
+  });
+  document.querySelectorAll('[data-edit]').forEach(el => el.onclick = () => trPerson(+el.dataset.edit));
+  document.querySelectorAll('[data-send]').forEach(b => b.onclick = () => trSend(+b.dataset.send));
+}
+
+// ── שליחה: פותח צ'אט ישיר בוואטסאפ עם ההודעה מוכנה ──
+function trSend(i) {
+  const t = TR_CUR, p = t.people[i];
+  const { tpls } = trMsgOptions();
+  const selId = document.getElementById('trMsg')?.value;
+  const tpl = tpls.find(x => x.id === selId);
+  if (!tpl) { showToast('בחר הודעה לשליחה (או צור אחת ב"📝 הודעות")', 'err'); return; }
+  const text = cleanText(tpl.text).replace(/\{שם\}/g, firstName(p.name));
+  const d = String(p.phone).replace(/\D/g, '');
+  const wa = d.startsWith('972') ? d : '972' + d.replace(/^0/, '');
+  const a = document.createElement('a');
+  a.href = `https://wa.me/${wa}?text=${encodeURIComponent(text)}`;
+  a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); a.remove();
+
+  // רישום ברקע: בטאב ההדרכות, ובטאב המעקב רק למי שהגיע בהדרכה אמיתית ועוד לא מילא
+  const now = new Date();
+  p.sentAt = `${pad2(now.getDate())}/${pad2(now.getMonth() + 1)}/${now.getFullYear()} ${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
+  trView();
+  const track = !t.test && p.status === 'הגיע' && !hasFilled(p.phone, filledSet());
+  clearTimeout(TR_SAVE_TIMER);
+  mediaCall('POST', { action: 'saveTraining', training: t })
+    .then(() => mediaCall('POST', {
+      action: 'logSend', id: t.id, phone: p.phone, name: p.name, track,
+      note: `${t.type || 'הדרכה'} ${isoToHe(t.date)}`,
+    }))
+    .then(r => { if (r.added) showToast('נוסף לטאב המעקב ✓', 'ok'); TR_SAVE_STATE = 'saved'; trSaveBadge(); })
+    .catch(e => showToast('הרישום בגיליון נכשל: ' + e.message, 'err'));
+}
+
+// ── הוספה / עריכה של משתתף ──
+function trPerson(i) {
+  const t = TR_CUR;
+  const isNew = i < 0;
+  const p = isNew ? { name: '', phone: '', city: '', status: 'הגיע', sentAt: '' } : t.people[i];
+  tplShell(isNew ? 'משתתף חדש' : 'עריכת משתתף', `
+    <div class="tpl-label">שם מלא</div>
+    <input class="tpl-input" id="pName" value="${escHtml(p.name)}" autocomplete="off">
+    <div class="tpl-label">טלפון</div>
+    <input class="tpl-input" id="pPhone" value="${escHtml(p.phone)}" inputmode="tel" style="direction:ltr;text-align:right">
+    <div class="tpl-label">יישוב</div>
+    <input class="tpl-input" id="pCity" value="${escHtml(p.city)}" autocomplete="off">
+    <button class="tpl-main-btn" id="pSave">💾 שמור</button>
+    ${isNew ? '' : '<button class="tpl-sec-btn danger" id="pDel" style="width:100%;margin-top:10px">🗑 מחק משתתף</button>'}`, trView);
+  setTimeout(() => document.getElementById('pName')?.focus(), 50);
+  document.getElementById('pSave').onclick = () => {
+    const name = document.getElementById('pName').value.replace(/\s+/g, ' ').trim();
+    const phone = normPhone(document.getElementById('pPhone').value);
+    if (!name && !phone) { showToast('צריך שם או טלפון', 'err'); return; }
+    if (phone && t.people.some((x, k) => k !== i && normPhone(x.phone) === phone)) { showToast('המספר הזה כבר ברשימה', 'err'); return; }
+    Object.assign(p, { name, phone, city: document.getElementById('pCity').value.trim() });
+    if (isNew) t.people.push(p);
+    trSaveSoon(); trView();
+  };
+  const del = document.getElementById('pDel');
+  if (del) del.onclick = () => {
+    if (!confirm('למחוק את ' + (p.name || p.phone) + ' מההדרכה?')) return;
+    t.people.splice(i, 1);
+    trSaveSoon(); trView();
+  };
+}
+
+// ── ייבוא רשימה מהודעת וואטסאפ ──
+const PHONE_RE = /(?:\+?972[-\s]?|0)5\d(?:[-\s]?\d){7}/;
+
+function parseImportLine(line) {
+  let s = cleanText(line).replace(/[*_~]/g, '').trim();
+  s = s.replace(/^\s*\d{1,3}\s*[.)\-]\s*/, '');           // מספור "1." / "1)"
+  if (!s || /^[?\s.]*$/.test(s)) return null;
+  const m = s.match(PHONE_RE);
+  if (!m) return null;                                     // שורה בלי טלפון = כנראה טקסט של ההודעה
+  const phone = normPhone(m[0]);
+  let rest = (s.slice(0, m.index) + ' ' + s.slice(m.index + m[0].length)).replace(/[,–\-|:]+/g, ' ').replace(/\s+/g, ' ').trim();
+  // יישוב: מחפשים מהסוף 1–3 מילים שמתאימות ליישוב מוכר
+  const words = rest.split(' ').filter(Boolean);
+  let city = '';
+  for (let k = Math.min(3, words.length - 1); k >= 1; k--) {
+    const cand = words.slice(words.length - k).join(' ');
+    if (findPlace(cand)) { city = cand; words.splice(words.length - k, k); break; }
+  }
+  return { name: words.join(' '), phone, city };
+}
+
+function trImport() {
+  tplShell('ייבוא רשימה', `
+    <div class="tpl-label">העתק בוואטסאפ את ההודעה עם הרשימה והדבק כאן</div>
+    <textarea class="tpl-text" id="impText" spellcheck="false" placeholder="1. ישראל ישראלי צפת 0521234567"></textarea>
+    <button class="tpl-main-btn" id="impParse">המשך ←</button>`, trView);
+  const ta = document.getElementById('impText');
+  ta.addEventListener('input', () => autoGrowEl(ta));
+  setTimeout(() => ta.focus(), 50);
+  document.getElementById('impParse').onclick = () => {
+    const t = TR_CUR;
+    const existing = new Set(t.people.map(x => normPhone(x.phone)));
+    const seen = new Set();
+    const found = ta.value.split(/\r?\n/).map(parseImportLine).filter(Boolean)
+      .filter(x => { if (seen.has(x.phone)) return false; seen.add(x.phone); return true; })
+      .map(x => ({ ...x, dup: existing.has(x.phone), on: !existing.has(x.phone) }));
+    trImportPreview(found);
+  };
+}
+
+function trImportPreview(found) {
+  const rows = found.map((x, i) => `
+    <label class="imp-row ${x.dup ? 'dup' : ''}">
+      <input type="checkbox" data-i="${i}" ${x.on ? 'checked' : ''} ${x.dup ? 'disabled' : ''}>
+      <span class="imp-main">
+        <input class="imp-in" data-f="name" data-i="${i}" value="${escHtml(x.name)}" placeholder="שם">
+        <input class="imp-in" data-f="city" data-i="${i}" value="${escHtml(x.city)}" placeholder="יישוב">
+        <span class="area-phone">${escHtml(x.phone)}${x.dup ? ' · כבר ברשימה' : ''}</span>
+      </span>
+    </label>`).join('');
+  tplShell('ייבוא – בדיקה', `
+    <div class="tpl-hint" style="margin-bottom:10px">נמצאו ${found.length} משתתפים. אפשר לתקן שם ויישוב לפני ההוספה.</div>
+    ${rows || '<div class="tpl-empty">לא נמצאו שורות עם מספר טלפון</div>'}
+    ${found.length ? '<button class="tpl-main-btn" id="impAdd">הוסף להדרכה</button>' : ''}`, trImport);
+  document.querySelectorAll('.imp-row input[type=checkbox]').forEach(cb => cb.onchange = () => { found[+cb.dataset.i].on = cb.checked; });
+  document.querySelectorAll('.imp-in').forEach(inp => inp.oninput = () => { found[+inp.dataset.i][inp.dataset.f] = inp.value.trim(); });
+  const add = document.getElementById('impAdd');
+  if (add) add.onclick = () => {
+    const sel = found.filter(x => x.on && !x.dup);
+    sel.forEach(x => TR_CUR.people.push({ name: x.name, phone: x.phone, city: x.city, status: 'נרשם', sentAt: '' }));
+    showToast(`נוספו ${sel.length} משתתפים`, 'ok');
+    trSaveSoon(); trView();
+  };
+}
+
+// ── סוגי הדרכות ──
+function trTypesScreen() {
+  const items = (TR_TYPES || []).map((x, i) => `
+    <div class="tr-type-row"><span>${escHtml(x)}</span>
+      <button class="tpl-sec-btn" data-ren="${i}">✏️</button>
+      <button class="tpl-sec-btn danger" data-del="${i}">🗑</button></div>`).join('');
+  tplShell('סוגי הדרכות', `
+    ${items}
+    <div class="tpl-label">סוג חדש</div>
+    <input class="tpl-input" id="typeNew" placeholder="למשל: תרגול בוץ">
+    <button class="tpl-main-btn" id="typeAdd">＋ הוסף</button>`, trList);
+  const save = async () => {
+    try { await mediaCall('POST', { action: 'saveTrainingTypes', types: TR_TYPES }); showToast('נשמר ✓', 'ok'); }
+    catch (e) { showToast('השמירה נכשלה: ' + e.message, 'err'); }
+    trTypesScreen();
+  };
+  document.getElementById('typeAdd').onclick = () => {
+    const v = document.getElementById('typeNew').value.trim();
+    if (!v || TR_TYPES.includes(v)) return;
+    TR_TYPES.push(v); save();
+  };
+  document.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
+    if (!confirm('למחוק את "' + TR_TYPES[+b.dataset.del] + '"? (הדרכות קיימות לא ישתנו)')) return;
+    TR_TYPES.splice(+b.dataset.del, 1); save();
+  });
+  document.querySelectorAll('[data-ren]').forEach(b => b.onclick = () => {
+    const i = +b.dataset.ren;
+    const v = prompt('שם חדש:', TR_TYPES[i]);
+    if (v && v.trim()) { TR_TYPES[i] = v.trim(); save(); }
+  });
 }
 
 // v42: גובה הכותרת הדבוקה – כדי שהחיפוש יידבק בדיוק מתחתיה
