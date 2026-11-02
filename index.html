@@ -347,6 +347,28 @@
   .tr-type-row { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; margin-bottom: 8px; font-size: 17px; }
   .tr-type-row span { flex: 1; }
   .tr-type-row .tpl-sec-btn { flex: 0 0 auto; padding: 8px 12px; }
+  /* ── v45: אשף הדרכה חדשה ── */
+  .wz-step { font-size: 13px; color: var(--accent); font-weight: 700; }
+  .wz-title { font-size: 21px; font-weight: 800; margin: 2px 0 4px; }
+  .wz-hint { font-size: 14px; color: var(--text2); margin-bottom: 16px; line-height: 1.5; }
+  .wz-card {
+    width: 100%; display: flex; gap: 12px; align-items: center; text-align: right; margin-bottom: 10px;
+    padding: 16px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--surface);
+    color: var(--text2); font-family: 'Heebo', sans-serif; font-size: 14px; line-height: 1.5; cursor: pointer;
+  }
+  .wz-card b { color: var(--text); font-size: 17px; }
+  .wz-card.on { border-color: var(--accent); background: rgba(232,160,32,0.08); }
+  .wz-ic { font-size: 30px; flex-shrink: 0; }
+  .wz-two { display: flex; gap: 10px; }
+  .wz-two > * { flex: 1; min-width: 0; }
+  .tr-info { font-size: 15px; color: var(--text); margin-bottom: 6px; }
+  .tr-msg-line { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 15px; color: var(--text2); }
+  .tr-msg-line select {
+    flex: 1; background: var(--surface); color: var(--text); border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 10px; font-family: 'Heebo', sans-serif; font-size: 16px; -webkit-appearance: none; appearance: none;
+  }
+  .tr-send-big { background: #25d366; color: #000; }
+  .tr-send-big:disabled { background: var(--surface2); color: var(--text2); }
   .heb-next { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 2px; }
 
   /* ── v39: כפתור הודעות בכותרת ── */
@@ -436,7 +458,7 @@
   <div class="hdr-title" id="hdrTitle">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v44</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v45</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
       <button class="refresh-btn" onclick="loadData()" aria-label="רענון">↻</button>
@@ -1173,6 +1195,7 @@ function saveContact(name, phone, city) {
 function normPhone(p) {
   let d = String(p || '').replace(/\D/g, '');
   if (d.startsWith('972')) d = '0' + d.slice(3);
+  if (d.length === 9 && d.startsWith('5')) d = '0' + d;
   return d;
 }
 
@@ -1550,9 +1573,15 @@ function tplUse(i) {
     ${hasName ? `
       <div class="tpl-label">שם הנמען</div>
       <input class="tpl-input" id="tplName" type="text" placeholder="הקלד שם..." autocomplete="off" autocorrect="off">` : ''}
-    <div class="tpl-label">ההודעה (אפשר לערוך לפני ההעתקה)</div>
+    <div class="tpl-label">טלפון (לא חובה – לשליחה ישירה בוואטסאפ)</div>
+    <div class="wz-two">
+      <input class="tpl-input" id="tplPhone" type="tel" inputmode="tel" placeholder="05X-XXXXXXX" style="direction:ltr;text-align:right;flex:2">
+      <button class="tpl-sec-btn" id="tplPaste" style="flex:1">📋 הדבק</button>
+    </div>
+    <div class="tpl-label">ההודעה (אפשר לערוך לפני השליחה)</div>
     <textarea class="tpl-text" id="tplOut" spellcheck="false"></textarea>
-    <button class="tpl-main-btn" id="tplCopy">📋 העתק הודעה</button>
+    <button class="tpl-main-btn tr-send-big" id="tplSend" disabled>💬 שלח בוואטסאפ</button>
+    <button class="tpl-main-btn" id="tplCopy" style="background:var(--surface2);color:var(--text);border:1.5px solid var(--border)">📋 העתק הודעה</button>
     <div class="tpl-sec-row">
       <button class="tpl-sec-btn" id="tplEditBtn">✏️ ערוך תבנית</button>
       <button class="tpl-sec-btn danger" id="tplDelBtn">🗑 מחק</button>
@@ -1581,6 +1610,25 @@ function tplUse(i) {
     btn.classList.toggle('done', ok);
     setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 2500);
   };
+  // v45: שליחה ישירה למספר
+  const phoneEl = document.getElementById('tplPhone');
+  const sendBtn = document.getElementById('tplSend');
+  const phoneOk = () => /^05\d{8}$/.test(normPhone(phoneEl.value));
+  const upd = () => { sendBtn.disabled = !phoneOk(); };
+  phoneEl.addEventListener('input', upd);
+  document.getElementById('tplPaste').onclick = async () => {
+    try {
+      const txt = await navigator.clipboard.readText();
+      const m = String(txt).match(PHONE_RE);
+      if (m) { phoneEl.value = normPhone(m[0]); upd(); } else showToast('לא נמצא מספר טלפון בהעתקה', 'err');
+    } catch (_) { showToast('ההדבקה לא נתמכה – הדבק ידנית בשדה', 'err'); }
+  };
+  sendBtn.onclick = () => {
+    if (!phoneOk()) return;
+    if (nameEl && !nameEl.value.trim() && !edited) { showToast('כדאי להקליד שם קודם', 'err'); nameEl.focus(); return; }
+    openExternal(waLink(normPhone(phoneEl.value), cleanText(out.value)));
+  };
+
   document.getElementById('tplEditBtn').onclick = () => tplEdit(i);
   document.getElementById('tplDelBtn').onclick = () => tplDelete(i);
 }
@@ -1596,7 +1644,7 @@ function tplEdit(i) {
     <div class="tpl-sec-row">
       <button class="tpl-sec-btn" id="tplInsName">➕ הוסף {שם} במקום הסמן</button>
     </div>
-    <div class="tpl-hint">כתוב {שם} בכל מקום שבו יופיע שם הנמען. כדאי לשים קישור בשורה נפרדת.</div>
+    <div class="tpl-hint">כתוב {שם} בכל מקום שבו יופיע שם הנמען. בהודעות להדרכות אפשר גם {שעה}, {מקום} ו-{תאריך}. כדאי לשים קישור בשורה נפרדת.</div>
     <button class="tpl-main-btn" id="tplSave">💾 שמור</button>`,
     () => isNew ? tplList() : tplUse(i));
 
@@ -2200,7 +2248,6 @@ let TR_TYPES = null;
 let TR_CUR = null;           // ההדרכה הפתוחה
 let TR_SAVE_TIMER = null;
 let TR_SAVE_STATE = '';      // '' | 'saving' | 'saved' | 'error'
-const TR_MSG_KEY = 'panther-tr-msg';
 
 function trUid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 function isoToday() { return toInputDate(new Date()); }
@@ -2221,13 +2268,14 @@ async function openTrainings() {
   if (TRAININGS === null) {
     tplShell('🎓 הדרכות', '<div class="tpl-empty">טוען הדרכות...</div>');
     try {
-      const [a, b] = await Promise.all([
+      const [a, b, c] = await Promise.all([
         mediaCall('GET', { action: 'listTrainings' }),
         mediaCall('GET', { action: 'listTrainingTypes' }),
+        TPL === null ? mediaCall('GET', { action: 'listTemplates' }) : Promise.resolve({ templates: TPL }),
       ]);
       TRAININGS = a.trainings || [];
       TR_TYPES = b.types || [];
-      if (TPL === null) mediaCall('GET', { action: 'listTemplates' }).then(d => { TPL = d.templates || []; }).catch(() => {});
+      TPL = c.templates || [];
     } catch (e) {
       tplShell('🎓 הדרכות', `<div class="tpl-empty">⚠️ לא הצלחתי לטעון<br>${escHtml(e.message)}<br><br><button class="tpl-sec-btn" id="trRetry">נסה שוב</button></div>`);
       document.getElementById('trRetry').onclick = openTrainings;
@@ -2251,47 +2299,216 @@ function trList() {
     const c = trCounts(t, filled);
     return `<div class="tpl-item" data-id="${escHtml(t.id)}">
       <div class="tpl-item-title">${t.test ? '<span class="tr-test">🧪 ניסיון</span> ' : ''}${escHtml(t.type || 'הדרכה')} · ${isoToHe(t.date)}</div>
-      <div class="tr-sub">נרשמו ${c.reg} · הגיעו ${c.came} · מילאו טופס ${c.filled}</div>
+      <div class="tr-sub">${[t.time, t.place].filter(Boolean).map(escHtml).join(' · ')}${t.time || t.place ? '<br>' : ''}נרשמו ${c.reg} · הגיעו ${c.came}${t.track ? ` · מילאו טופס ${c.filled}` : ''}</div>
     </div>`;
   }).join('');
   tplShell('🎓 הדרכות', `
     <button class="tpl-add" id="trNew">＋ הדרכה חדשה</button>
     ${items || '<div class="tpl-empty">אין עדיין הדרכות</div>'}
     <button class="tpl-sec-btn" id="trTypes" style="width:100%;margin-top:14px">⚙️ סוגי הדרכות</button>`);
-  document.getElementById('trNew').onclick = () => trEdit(null);
+  document.getElementById('trNew').onclick = trWizard;
   document.getElementById('trTypes').onclick = trTypesScreen;
   document.querySelectorAll('.tpl-item[data-id]').forEach(el => el.onclick = () => trOpen(el.dataset.id));
 }
 
 // ── יצירה / עריכה של פרטי הדרכה ──
 function trEdit(t) {
-  const isNew = !t;
-  const cur = t || { id: trUid(), date: isoToday(), type: (TR_TYPES && TR_TYPES[0]) || 'הדרכה בסיסית', test: false, people: [] };
   const types = (TR_TYPES || []).slice();
-  if (cur.type && !types.includes(cur.type)) types.push(cur.type);
-  tplShell(isNew ? 'הדרכה חדשה' : 'עריכת הדרכה', `
-    <div class="tpl-label">תאריך</div>
-    <input class="tpl-input" type="date" id="trDate" value="${escHtml(cur.date)}">
-    <div class="tpl-label">סוג הדרכה</div>
-    <select class="tpl-input" id="trType">${types.map(x => `<option ${x === cur.type ? 'selected' : ''}>${escHtml(x)}</option>`).join('')}</select>
-    <label class="tr-test-row"><input type="checkbox" id="trTest" ${cur.test ? 'checked' : ''}> 🧪 הדרכת ניסיון <span>(לא נרשם בטאב המעקב)</span></label>
-    <button class="tpl-main-btn" id="trSave">${isNew ? 'צור הדרכה' : '💾 שמור'}</button>
-    ${isNew ? '' : '<button class="tpl-sec-btn danger" id="trDel" style="width:100%;margin-top:10px">🗑 מחק הדרכה</button>'}`,
-    () => isNew ? trList() : trView());
+  if (t.type && !types.includes(t.type)) types.push(t.type);
+  tplShell('עריכת הדרכה', `
+    ${trDetailsFields(t, types)}
+    <label class="tr-test-row"><input type="checkbox" id="trTrack" ${t.track ? 'checked' : ''}> 📋 מעקב מילוי טופס <span>(תגיות "מילא טופס" ורישום בטאב המעקב)</span></label>
+    <button class="tpl-main-btn" id="trSave">💾 שמור</button>
+    <button class="tpl-sec-btn danger" id="trDel" style="width:100%;margin-top:10px">🗑 מחק הדרכה</button>`, trView);
   document.getElementById('trSave').onclick = () => {
-    cur.date = document.getElementById('trDate').value || isoToday();
-    cur.type = document.getElementById('trType').value;
-    cur.test = document.getElementById('trTest').checked;
-    if (isNew) TRAININGS.push(cur);
-    TR_CUR = cur;
-    trSaveNow();
-    trView();
+    trReadDetails(t);
+    t.track = document.getElementById('trTrack').checked;
+    trSaveNow(); trView();
   };
-  const del = document.getElementById('trDel');
-  if (del) del.onclick = () => trDelete(cur);
+  document.getElementById('trDel').onclick = () => trDelete(t);
+}
+
+// שדות פרטי הדרכה – משותף לאשף ולעריכה
+function trDetailsFields(t, types) {
+  return `
+    <div class="tpl-label">תאריך</div>
+    <input class="tpl-input" type="date" id="trDate" value="${escHtml(t.date)}">
+    <div class="tpl-label">סוג הדרכה</div>
+    <select class="tpl-input" id="trType">${types.map(x => `<option ${x === t.type ? 'selected' : ''}>${escHtml(x)}</option>`).join('')}</select>
+    <div class="wz-two">
+      <div><div class="tpl-label">שעה</div><input class="tpl-input" type="time" id="trTime" value="${escHtml(t.time || '')}"></div>
+      <div style="flex:2"><div class="tpl-label">מקום</div><input class="tpl-input" id="trPlace" value="${escHtml(t.place || '')}" placeholder="למשל: בית המתנדב צפת"></div>
+    </div>
+    <label class="tr-test-row"><input type="checkbox" id="trTest" ${t.test ? 'checked' : ''}> 🧪 הדרכת ניסיון <span>(לא נרשם בטאב המעקב, אפשר למחוק בסוף)</span></label>`;
+}
+function trReadDetails(t) {
+  t.date = document.getElementById('trDate').value || isoToday();
+  t.type = document.getElementById('trType').value;
+  t.time = document.getElementById('trTime').value || '';
+  t.place = document.getElementById('trPlace').value.trim();
+  t.test = document.getElementById('trTest').checked;
+}
+
+// ════════ אשף "הדרכה חדשה" – 3 שלבים ════════
+let WZ = null;
+const FORM_LINK_RE = /forms\.gle\/|docs\.google\.com\/forms/;
+
+function trWizard() {
+  WZ = { id: trUid(), date: isoToday(), type: (TR_TYPES && TR_TYPES[0]) || 'הדרכה בסיסית', time: '', place: '',
+         test: false, people: [], paste: false, msgMode: 'existing', msgId: '', newTitle: '', newText: '', track: false };
+  wzStep1();
+}
+
+function wzHead(n, title, hint) {
+  return `<div class="wz-step">שלב ${n} מתוך 3</div>
+    <div class="wz-title">${title}</div>
+    <div class="wz-hint">${hint}</div>`;
+}
+
+function wzStep1() {
+  tplShell('הדרכה חדשה', `
+    ${wzHead(1, 'מאיפה מגיעה רשימת המשתתפים?', 'בחר אחת מהאפשרויות')}
+    <button class="wz-card" id="wzPaste"><span class="wz-ic">📋</span><span><b>יש הודעת הרשמה בוואטסאפ</b><br>העתק את ההודעה מהקבוצה והדבק כאן – השמות, התאריך והשעה יזוהו לבד</span></button>
+    <button class="wz-card" id="wzManual"><span class="wz-ic">✍️</span><span><b>דלג</b><br>אכניס את השמות בעצמי (כנס, אירוע, או כשאין הודעה)</span></button>`, trList);
+  document.getElementById('wzManual').onclick = () => { WZ.paste = false; WZ.people = []; wzStep2(); };
+  document.getElementById('wzPaste').onclick = wzPasteScreen;
+}
+
+function wzPasteScreen() {
+  tplShell('הדרכה חדשה', `
+    ${wzHead(1, 'הדבק את הודעת ההרשמה', 'בוואטסאפ: לחיצה ארוכה על ההודעה ← העתק. אחר כך לחיצה ארוכה כאן ← הדבק')}
+    <textarea class="tpl-text" id="wzText" spellcheck="false" placeholder="הדבק כאן את כל ההודעה"></textarea>
+    <button class="tpl-main-btn" id="wzNext">המשך ←</button>`, wzStep1);
+  const ta = document.getElementById('wzText');
+  ta.addEventListener('input', () => autoGrowEl(ta));
+  setTimeout(() => ta.focus(), 50);
+  document.getElementById('wzNext').onclick = () => {
+    const txt = ta.value;
+    if (!txt.trim()) { showToast('ההודעה ריקה', 'err'); return; }
+    wzParseMessage(txt);
+    WZ.paste = true;
+    wzStep2();
+  };
+}
+
+// זיהוי פרטים מתוך הודעת ההרשמה
+function wzParseMessage(txt) {
+  const clean = cleanText(txt).replace(/[*_~]/g, '');
+  const d = clean.match(/(\d{1,2})[./](\d{1,2})[./](\d{2,4})/);
+  if (d) {
+    const y = d[3].length === 2 ? '20' + d[3] : d[3];
+    WZ.date = `${y}-${pad2(d[2])}-${pad2(d[1])}`;
+  }
+  const tm = clean.match(/(?:בשעה|שעה)\s*(\d{1,2}):(\d{2})/) || clean.match(/\b(\d{1,2}):(\d{2})\b/);
+  if (tm) WZ.time = `${pad2(tm[1])}:${tm[2]}`;
+  const pl = clean.match(/תתקיים\s+ב([^\n.]+)/);
+  if (pl) WZ.place = pl[1].trim();
+  // סוג: לפי המילה האחרונה בשם הסוג ("בסיסית", "כננות"...)
+  const t = (TR_TYPES || []).find(x => { const w = x.trim().split(/\s+/).pop(); return w && w.length > 2 && clean.includes(w); });
+  if (t) WZ.type = t;
+  const seen = new Set();
+  WZ.people = clean.split(/\r?\n/).map(parseImportLine).filter(Boolean)
+    .filter(x => { if (seen.has(x.phone)) return false; seen.add(x.phone); return true; })
+    .map(x => ({ ...x, on: true }));
+}
+
+function wzStep2() {
+  const types = (TR_TYPES || []).slice();
+  if (WZ.type && !types.includes(WZ.type)) types.push(WZ.type);
+  const ppl = WZ.people.map((x, i) => `
+    <label class="imp-row">
+      <input type="checkbox" data-i="${i}" ${x.on ? 'checked' : ''}>
+      <span class="imp-main">
+        <input class="imp-in" data-f="name" data-i="${i}" value="${escHtml(x.name)}" placeholder="שם">
+        <input class="imp-in" data-f="city" data-i="${i}" value="${escHtml(x.city)}" placeholder="יישוב">
+        <span class="area-phone">${escHtml(x.phone)}</span>
+      </span>
+    </label>`).join('');
+  tplShell('הדרכה חדשה', `
+    ${wzHead(2, 'פרטי ההדרכה', WZ.paste ? 'הפרטים זוהו מההודעה – בדוק ותקן אם צריך' : 'מלא את הפרטים')}
+    ${trDetailsFields(WZ, types)}
+    ${WZ.paste ? `<div class="tpl-label" style="margin-top:18px">משתתפים שזוהו (${WZ.people.length}) – אפשר לתקן או לבטל סימון</div>
+      ${ppl || '<div class="tpl-hint">לא נמצאו שורות עם מספר טלפון</div>'}` : ''}
+    <button class="tpl-main-btn" id="wzNext">המשך ←</button>`, () => { wzRead2(); WZ.paste ? wzPasteScreen() : wzStep1(); });
+  document.querySelectorAll('.imp-row input[type=checkbox]').forEach(cb => cb.onchange = () => { WZ.people[+cb.dataset.i].on = cb.checked; });
+  document.querySelectorAll('.imp-in').forEach(inp => inp.oninput = () => { WZ.people[+inp.dataset.i][inp.dataset.f] = inp.value.trim(); });
+  document.getElementById('wzNext').onclick = () => { wzRead2(); wzStep3(); };
+}
+function wzRead2() { if (document.getElementById('trDate')) trReadDetails(WZ); }
+
+function wzStep3() {
+  const tpls = TPL || [];
+  if (!WZ.msgId && tpls.length) {
+    const def = tpls.find(x => FORM_LINK_RE.test(x.text || '')) || tpls[0];
+    WZ.msgId = def.title;
+  }
+  if (!tpls.length && WZ.msgMode === 'existing') WZ.msgMode = 'new';
+  const opt = (mode, ic, title, sub) => `<button class="wz-card ${WZ.msgMode === mode ? 'on' : ''}" data-mode="${mode}"><span class="wz-ic">${ic}</span><span><b>${title}</b><br>${sub}</span></button>`;
+  tplShell('הדרכה חדשה', `
+    ${wzHead(3, 'איזו הודעה לשלוח למשתתפים?', 'ההודעה תישלח מכפתור "💬 שלח" ליד כל משתתף. {שם}, {שעה} ו-{מקום} מתמלאים לבד')}
+    ${tpls.length ? opt('existing', '📝', 'הודעה קיימת', 'למשל "קישור לטופס"') : ''}
+    ${WZ.msgMode === 'existing' && tpls.length ? `<select class="tpl-input" id="wzMsg" style="margin-bottom:10px">${tpls.map(x => `<option ${x.title === WZ.msgId ? 'selected' : ''}>${escHtml(x.title)}</option>`).join('')}</select>` : ''}
+    ${opt('new', '✏️', 'כתוב הודעה חדשה', 'למשל "תודה שהשתתפת בכנס" – תישמר גם ב"הודעות"')}
+    ${WZ.msgMode === 'new' ? `
+      <input class="tpl-input" id="wzNewTitle" placeholder="שם ההודעה (למשל: תודה על הכנס)" value="${escHtml(WZ.newTitle)}" style="margin-bottom:8px">
+      <textarea class="tpl-text" id="wzNewText" placeholder="שלום {שם}, ..." style="min-height:120px;margin-bottom:10px">${escHtml(WZ.newText)}</textarea>` : ''}
+    ${opt('none', '🚫', 'בלי הודעה', 'רק רשימת נוכחות')}
+    ${WZ.msgMode !== 'none' ? `<label class="tr-test-row"><input type="checkbox" id="wzTrack" ${WZ.track ? 'checked' : ''}> 📋 מעקב מילוי טופס
+      <span>(תגיות "מילא טופס" ורישום פניות בטאב המעקב)</span></label>` : ''}
+    <button class="tpl-main-btn" id="wzCreate">✓ צור הדרכה</button>`, () => { wzRead3(); wzStep2(); });
+
+  const autoTrack = () => {
+    const txt = WZ.msgMode === 'existing' ? (tpls.find(x => x.title === WZ.msgId) || {}).text : WZ.newText;
+    WZ.track = FORM_LINK_RE.test(txt || '');
+    const cb = document.getElementById('wzTrack');
+    if (cb) cb.checked = WZ.track;
+  };
+  document.querySelectorAll('.wz-card[data-mode]').forEach(b => b.onclick = () => {
+    wzRead3(); WZ.msgMode = b.dataset.mode; wzStep3(); autoTrack();
+  });
+  const sel = document.getElementById('wzMsg');
+  if (sel) sel.onchange = () => { WZ.msgId = sel.value; autoTrack(); };
+  const nt = document.getElementById('wzNewText');
+  if (nt) nt.oninput = () => { WZ.newText = nt.value; autoTrack(); };
+  if (WZ.track === false && !WZ._autoDone) { WZ._autoDone = true; autoTrack(); }
+  document.getElementById('wzCreate').onclick = wzCreate;
+}
+function wzRead3() {
+  const sel = document.getElementById('wzMsg'); if (sel) WZ.msgId = sel.value;
+  const t1 = document.getElementById('wzNewTitle'); if (t1) WZ.newTitle = t1.value.trim();
+  const t2 = document.getElementById('wzNewText'); if (t2) WZ.newText = t2.value;
+  const cb = document.getElementById('wzTrack'); if (cb) WZ.track = cb.checked;
+}
+
+async function wzCreate() {
+  wzRead3();
+  const btn = document.getElementById('wzCreate');
+  let msgTitle = '';
+  if (WZ.msgMode === 'existing') msgTitle = WZ.msgId;
+  if (WZ.msgMode === 'new') {
+    const text = cleanText(WZ.newText).trim();
+    if (!text) { showToast('ההודעה החדשה ריקה', 'err'); return; }
+    let title = WZ.newTitle || `${WZ.type} ${isoToHe(WZ.date)}`;
+    if ((TPL || []).some(x => x.title === title)) title += ' (2)';
+    const updated = (TPL || []).concat([{ id: Date.now().toString(36), title, text }]);
+    btn.disabled = true; btn.textContent = 'שומר הודעה...';
+    const ok = await tplSaveAll(updated, null);
+    if (!ok) { btn.disabled = false; btn.textContent = '✓ צור הדרכה'; return; }
+    msgTitle = title;
+  }
+  const t = {
+    id: WZ.id, date: WZ.date, type: WZ.type, time: WZ.time, place: WZ.place, test: WZ.test,
+    msgId: WZ.msgMode === 'none' ? '' : msgTitle, track: WZ.msgMode !== 'none' && WZ.track,
+    people: WZ.people.filter(x => x.on && (x.name || x.phone)).map(x => ({ name: x.name, phone: x.phone, city: x.city, status: 'נרשם', sentAt: '' })),
+  };
+  TRAININGS.push(t);
+  TR_CUR = t; WZ = null;
+  trSaveNow();
+  trView();
 }
 
 async function trDelete(t) {
+
   const msg = t.test
     ? 'למחוק את הדרכת הניסיון?'
     : 'למחוק את ההדרכה מטאב "הדרכות"?\n\nמה שכבר נרשם בטאב "ניהול שמות ווטסאפ" (פניות שנשלחו) לא יימחק.';
@@ -2339,15 +2556,17 @@ function trOpen(id) {
   if (TR_CUR) trView(); else trList();
 }
 
-function trMsgOptions() {
-  const tpls = TPL || [];
-  let sel = '';
-  try { sel = localStorage.getItem(TR_MSG_KEY) || ''; } catch (_) {}
-  if (!tpls.some(x => x.id === sel)) {
-    const def = tpls.find(x => /טופס/.test(x.title || '')) || tpls[0];
-    sel = def ? def.id : '';
-  }
-  return { tpls, sel };
+function trMsgText(t) {
+  const tpl = (TPL || []).find(x => x.title === t.msgId);
+  return tpl ? tpl.text : null;
+}
+
+function fillVars(text, p, t) {
+  return cleanText(text)
+    .replace(/\{שם\}/g, firstName(p && p.name))
+    .replace(/\{שעה\}/g, (t && t.time) || '')
+    .replace(/\{מקום\}/g, (t && t.place) || '')
+    .replace(/\{תאריך\}/g, t ? isoToHe(t.date) : '');
 }
 
 function trView() {
@@ -2355,50 +2574,63 @@ function trView() {
   if (!t) return trList();
   const filled = filledSet();
   const c = trCounts(t, filled);
-  const { tpls, sel } = trMsgOptions();
+  const tpls = TPL || [];
+  const hasMsg = !!t.msgId;
+  const msgMissing = hasMsg && !trMsgText(t);
   const order = { 'הגיע': 0, 'נרשם': 1, 'לא הגיע': 2 };
   const ppl = (t.people || []).map((p, i) => ({ p, i }))
     .sort((a, b) => (order[a.p.status] ?? 1) - (order[b.p.status] ?? 1));
 
   const rows = ppl.map(({ p, i }) => {
-    const f = hasFilled(p.phone, filled);
+    const f = t.track && hasFilled(p.phone, filled);
     const came = p.status === 'הגיע', no = p.status === 'לא הגיע';
     return `<div class="tr-person ${no ? 'no' : ''}">
       <div class="tr-p-main" data-edit="${i}">
         <div class="tr-p-name">${escHtml(p.name || '(ללא שם)')}</div>
         <div class="tr-p-sub">${escHtml(p.city || '')}${p.city ? ' · ' : ''}<span class="area-phone">${escHtml(p.phone || 'אין טלפון')}</span></div>
         <div class="tr-p-tags">
-          ${f ? '<span class="tr-tag ok">✓ מילא טופס</span>' : (came ? '<span class="tr-tag wait">⏳ עוד לא מילא</span>' : '')}
+          ${t.track ? (f ? '<span class="tr-tag ok">✓ מילא טופס</span>' : (came ? '<span class="tr-tag wait">⏳ עוד לא מילא</span>' : '')) : ''}
           ${p.sentAt ? `<span class="tr-tag sent">✉️ נשלח ${escHtml(p.sentAt)}</span>` : ''}
         </div>
       </div>
       <div class="tr-p-actions">
         <button class="tr-st ${came ? 'on-yes' : ''}" data-st="${i}" data-v="הגיע">✓ הגיע</button>
         <button class="tr-st ${no ? 'on-no' : ''}" data-st="${i}" data-v="לא הגיע">✗ לא</button>
-        ${!no && p.phone ? `<button class="tr-send" data-send="${i}">💬 שלח</button>` : ''}
+        ${hasMsg && !no && p.phone ? `<button class="tr-send" data-send="${i}">💬 שלח</button>` : ''}
       </div>
     </div>`;
   }).join('');
 
+  const info = [t.time, t.place].filter(Boolean).join(' · ');
   tplShell(`${t.type || 'הדרכה'} · ${isoToHe(t.date)}`, `
     ${t.test ? '<div class="tr-test-banner">🧪 הדרכת ניסיון – לא נרשם בטאב המעקב</div>' : ''}
-    <div class="tr-summary">נרשמו <b>${c.reg}</b> · הגיעו <b>${c.came}</b> · מילאו טופס <b>${c.filled}</b>
+    ${info ? `<div class="tr-info">🕖 ${escHtml(info)}</div>` : ''}
+    <div class="tr-summary">נרשמו <b>${c.reg}</b> · הגיעו <b>${c.came}</b>${t.track ? ` · מילאו טופס <b>${c.filled}</b>` : ''}
       <span id="trSaveState" class="tr-save"></span></div>
+    <div class="tr-msg-line">
+      <span>💬 הודעה:</span>
+      <select id="trMsg">
+        <option value="" ${!hasMsg ? 'selected' : ''}>🚫 בלי הודעה</option>
+        ${tpls.map(x => `<option ${x.title === t.msgId ? 'selected' : ''}>${escHtml(x.title)}</option>`).join('')}
+        ${msgMissing ? `<option selected>${escHtml(t.msgId)} (לא נמצאה)</option>` : ''}
+      </select>
+    </div>
     <div class="tpl-sec-row" style="margin-top:0">
       <button class="tpl-sec-btn" id="trImport">📥 ייבוא רשימה</button>
       <button class="tpl-sec-btn" id="trAdd">＋ משתתף</button>
       <button class="tpl-sec-btn" id="trEditBtn">✏️ פרטים</button>
     </div>
-    <div class="tpl-label">הודעה לשליחה</div>
-    ${tpls.length
-      ? `<select class="tpl-input" id="trMsg">${tpls.map(x => `<option value="${escHtml(x.id)}" ${x.id === sel ? 'selected' : ''}>${escHtml(x.title || 'הודעה')}</option>`).join('')}</select>`
-      : '<div class="tpl-hint">אין הודעות קבועות – צור הודעה ב"📝 הודעות" (למשל "קישור לטופס")</div>'}
     <div style="margin-top:14px">${rows || '<div class="tpl-empty">אין משתתפים – ייבא רשימה מוואטסאפ או הוסף ידנית</div>'}</div>`,
     trList);
   trSaveBadge();
 
-  const msgSel = document.getElementById('trMsg');
-  if (msgSel) msgSel.onchange = () => { try { localStorage.setItem(TR_MSG_KEY, msgSel.value); } catch (_) {} };
+  document.getElementById('trMsg').onchange = e => {
+    const v = e.target.value.replace(/ \(לא נמצאה\)$/, '');
+    t.msgId = v;
+    if (!v) t.track = false;
+    else { const txt = trMsgText(t); if (txt && FORM_LINK_RE.test(txt)) t.track = true; }
+    trSaveSoon(); trView();
+  };
   document.getElementById('trImport').onclick = trImport;
   document.getElementById('trAdd').onclick = () => trPerson(-1);
   document.getElementById('trEditBtn').onclick = () => trEdit(t);
@@ -2412,26 +2644,29 @@ function trView() {
   document.querySelectorAll('[data-send]').forEach(b => b.onclick = () => trSend(+b.dataset.send));
 }
 
+function waLink(phone, text) {
+  const d = String(phone).replace(/\D/g, '');
+  const wa = d.startsWith('972') ? d : '972' + d.replace(/^0/, '');
+  return `https://wa.me/${wa}?text=${encodeURIComponent(text)}`;
+}
+function openExternal(url) {
+  const a = document.createElement('a');
+  a.href = url; a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
 // ── שליחה: פותח צ'אט ישיר בוואטסאפ עם ההודעה מוכנה ──
 function trSend(i) {
   const t = TR_CUR, p = t.people[i];
-  const { tpls } = trMsgOptions();
-  const selId = document.getElementById('trMsg')?.value;
-  const tpl = tpls.find(x => x.id === selId);
-  if (!tpl) { showToast('בחר הודעה לשליחה (או צור אחת ב"📝 הודעות")', 'err'); return; }
-  const text = cleanText(tpl.text).replace(/\{שם\}/g, firstName(p.name));
-  const d = String(p.phone).replace(/\D/g, '');
-  const wa = d.startsWith('972') ? d : '972' + d.replace(/^0/, '');
-  const a = document.createElement('a');
-  a.href = `https://wa.me/${wa}?text=${encodeURIComponent(text)}`;
-  a.target = '_blank'; a.rel = 'noopener';
-  document.body.appendChild(a); a.click(); a.remove();
+  const txt = trMsgText(t);
+  if (!txt) { showToast('ההודעה לא נמצאה – בחר הודעה אחרת', 'err'); return; }
+  openExternal(waLink(p.phone, fillVars(txt, p, t)));
 
-  // רישום ברקע: בטאב ההדרכות, ובטאב המעקב רק למי שהגיע בהדרכה אמיתית ועוד לא מילא
+  // רישום ברקע: בטאב ההדרכות, ובטאב המעקב רק כשמעקב טופס דלוק, בהדרכה אמיתית, למי שהגיע ועוד לא מילא
   const now = new Date();
   p.sentAt = `${pad2(now.getDate())}/${pad2(now.getMonth() + 1)}/${now.getFullYear()} ${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
   trView();
-  const track = !t.test && p.status === 'הגיע' && !hasFilled(p.phone, filledSet());
+  const track = t.track && !t.test && p.status === 'הגיע' && !hasFilled(p.phone, filledSet());
   clearTimeout(TR_SAVE_TIMER);
   mediaCall('POST', { action: 'saveTraining', training: t })
     .then(() => mediaCall('POST', {
