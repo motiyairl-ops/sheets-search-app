@@ -407,7 +407,15 @@
   .tr-act.on-yes { background: rgba(52,211,153,0.2); border-color: var(--green); color: var(--green); }
   .tr-act.on-no  { background: rgba(248,113,113,0.15); border-color: var(--red); color: var(--red); }
   .tr-act.send { background: #25d366; border-color: #25d366; color: #000; }
-  .tr-edit-hint { font-size: 14px; opacity: 0.6; }
+  .tr-edit-hint { font-size: 16px; opacity: 0.6; }
+  .tr-person .tr-p-name { font-size: 23px; }
+  .tr-person .tr-p-sub { font-size: 18px; margin-top: 4px; }
+  .tr-person .tr-p-sub .area-phone { font-size: inherit; }
+  .tr-person .tr-tag { font-size: 15px; padding: 3px 10px; }
+  .tr-person .tr-p-note { font-size: 17px; }
+  .tr-person .tr-act { padding: 11px 6px; font-size: 17px; }
+  .tr-stg { cursor: pointer; }
+  .tr-stg:not(.cur):active { opacity: 0.7; }
   .tr-p-note { font-size: 15px; color: var(--text); margin-top: 4px; }
   .tr-tag { font-size: 13px; }
   .tr-tag.no { color: var(--red); }
@@ -523,7 +531,7 @@
   <div class="hdr-title" id="hdrTitle">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v47</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v48</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
       <button class="refresh-btn" onclick="loadData()" aria-label="רענון">↻</button>
@@ -2313,6 +2321,7 @@ let TR_TYPES = null;
 let TR_CUR = null;           // ההדרכה הפתוחה
 let TR_SAVE_TIMER = null;
 let TR_SAVE_STATE = '';      // '' | 'saving' | 'saved' | 'error'
+let TR_VIEW_SCROLL = 0;      // מיקום הגלילה במסך ההדרכה – נשמר בין רענונים
 
 const STAGES = ['הרשמה', 'יום ההדרכה', 'סגורה'];
 const STAGE_IC = { 'הרשמה': '📝', 'יום ההדרכה': '✅', 'סגורה': '🔒' };
@@ -2565,7 +2574,7 @@ function wzCreate() {
       .map(x => ({ name: x.name, phone: normPhone(x.phone), city: x.city, status: 'נרשם', sentAt: '', note: '' })),
   };
   TRAININGS.push(t);
-  TR_CUR = t; WZ = null;
+  TR_CUR = t; WZ = null; TR_VIEW_SCROLL = 0;
   trSaveNow();
   trView();
 }
@@ -2602,13 +2611,14 @@ function trSaveBadge() {
 function trOpen(id) {
   TR_CUR = TRAININGS.find(t => t.id === id) || null;
   TR_SAVE_STATE = '';
+  TR_VIEW_SCROLL = 0;
   if (TR_CUR) trView(); else trList();
 }
 
 function stageBar(stage) {
   const k = STAGES.indexOf(stage);
   return `<div class="tr-stages">${STAGES.map((s, i) =>
-    `<div class="tr-stg ${i < k ? 'done' : ''} ${i === k ? 'cur' : ''}"><span>${STAGE_IC[s]}</span>${s}</div>`).join('<div class="tr-stg-arrow">←</div>')}</div>`;
+    `<div class="tr-stg ${i < k ? 'done' : ''} ${i === k ? 'cur' : ''}" data-go="${s}"><span>${STAGE_IC[s]}</span>${s}</div>`).join('<div class="tr-stg-arrow">←</div>')}</div>`;
 }
 
 function trView() {
@@ -2619,11 +2629,9 @@ function trView() {
   const c = trCounts(t, filled);
   const info = [t.time, t.place].filter(Boolean).join(' · ');
 
-  const order = stage === 'הרשמה'
-    ? { 'נרשם': 0, 'הגיע': 0, 'לא הגיע': 0, 'ביטל': 2 }
-    : { 'הגיע': 0, 'נרשם': 1, 'לא הגיע': 2, 'ביטל': 3 };
+  // סדר קבוע (א-ב) – כדי שסימון "הגיע"/"ביטל" לא יזיז אנשים במסך
   const ppl = (t.people || []).map((p, i) => ({ p, i }))
-    .sort((a, b) => (order[a.p.status] ?? 1) - (order[b.p.status] ?? 1) || String(a.p.name).localeCompare(String(b.p.name), 'he'));
+    .sort((a, b) => String(a.p.name).localeCompare(String(b.p.name), 'he'));
 
   const rows = ppl.map(({ p, i }) => trPersonRow(t, p, i, filled)).join('');
 
@@ -2662,18 +2670,19 @@ function trView() {
     ${bottom}
     <button class="tr-link-btn" id="trEditBtn">✏️ פרטי ההדרכה והודעות</button>`, trList);
   trSaveBadge();
+  // שמירה ושחזור של מיקום הגלילה – כדי שלחיצה על "הגיע"/"ביטל" לא תקפיץ למעלה
+  const body = document.querySelector('#tplScreen .tpl-body');
+  if (body) { body.scrollTop = TR_VIEW_SCROLL; body.onscroll = () => { TR_VIEW_SCROLL = body.scrollTop; }; }
+  document.querySelectorAll('.tr-stg[data-go]').forEach(el => el.onclick = () => trGoStage(el.dataset.go));
 
   const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
   on('trImport', trImport);
   on('trAdd', () => trPerson(-1));
   on('trShare', trShareList);
   on('trEditBtn', () => trEdit(t));
-  on('trBack', () => { t.stage = 'הרשמה'; trSaveSoon(); trView(); });
-  on('trReopen', () => { if (confirm('לפתוח מחדש את ההדרכה לעריכה?')) { t.stage = 'יום ההדרכה'; trSaveSoon(); trView(); } });
-  on('trNext', () => {
-    if (stage === 'הרשמה') { t.stage = 'יום ההדרכה'; trSaveSoon(); trView(); window.scrollTo(0, 0); }
-    else trCloseScreen();
-  });
+  on('trBack', () => trGoStage('הרשמה'));
+  on('trReopen', () => trGoStage('יום ההדרכה'));
+  on('trNext', () => trGoStage(stage === 'הרשמה' ? 'יום ההדרכה' : 'סגורה'));
 
   document.querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
     const p = t.people[+b.dataset.st];
@@ -2691,7 +2700,10 @@ function trPersonRow(t, p, i, filled) {
   const f = t.track && came && hasFilled(p.phone, filled);
   const tags = [];
   if (cancel) tags.push('<span class="tr-tag no">ביטל</span>');
-  if (stage !== 'הרשמה' && t.track && came) tags.push(f ? '<span class="tr-tag ok">✓ מילא טופס</span>' : '<span class="tr-tag wait">⏳ עוד לא מילא</span>');
+  if (stage !== 'הרשמה' && t.track && came) {
+    if (f) tags.push('<span class="tr-tag ok">✓ מילא טופס</span>');
+    else if (p.sentAt) tags.push('<span class="tr-tag wait">⏳ עוד לא מילא טופס</span>');
+  }
   if (p.sentAt) tags.push(`<span class="tr-tag sent">✉️ ${escHtml(p.sentAt)}</span>`);
   if (p.phone && !phoneValid(p.phone)) tags.push('<span class="tr-tag no">⚠️ טלפון לא תקין</span>');
 
@@ -2717,6 +2729,17 @@ function trPersonRow(t, p, i, filled) {
     </div>
     ${actions.trim() ? `<div class="tr-p-actions">${actions}</div>` : ''}
   </div>`;
+}
+
+// מעבר בין שלבים – מהכפתור הגדול או מלחיצה על הפס למעלה
+function trGoStage(to) {
+  const t = TR_CUR;
+  if (!t || to === t.stage) return;
+  if (to === 'סגורה') return trCloseScreen();
+  if (t.stage === 'סגורה' && !confirm('לפתוח מחדש את ההדרכה לעריכה?')) return;
+  t.stage = to;
+  TR_VIEW_SCROLL = 0;
+  trSaveSoon(); trView();
 }
 
 // ── שליחה: פותח צ'אט ישיר בוואטסאפ עם ההודעה מוכנה ──
