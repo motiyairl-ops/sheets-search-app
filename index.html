@@ -33,6 +33,27 @@
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
   }
+  /* ── v42: כותרת דבוקה, סרגל נגלל, חיפוש דבוק מתחת לכותרת ── */
+  .hdr-title {
+    position: sticky; top: 0; z-index: 101; background: var(--surface);
+    display: flex; align-items: center; gap: 12px;
+    padding: calc(14px + env(safe-area-inset-top)) 16px 10px;
+  }
+  .hdr-title .logo { width: 52px; height: 52px; border-radius: 12px; }
+  .hdr-title .logo img { width: 100%; height: 100%; object-fit: cover; }
+  .hdr-title .header-title { font-size: 23px; font-weight: 800; white-space: nowrap; }
+  .hdr-title .ver { font-size: 12px; font-weight: 400; color: var(--text2); }
+  .toolbar { display: flex; gap: 8px; padding: 2px 16px 12px; background: var(--surface); }
+  .tb-btn {
+    flex: 1; min-height: 58px; border-radius: 14px; cursor: pointer;
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+    font-family: 'Heebo', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  }
+  .tb-btn:active { background: var(--accent); color: #000; }
+  .tb-ic { font-size: 24px; line-height: 1; }
+  .tb-lb { font-size: 12px; font-weight: 600; color: var(--text2); white-space: nowrap; }
+  .tb-btn:active .tb-lb { color: #000; }
+  .hdr-search { top: var(--title-h, 76px); padding-top: 4px; z-index: 100; }
   .header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .logo { width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
   .header-title-wrap { flex: 1; cursor: pointer; }
@@ -272,6 +293,21 @@
   .bd-card .chevron { font-size: 13px; color: var(--text2); transition: transform 0.25s; }
   .bd-card.open .chevron { transform: rotate(180deg); }
   .bd-card .card-body { display: block; padding: 0 12px 12px; border-top: 1px solid var(--border); }
+  /* ── v42: מסך אזור ── */
+  .area-wrap { position: relative; }
+  .area-sugg {
+    position: absolute; top: 100%; right: 0; left: 0; z-index: 5; margin-top: 4px;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  }
+  .area-sugg div { padding: 12px 14px; font-size: 16px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .area-sugg div:last-child { border-bottom: none; }
+  .area-sugg div:active { background: var(--accent); color: #000; }
+  .area-badge { font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .area-badge.sent { color: var(--green); }
+  .area-badge.new  { color: var(--accent); }
+  .area-dist { font-size: 13px; color: var(--accent2); font-weight: 700; white-space: nowrap; direction: rtl; }
+  .area-phone { font-size: 13px; color: var(--text2); direction: ltr; }
+  .area-unknown { font-size: 12px; color: var(--text2); margin-top: 14px; line-height: 1.6; }
   .heb-next { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 2px; }
 
   /* ── v39: כפתור הודעות בכותרת ── */
@@ -358,18 +394,23 @@
 </div>
 
 <div id="appContent" style="display:none">
-  <div class="header">
-    <div class="header-top">
+  <div class="hdr-title" id="hdrTitle">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <div class="header-title">מתנדבי יחידת פנתר <span style="font-size:12px;font-weight:400;color:var(--text2)">v41</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v42</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
-      <button class="msg-btn" onclick="openBirthdays()" aria-label="ימי הולדת">🎂</button>
-      <button class="msg-btn" onclick="openTemplates()">📝 הודעות</button>
-      <button class="refresh-btn" onclick="loadData()">↻</button>
-    </div>
+      <button class="refresh-btn" onclick="loadData()" aria-label="רענון">↻</button>
+  </div>
 
+  <div class="toolbar">
+    <button class="tb-btn" onclick="openArea()"><span class="tb-ic">📍</span><span class="tb-lb">אזור</span></button>
+    <button class="tb-btn" onclick="openBirthdays()"><span class="tb-ic">🎂</span><span class="tb-lb">ימי הולדת</span></button>
+    <button class="tb-btn" onclick="openTemplates()"><span class="tb-ic">📝</span><span class="tb-lb">הודעות</span></button>
+    <button class="tb-btn" onclick="exportCSV()"><span class="tb-ic">📤</span><span class="tb-lb">ייצוא</span></button>
+  </div>
+
+  <div class="header hdr-search" id="hdrSearch">
     <div class="search-wrap">
       <input class="search-input" type="search" id="searchInput"
         placeholder="חפש שם, טלפון, יישוב..."
@@ -443,10 +484,8 @@
   </div>
 
   <div class="error-banner" id="errorBanner"></div>
-  <div class="last-updated" id="lastUpdated"></div>
-  <div class="count-bar" id="countBar">
-    <span id="countText">טוען...</span>
-    <button class="export-btn" onclick="exportCSV()" title="ייצוא לקובץ">📤 ייצוא</button>
+  <div class="count-bar" id="countBar" style="display:none">
+    <span id="countText"></span>
   </div>
   <div class="list" id="list"></div>
 </div>
@@ -555,12 +594,12 @@ async function loadData() {
     const rows = json.values || [];
     if (rows.length < 2) throw new Error('הגיליון ריק');
     DATA = rows.slice(1).filter(r => r.length > 2).map((r, i) => ({ _id: i, _raw: r }));
-    document.getElementById('totalCount').textContent = `${DATA.length} מתנדבים`;
-    document.getElementById('lastUpdated').textContent = 'עודכן: ' + new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('totalCount').textContent = `${DATA.length} מתנדבים · עודכן ` + new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
     document.getElementById('loadingScreen').style.display = 'none';
     document.getElementById('appContent').style.display = 'block';
     updateCounts();
     render();
+    setTitleH();
     loadGraphics(); // v39: ברקע – לא מעכב את הטעינה
   } catch(e) {
     document.getElementById('loadingScreen').style.display = 'none';
@@ -644,12 +683,15 @@ function yesNo(bool) {
 function render() {
   renderMain();
   if (document.getElementById('bdList')) renderBdList(); // v41: מסך ימי ההולדת פתוח – לרענן גם אותו
+  if (document.getElementById('areaList')) renderAreaList(); // v42
 }
 
 function renderMain() {
   const q = document.getElementById('searchInput').value;
   const results = DATA.filter(row => matchesFilters(row) && matchesSearch(row, q));
   document.getElementById('countText').innerHTML = `נמצאו <span>${results.length}</span> מתנדבים`;
+  // v42: שורת "נמצאו" רק כשיש חיפוש או סינון
+  document.getElementById('countBar').style.display = (q.trim() || Object.values(F).some(Boolean)) ? '' : 'none';
 
   const list = document.getElementById('list');
   if (!results.length) {
@@ -822,7 +864,7 @@ function toggle(id) {
   setTimeout(() => {
     const el = document.getElementById('card-' + id);
     if (!el) return;
-    const headerH = document.querySelector('.header')?.offsetHeight || 0;
+    const headerH = (document.getElementById('hdrTitle')?.offsetHeight || 0) + (document.getElementById('hdrSearch')?.offsetHeight || 0);
     const windowH = window.innerHeight;
     const cardH   = el.offsetHeight;
     const cardTop = el.getBoundingClientRect().top + window.scrollY;
@@ -1857,6 +1899,235 @@ function nextHebHtml(hebText) {
   const w = whenText(d);
   return `<div class="heb-next">📅 השנה יוצא ב: יום ${DAY_NAMES[d.getDay()]} ${ddmm(d)}/${d.getFullYear()}${w ? ' (' + w + ')' : ''}</div>`;
 }
+
+// ════════════════════════════════════════════════════════════════
+// v42: חיפוש לפי אזור – יישוב + רדיוס (קו אווירי). הכל מחושב במכשיר.
+// מקור הקואורדינטות: רשימות יישובים (data.gov.il / geolocations-il), יישובי הצפון בלבד
+// ════════════════════════════════════════════════════════════════
+
+const PLACES = [["אבו סנאן",32.958,35.172],["אבטין",32.76,35.1146],["אבטליון",32.8358,35.3504],["אביבים",33.0894,35.4703],["אביטל",32.5574,35.3072],["אבירים",33.0381,35.286],["אבן יצחק",32.5581,35.0766],["אבן יצחק (גלעד)",32.5581,35.0766],["אבן מנחם",33.0751,35.2952],["אבני איתן",32.8256,35.7668],["אדמית",33.0788,35.2095],["אודם",33.1932,35.75],["אוהלו",32.7165,35.5723],["אום אל-גנם",32.6766,35.3919],["אומן",48.7526,30.218],["אור הגנוז",33.0052,35.4467],["אורטל",33.0862,35.7587],["אורנים",32.7113,35.1099],["אושה",32.7965,35.1146],["אחוזת ברק",32.6431,35.3389],["אחיהוד",32.9074,35.1717],["איילת השחר",33.0211,35.5767],["אילון",33.0625,35.2192],["אילניה",32.7539,35.4082],["אילנייה",32.7545,35.4065],["אכסאל",32.6821,35.3207],["אל -רום",33.1789,35.7716],["אלומות",32.7066,35.5461],["אלון הגליל",32.7569,35.2203],["אלוני אבא",32.7309,35.172],["אלוני הבשן",33.0441,35.8385],["אלונים",32.7215,35.1434],["אלי-עד",32.8066,35.7366],["אליפלט",32.9478,35.5485],["אליקים",32.6333,35.0676],["אלמגור",32.9127,35.6023],["אלקוש",33.0343,35.3263],["אמירים",32.9374,35.4504],["אמנון",32.905,35.5711],["אניעם",32.9566,35.7397],["אעבלין",32.8218,35.1901],["אפיק",32.7794,35.703],["אפיקים",32.6806,35.5777],["אפק",32.8383,35.1278],["ארבל",32.8125,35.4838],["אשבל",32.877,35.306],["אשדות יעקב",32.6588,35.5796],["אשדות יעקב (איחוד)",32.6596,35.5797],["אשדות יעקב (מאוחד)",32.6648,35.5828],["אשחר",32.8851,35.2996],["אשרת",32.9716,35.1557],["אתגר",32.8593,35.2561],["בארי",41.1259,16.8721],["בוסתן הגליל",32.9486,35.0807],["בועיינה-נוג'ידאת",32.8083,35.3693],["בוקעאתא",33.2031,35.7792],["ביאדה",32.5574,35.166],["ביר אל-מכסור",32.7773,35.2206],["ביריה",32.9781,35.5031],["בירייה",32.9788,35.4997],["בית אורן",32.7316,35.0063],["בית ג'ן",32.9651,35.3776],["בית הלל",33.2088,35.6065],["בית העמק",32.9707,35.1448],["בית השיטה",32.5509,35.4394],["בית זיד",32.7024,35.1311],["בית זייד",32.7024,35.1311],["בית זרע",32.6893,35.5741],["בית יוסף",32.5593,35.5507],["בית לחם הגלילית",32.7346,35.1913],["בית צבי",32.7193,34.9695],["בית קשת",32.7184,35.395],["בית רימון",32.7818,35.3277],["בית שערים",32.7038,35.1299],["בלפוריה",32.63,35.2963],["בן עמי",33.0054,35.1222],["בני יהודה",32.7983,35.6911],["בסמת טבעון",32.7363,35.1532],["בענה",32.9295,35.2719],["בצת",33.07,35.1326],["בר יוחאי",32.9977,35.4482],["ברעם",33.059,35.4332],["בת שלמה",32.6003,35.0038],["ג'דיידה-מכר",32.9275,35.1393],["ג'ולס",32.9413,35.1808],["ג'ש (גוש חלב)",33.0226,35.4468],["גבע",32.5665,35.3722],["גבע כרמל",32.6622,34.9541],["גבעת אבני",32.7754,35.4362],["גבעת אלה",32.722,35.2448],["גבעת יואב",32.8012,35.6809],["גבעת עוז",32.5559,35.198],["גבת",32.6766,35.2132],["גדות",33.0182,35.6195],["גדיש",32.5588,35.2444],["גונן",33.1236,35.6477],["גורן",33.0556,35.2336],["גורנות הגליל",33.0593,35.2497],["גזית",32.6393,35.4462],["גילון",32.9043,35.2322],["גינוסר",32.8487,35.5232],["גיניגר",32.6634,35.2599],["גיתה",32.9672,35.2491],["גלעד (אבן -יצחק)",32.5581,35.0766],["געתון",33.0061,35.2138],["גשור",32.8199,35.7157],["גשר",32.6212,35.5504],["גשר הזיו",33.0405,35.1106],["דאלית אל-כרמל",32.6938,35.0554],["דבורה",32.5529,35.2639],["דבוריה",32.6941,35.3685],["דבורייה",32.6895,35.3718],["דברת",32.6467,35.3501],["דגניה א",32.7069,35.5751],["דגניה ב",32.6991,35.5776],["דוב\"ב",33.0508,35.4077],["דור",32.6078,34.9233],["דחי",32.6225,35.3436],["דייר אל-אסד",32.9344,35.2684],["דייר חנא",32.8623,35.3653],["דיר אל-אסד",32.9344,35.2684],["דיר חנא",32.8623,35.3653],["דישון",33.0823,35.5176],["דליה",32.5892,35.077],["דלייה",32.5894,35.0746],["דלתון",33.0166,35.4899],["דמיידה",32.8172,35.2285],["דן",33.2401,35.6531],["דפנה",33.2299,35.6383],["האון",32.7267,35.6227],["הבונים",32.6366,34.9327],["הגושרים",33.2215,35.623],["הודיות",32.7886,35.435],["הושעיה",32.7579,35.2952],["הזורע",32.6445,35.1192],["הזורעים",32.7481,35.4999],["החותרים",32.7523,34.9575],["היוגב",32.6128,35.2075],["הילה",33.0362,35.2446],["הסוללים",32.7518,35.238],["הרדוף",32.7635,35.1743],["הררית",32.8457,35.3693],["זכרון יעקב",32.5739,34.952],["זרזיר",32.7233,35.2204],["חברון",41.3186,-87.2003],["חד-נס",32.9275,35.6414],["חולתה",33.0528,35.6092],["חוסן",32.9977,35.2987],["חוסנייה",32.9006,35.3225],["חוקוק",32.8786,35.4967],["חורפיש",33.0167,35.3471],["חזון",32.9066,35.3953],["חיפה",32.8304,34.9743],["חלוץ",32.9513,35.3111],["חלף",36.1667,1.3333],["חמאם",32.8284,35.4917],["חניתה",33.0876,35.1734],["חנתון",32.7831,35.2451],["חספין",32.8451,35.7888],["חצור הגלילית",32.9804,35.5436],["חצרות כרמל",32.7846,34.9661],["חרשים",32.9577,35.3282],["טבריה",32.7959,35.531],["טובא-זנגריה",32.9662,35.592],["טובא-זנגרייה",32.9649,35.5901],["טובה-זנגריה",32.9662,35.592],["טורעאן",32.7751,35.3783],["טייבה (בעמק)",32.6038,35.4448],["טירת כרמל",32.7621,34.973],["טל-אל",32.9273,35.1825],["טמרה",32.8522,35.2013],["טמרה (יזרעאל)",32.6349,35.4027],["טפחות",32.8686,35.4222],["יאנוח-ג'ת",32.9801,35.243],["יבנאל",32.7088,35.5038],["יגור",32.7415,35.0768],["יובל",33.2466,35.5971],["יובלים",32.8781,35.2705],["יודפת",32.8366,35.2715],["יונתן",32.9397,35.7955],["יזרעאל",32.5626,35.3194],["יחיעם",32.9961,35.2211],["יסוד המעלה",33.0536,35.589],["יסעור",32.9011,35.1666],["יעד",32.8812,35.2406],["יעל",32.5521,35.3066],["יערה",33.068,35.1861],["יפיע",32.695,35.282],["יפעת",32.6759,35.224],["יפתח",33.1283,35.552],["יקנעם (מושבה)",32.6602,35.1046],["יקנעם עילית",32.6602,35.1046],["יראון",33.0772,35.4543],["ירדנה",32.5654,35.566],["ירכא",32.9535,35.212],["כאבול",32.8675,35.2134],["כאוכב אבו אל-היג'א",32.8306,35.2484],["כאוכב אל-היגא",32.8319,35.2487],["כברי",33.021,35.147],["כדורי",32.7025,35.4073],["כורזים",32.9111,35.5502],["כחל",32.8905,35.5116],["כישור",32.9466,35.2502],["כליל",32.9836,35.1997],["כלנית",32.8744,35.4584],["כמאנה",32.9093,35.3369],["כמון",32.9091,35.3609],["כנף",32.8704,35.6979],["כנרת (מושבה)",32.7252,35.5654],["כנרת (קבוצה)",32.7142,35.5627],["כסרא",32.9723,35.2985],["כסרא-סמיע",32.9723,35.2985],["כעביה-טבאש",32.7489,35.184],["כעביה-טבאש-חג'אג'רה",32.7472,35.1913],["כפר ביאליק",32.8214,35.0878],["כפר בלום",33.1725,35.6079],["כפר ברוך",32.646,35.1931],["כפר גדעון",32.6446,35.2893],["כפר גלים",32.7661,34.9594],["כפר גלעדי",33.2421,35.5741],["כפר החורש",32.7015,35.273],["כפר המכבי",32.7918,35.1148],["כפר הנוער הדתי",32.7429,35.0962],["כפר הנשיא",32.9747,35.6023],["כפר ורדים",32.9951,35.2691],["כפר זיתים",32.8116,35.4652],["כפר חושן",33.0123,35.4415],["כפר חיטים",32.8,35.5033],["כפר חנניה",32.916,35.4238],["כפר חסידים א",32.7486,35.09],["כפר חסידים ב",32.7486,35.09],["כפר חרוב",32.7624,35.6642],["כפר יאסיף",32.9564,35.1655],["כפר יהושע",32.6816,35.152],["כפר יחזקאל",32.5669,35.3609],["כפר כמא",32.7211,35.4428],["כפר כנא",32.745,35.3398],["כפר מימון",31.4314,34.5372],["כפר מנדא",32.8124,35.2586],["כפר מסריק",32.8912,35.0984],["כפר מצר",32.6474,35.4216],["כפר סאלד",33.196,35.658],["כפר סולד",33.2019,35.6479],["כפר קיש",32.6661,35.449],["כפר ראש הנקרה",33.0861,35.1135],["כפר רוזנואלד",33.099,35.2885],["כפר רוזנואלד (זרעית)",33.0996,35.2903],["כפר שמאי",32.9557,35.4579],["כפר תבור",32.6873,35.42],["כרי דשא",32.9287,35.5767],["כרכום",32.93,35.6079],["כרם בן זמרה",33.0392,35.4699],["כרם מהר\"ל",32.6443,34.9915],["כרמיאל",32.9147,35.2924],["כרמל",32.8097,34.9742],["לבון",32.9412,35.2865],["לביא",32.7876,35.4407],["לבנים",32.8638,35.4975],["להבות הבשן",33.1414,35.6451],["לוחמי הגיטאות",32.9627,35.0967],["לוטם",32.8816,35.3574],["לימן",33.0587,35.1118],["לפידות",32.9598,35.261],["מאיר שפיה",32.5925,34.9711],["מבוא חמה",32.7367,35.6552],["מג'דל שמס",33.2664,35.7687],["מגאר",32.8907,35.4046],["מגד אל-כרום",32.9201,35.2567],["מגדים",32.7277,34.9609],["מגדל",32.8395,35.4999],["מגדל העמק",32.6735,35.2434],["מגדל תפן",32.9774,35.2757],["מגידו",32.5779,35.18],["מדרך עוז",32.5946,35.158],["מולדת",32.5862,35.4389],["מורן",32.9195,35.3949],["מורשת",32.8261,35.232],["מושיירפה",32.5528,35.1574],["מזרע",32.6499,35.2864],["מזרעה",32.9837,35.0989],["מחניים",32.9888,35.5704],["מטולה",33.2772,35.5782],["מיצר",32.7686,35.7364],["מירון",32.9852,35.4416],["מכמנים",32.9059,35.329],["מכר",32.935,35.1401],["מלאה",32.5631,35.2375],["מלכיה",33.0986,35.5096],["מלכייה",33.0979,35.5109],["מנוף",32.8533,35.2374],["מנות",33.0387,35.1952],["מנחמיה",32.6643,35.5553],["מנרה",33.1952,35.5446],["מנשית זבדה",32.7062,35.1924],["מסד",32.8442,35.4232],["מסדה",32.6823,35.5977],["מסעדה",33.231,35.7563],["מעגן",32.7063,35.6006],["מעגן מיכאל",32.5587,34.9178],["מעונה",33.0169,35.2636],["מעיין ברוך",33.2393,35.6075],["מעיין צבי",32.5762,34.9282],["מעיליא",33.0272,35.2563],["מעין ברוך",33.2393,35.6094],["מעין צבי",32.5685,34.9406],["מעלה גמלא",32.8883,35.686],["מעלה עירון",32.5541,35.1825],["מעלות-תרשיחא",33.015,35.276],["מצובה",33.0623,35.1557],["מצפה",32.7902,35.5091],["מצפה אבי\"ב",32.8379,35.2011],["מצפה נטופה",32.8017,35.3835],["מרגליות",33.2165,35.5444],["מרום גולן",33.1326,35.7771],["מרחביה (מושב)",32.6033,35.3147],["מרחביה (קיבוץ)",32.6058,35.3074],["מרכז אבשלום",32.7955,34.9771],["משגב עם",33.2476,35.5485],["משהד",32.7389,35.3225],["משמר הירדן",33.0035,35.5983],["משמר העמק",32.6101,35.1427],["מתת",33.0417,35.3567],["נאות גולן",32.787,35.6932],["נאות מרדכי",33.1598,35.5956],["נאעורה",32.6147,35.3911],["נהלל",32.6908,35.1961],["נהריה",33.0114,35.0947],["נהרייה",33.0122,35.0949],["נוב",32.8329,35.7836],["נווה אור",32.589,35.5545],["נווה אטי\"ב",33.262,35.7406],["נווה זיו",33.0274,35.1843],["נווה ים",32.6798,34.9319],["נופית",32.7634,35.1483],["נחף",32.9347,35.3165],["נחשולים",32.6131,34.9223],["נטועה",33.0654,35.3234],["נטור",32.8541,35.7526],["ניין",32.631,35.3494],["ניר יפה",32.569,35.2449],["ניר עציון",32.6991,34.9925],["נמרוד",33.2454,35.7514],["נס עמים",32.9655,35.1216],["נצרת",32.6996,35.3035],["נצרת עילית",32.7115,35.3248],["נצרת עלית",32.6996,35.3035],["נשר",32.7649,35.0492],["נתיב השיירה",32.9912,35.1307],["סאג'ור",32.9412,35.3447],["סאלם",44.9429,-123.0351],["סאסא",33.0287,35.3946],["סואעד (חמרייה)",32.7669,35.1683],["סואעד (כמאנה)",32.9093,35.3369],["סוואעד חמיירה",32.7669,35.1682],["סולם",32.6058,35.3339],["סח'נין",32.8653,35.3006],["סלמה",32.8932,35.3705],["סער",33.0287,35.1092],["ספסופה",33.0131,35.4402],["עבדון",33.0488,35.1791],["עברון",32.9911,35.1],["עדי",32.7824,35.1734],["עוזייר",32.7906,35.3269],["עופר",32.6219,34.9835],["עיילבון",32.8379,35.4],["עילוט",32.7172,35.2615],["עין איילה",32.63,34.9443],["עין אל-אסד",32.9408,35.401],["עין גב",32.7834,35.6401],["עין דור",32.6555,35.4164],["עין הוד",32.7003,34.9827],["עין המפרץ",32.9026,35.093],["עין העמק",32.6297,35.0822],["עין השופט",32.5968,35.1004],["עין זיוון",33.0964,35.7963],["עין חוד",32.6914,34.9991],["עין חרוד (איחוד)",32.5568,35.393],["עין חרוד (מאוחד)",32.5568,35.393],["עין יעקב",33.0093,35.229],["עין כרמל",32.6779,34.9537],["עין מאהל",32.7243,35.3534],["עין קנייא",33.2374,35.7313],["עיר כרמל",32.6933,35.0529],["עכו",32.9331,35.0827],["עלמה",33.0519,35.4996],["עמוקה",32.9977,35.5248],["עמיעד",32.9304,35.5405],["עמיקם",32.5646,35.0203],["עמיר",33.1787,35.6221],["עמקה",32.9777,35.1618],["עספיא",32.7207,35.0591],["עפולה",32.6105,35.2879],["עראבה",32.8537,35.3372],["עראמשה",33.0919,35.2147],["עתלית",32.6909,34.9429],["פוריה - כפר עבודה",32.7198,35.5456],["פוריה - נווה עובד",32.7438,35.5381],["פוריה עילית",32.7327,35.5462],["פוריידיס",32.5973,34.9519],["פורייה - כפר עבודה",32.7171,35.5459],["פורייה - נווה עובד",32.7433,35.5376],["פורייה עילית",32.7311,35.5466],["פלך",32.9337,35.2336],["פסוטה",33.0478,35.3088],["פקיעין",32.9762,35.3358],["פקיעין (בוקייעה)",32.9762,35.3358],["פקיעין חדשה",32.9822,35.3234],["פרוד",32.9331,35.4343],["צביה",32.889,35.3306],["צבעון",33.0272,35.4175],["צוריאל",33.0065,35.3148],["צורית",32.9023,35.2491],["ציפורי",32.7467,35.2764],["צפת",32.9646,35.496],["צרופה",32.6478,34.9465],["קדיתא",33.005,35.4639],["קדמת צבי",33.0295,35.6977],["קדרים",32.8989,35.4716],["קורנית",32.8444,35.2519],["קליה",46.231,15.2603],["קלע",33.1316,35.6904],["קצרין",32.991,35.6899],["קרית אתא",32.8091,35.1198],["קרית ביאליק",32.8322,35.0884],["קרית טבעון",32.7162,35.1275],["קרית ים",32.8493,35.0689],["קרית מוצקין",32.8382,35.0795],["קרית שמונה",33.2079,35.5702],["קשת",32.9776,35.81],["ראמה",32.9371,35.367],["ראס אל-עין",32.9157,35.3727],["ראס עלי",32.7729,35.1555],["ראש הנקרה",33.0938,35.1036],["ראש פינה",32.9704,35.5427],["רביד",32.8505,35.4638],["רגבה",32.9775,35.0991],["רומאנה",32.7881,35.3112],["רומת היב",32.7776,35.3057],["רומת הייב",32.7776,35.3057],["ריחאניה",33.0499,35.4871],["ריחאנייה",33.0487,35.4878],["ריינה",32.7199,35.3177],["רכסים",32.7493,35.0996],["רמות",32.8519,35.6608],["רמות מנשה",32.597,35.0572],["רמות נפתלי",33.1024,35.5533],["רמת דוד",32.6667,35.1833],["רמת השופט",32.6094,35.0941],["רמת יוחנן",32.7935,35.1222],["רמת ישי",32.704,35.166],["רמת מגשימים",32.8441,35.8066],["רמת צבי",32.592,35.4145],["רקפת",32.8566,35.2628],["שאר ישוב",33.2292,35.6493],["שבי ציון",32.9821,35.083],["שבלי",32.6833,35.4],["שבלי - אום אל-גנם",32.6833,35.4],["שבלי-אום אל גאנם",32.6833,35.4],["שגב",32.8658,35.2523],["שגור",32.9275,35.2655],["שדה אילן",32.7505,35.4224],["שדה אליעזר",33.0465,35.5653],["שדה יעקב",32.6976,35.1413],["שדה נחמיה",33.1882,35.6231],["שדמות דבורה",32.6962,35.4364],["שומרה",33.0825,35.282],["שורשים",32.8927,35.2586],["שושנת העמקים (רסקו)",32.6772,35.2522],["שזור",32.9339,35.3545],["שיח דנון",32.9918,35.1474],["שייח דנון",32.9918,35.1474],["שילה",38.2537,15.7153],["שכניה",32.8492,35.2467],["שלומי",33.0726,35.1459],["שמיר",33.1668,35.66],["שמרת",32.9515,35.095],["שמשית",32.7325,35.2465],["שניר",33.2404,35.6772],["שעב",32.8897,35.2388],["שעורים",32.6968,35.4176],["שעל",33.1165,35.7188],["שער הגולן",32.6869,35.6047],["שער העמקים",32.7226,35.1106],["שפיר",49.3205,8.4362],["שפר",32.9446,35.4378],["שפרעם",32.8058,35.17],["שרונה",32.7265,35.4677],["שריד",32.6631,35.2248],["שתולה",33.0859,35.3156],["תובל",32.9285,35.2457],["תל יוסף",32.5567,35.3989],["תל עדשים",32.6574,35.3025],["תל קציר",32.7064,35.6179],["תמרת",32.7038,35.2255]];
+
+function placeKey(s) {
+  return String(s || '')
+    .replace(/^\s*(קיבוץ|מושב)\s+/, '').replace(/\s+(קיבוץ|מושב)\s*$/, '')
+    .replace(/[\s\-־'"׳״()]/g, '').replace(/קריית/g, 'קרית');
+}
+
+// כינויים ושגיאות כתיב שמופיעים בטבלה -> שם היישוב ברשימה
+const PLACE_ALIASES = {
+  'אנעים': 'אניעם',
+  'אלבש': 'אלוני הבשן',
+  'חצור': 'חצור הגלילית',
+  'אליעד': 'אלי-עד',
+  'צומתאליעד': 'אלי-עד',
+  'גושחלב': "ג'ש (גוש חלב)",
+  'גש': "ג'ש (גוש חלב)",
+  'חיספין': 'חספין',
+  'בוקעאתה': 'בוקעאתא',
+};
+
+const PLACE_INDEX = new Map(PLACES.map(p => [placeKey(p[0]), p]));
+function findPlace(name) {
+  const k = placeKey(name);
+  if (!k) return null;
+  const alias = PLACE_ALIASES[k];
+  return PLACE_INDEX.get(alias ? placeKey(alias) : k) || null;
+}
+
+function distKm(a, b) {
+  const R = 6371, rad = Math.PI / 180;
+  const dLa = (b[1] - a[1]) * rad, dLo = (b[2] - a[2]) * rad;
+  const x = Math.sin(dLa / 2) ** 2 + Math.cos(a[1] * rad) * Math.cos(b[1] * rad) * Math.sin(dLo / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(x));
+}
+
+// מצב החיפוש – נשמר במכשיר עד "חיפוש חדש"
+const AREA_KEY = 'panther-area-v1';
+let AREA = { place: '', radius: 15, kananet: false, sent: [] };
+try { Object.assign(AREA, JSON.parse(localStorage.getItem(AREA_KEY) || '{}')); } catch (_) {}
+function saveArea() { try { localStorage.setItem(AREA_KEY, JSON.stringify(AREA)); } catch (_) {} }
+let AREA_OPEN = null;
+
+function openArea() {
+  AREA_OPEN = null;
+  if (openId !== null) { openId = null; renderMain(); }
+  document.body.style.overflow = 'hidden';
+  renderArea();
+}
+
+function renderArea() {
+  const s = tplShell('📍 כוננים לפי אזור', `
+    <div class="bd-controls">
+      <div class="bd-line">ליד
+        <span class="area-wrap" style="flex:1;min-width:150px">
+          <input type="text" id="areaPlace" placeholder="הקלד יישוב..." value="${escHtml(AREA.place)}" autocomplete="off" autocorrect="off" style="width:100%">
+          <div class="area-sugg" id="areaSugg" style="display:none"></div>
+        </span>
+      </div>
+      <div class="bd-line">ברדיוס <input type="number" id="areaRadius" min="1" max="200" inputmode="numeric" value="${AREA.radius}"> ק"מ
+        ${[5, 10, 20, 30].map(n => `<button class="bd-chip ${AREA.radius === n ? 'on' : ''}" data-r="${n}">${n}</button>`).join('')}</div>
+      <div class="bd-line">
+        <button class="bd-chip ${AREA.kananet ? 'on' : ''}" id="areaKan">🪝 רק עם כננת</button>
+        <button class="bd-chip" id="areaReset" style="margin-right:auto">🔄 חיפוש חדש</button>
+      </div>
+    </div>
+    <div id="areaList"></div>`);
+
+  const inp = document.getElementById('areaPlace');
+  const sugg = document.getElementById('areaSugg');
+  const showSugg = () => {
+    const k = placeKey(inp.value);
+    if (!k) { sugg.style.display = 'none'; return; }
+    const hits = PLACES.filter(p => placeKey(p[0]).startsWith(k))
+      .concat(PLACES.filter(p => !placeKey(p[0]).startsWith(k) && placeKey(p[0]).includes(k)))
+      .slice(0, 8);
+    if (!hits.length || (hits.length === 1 && hits[0][0] === AREA.place)) { sugg.style.display = 'none'; return; }
+    sugg.innerHTML = hits.map(p => `<div data-n="${escHtml(p[0])}">${escHtml(p[0])}</div>`).join('');
+    sugg.style.display = '';
+    sugg.querySelectorAll('div').forEach(el => el.onclick = () => {
+      setAreaPlace(el.dataset.n);
+      inp.value = el.dataset.n;
+      sugg.style.display = 'none';
+      inp.blur();
+    });
+  };
+  inp.addEventListener('input', showSugg);
+  inp.addEventListener('focus', () => { inp.select(); });
+  inp.addEventListener('blur', () => setTimeout(() => { sugg.style.display = 'none'; }, 200));
+
+  document.getElementById('areaRadius').oninput = e => {
+    const n = parseFloat(e.target.value);
+    if (n > 0 && n <= 200) {
+      AREA.radius = n; saveArea();
+      s.querySelectorAll('.bd-chip[data-r]').forEach(c => c.classList.toggle('on', +c.dataset.r === n));
+      renderAreaList();
+    }
+  };
+  s.querySelectorAll('.bd-chip[data-r]').forEach(c => c.onclick = () => {
+    AREA.radius = +c.dataset.r; saveArea();
+    document.getElementById('areaRadius').value = AREA.radius;
+    s.querySelectorAll('.bd-chip[data-r]').forEach(x => x.classList.toggle('on', x === c));
+    renderAreaList();
+  });
+  document.getElementById('areaKan').onclick = e => {
+    AREA.kananet = !AREA.kananet; saveArea();
+    e.currentTarget.classList.toggle('on', AREA.kananet);
+    renderAreaList();
+  };
+  document.getElementById('areaReset').onclick = () => {
+    AREA = { place: '', radius: AREA.radius, kananet: false, sent: [] };
+    AREA_OPEN = null; saveArea(); renderArea();
+    setTimeout(() => document.getElementById('areaPlace')?.focus(), 50);
+  };
+  renderAreaList();
+}
+
+function setAreaPlace(name) {
+  if (name !== AREA.place) { AREA.place = name; AREA.sent = []; AREA_OPEN = null; saveArea(); }
+  renderAreaList();
+}
+
+function areaResults() {
+  const center = findPlace(AREA.place);
+  if (!center) return { center: null, list: [], unknown: [] };
+  const list = [], unknown = [];
+  for (const row of DATA) {
+    const r = row._raw;
+    if (AREA.kananet && !getKananet(r)) continue;
+    const city = g(r, C.CITY);
+    const name = (g(r, C.FIRST) + ' ' + g(r, C.LAST)).replace(/\s+/g, ' ').trim();
+    const p = findPlace(city);
+    if (!p) { if (city) unknown.push(name + ' (' + city + ')'); continue; }
+    const d = distKm(center, p);
+    if (d <= AREA.radius) list.push({ row, name, city: city.replace(/\s+/g, ' '), phone: g(r, C.PHONE), d });
+  }
+  list.sort((a, b) => (a.d - b.d) || a.name.localeCompare(b.name, 'he'));
+  return { center, list, unknown };
+}
+
+function fmtKm(d) { return d < 1 ? 'פחות מ-1 ק"מ' : Math.round(d) + ' ק"מ'; }
+
+function renderAreaList() {
+  const box = document.getElementById('areaList');
+  if (!box) return;
+  if (!AREA.place) { box.innerHTML = '<div class="tpl-empty">בחר יישוב כדי לראות את הכוננים באזור</div>'; return; }
+  const { center, list, unknown } = areaResults();
+  if (!center) { box.innerHTML = '<div class="tpl-empty">היישוב לא נמצא ברשימה – בחר מתוך ההצעות</div>'; return; }
+
+  const sent = new Set(AREA.sent);
+  const hasSent = sent.size > 0;
+  const fresh = list.filter(x => !sent.has(normPhone(x.phone)));
+  let html = `<div class="bd-summary">${list.length} כוננים${AREA.kananet ? ' עם כננת' : ''} ברדיוס ${AREA.radius} ק"מ מ${escHtml(center[0])}${hasSent && fresh.length ? ` · ${fresh.length} חדשים` : ''}</div>`;
+
+  for (const x of list) {
+    const id = x.row._id;
+    const isOpen = AREA_OPEN === id;
+    const wasSent = sent.has(normPhone(x.phone));
+    const badge = wasSent ? '<span class="area-badge sent">✓ נשלח</span>' : (hasSent ? '<span class="area-badge new">🆕 חדש</span>' : '');
+    html += `<div class="bd-card ${isOpen ? 'open' : ''}" id="area-card-${id}">
+      <div class="bd-item" data-id="${id}">
+        <div class="bd-item-main">
+          <div class="bd-item-name">${escHtml(x.name)} ${badge}</div>
+          <div class="bd-item-sub">${escHtml(x.city)} · <span class="area-phone">${escHtml(x.phone)}</span></div>
+        </div>
+        <div class="area-dist">${fmtKm(x.d)}</div>
+        <div class="chevron">▾</div>
+      </div>
+      ${isOpen ? `<div class="card-body"><div class="card-body-inner">${cardBodyInner(x.row)}</div></div>` : ''}
+    </div>`;
+  }
+  if (!list.length) html += '<div class="tpl-empty">אין כוננים ברדיוס הזה – נסה להגדיל</div>';
+
+  if (list.length) html += `<div class="bd-export">
+    ${hasSent && fresh.length ? `<button class="tpl-main-btn" id="areaNew">📋 העתק רק את החדשים (${fresh.length})</button>` : ''}
+    <button class="tpl-main-btn" id="areaAll" ${hasSent && fresh.length ? 'style="background:var(--surface2);color:var(--text);border:1.5px solid var(--border)"' : ''}>📋 העתק רשימה מלאה (${list.length})</button>
+  </div>`;
+  if (unknown.length) html += `<div class="area-unknown">⚠️ יישוב לא מזוהה (לא נכללו): ${unknown.map(escHtml).join(' · ')}</div>`;
+  box.innerHTML = html;
+
+  box.querySelectorAll('.bd-item[data-id]').forEach(el => el.onclick = () => {
+    const id = +el.dataset.id;
+    AREA_OPEN = AREA_OPEN === id ? null : id;
+    renderAreaList();
+    if (AREA_OPEN !== null) setTimeout(() => document.getElementById('area-card-' + id)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 30);
+  });
+  const head = (prefix, n) => `${prefix}כוננים${AREA.kananet ? ' עם כננת' : ''} ברדיוס ${AREA.radius} ק"מ מ${center[0]} (${n}):`;
+  const lines = arr => arr.map(x => `${x.name} – ${x.city} – ${x.phone}`);
+  const all = document.getElementById('areaAll');
+  if (all) all.onclick = () => areaCompose('רשימה מלאה', [head('', list.length), ...lines(list)].join('\n'), list);
+  const nw = document.getElementById('areaNew');
+  if (nw) nw.onclick = () => areaCompose('רק החדשים', [head('תוספת – ', fresh.length), ...lines(fresh)].join('\n'), fresh);
+}
+
+function areaCompose(title, text, people) {
+  tplShell(title, `
+    <div class="tpl-label">אפשר לערוך לפני ההעתקה</div>
+    <textarea class="tpl-text" id="areaOut" spellcheck="false"></textarea>
+    <button class="tpl-main-btn" id="areaCopy">📋 העתק הודעה</button>
+    <div class="tpl-hint">אחרי ההעתקה השמות יסומנו "נשלח"</div>`, renderArea);
+  const out = document.getElementById('areaOut');
+  out.value = text; autoGrowEl(out);
+  out.addEventListener('input', () => autoGrowEl(out));
+  const btn = document.getElementById('areaCopy');
+  btn.onclick = async () => {
+    const ok = await copyToClipboard(cleanText(out.value));
+    if (ok) {
+      const set = new Set(AREA.sent);
+      people.forEach(x => set.add(normPhone(x.phone)));
+      AREA.sent = [...set]; saveArea();
+    }
+    btn.textContent = ok ? '✓ הועתק – אפשר להדביק בוואטסאפ' : 'ההעתקה נכשלה – סמן והעתק ידנית';
+    btn.classList.toggle('done', ok);
+    setTimeout(() => { btn.textContent = '📋 העתק הודעה'; btn.classList.remove('done'); }, 2500);
+  };
+}
+
+// v42: גובה הכותרת הדבוקה – כדי שהחיפוש יידבק בדיוק מתחתיה
+function setTitleH() {
+  const h = document.getElementById('hdrTitle')?.offsetHeight;
+  if (h) document.documentElement.style.setProperty('--title-h', h + 'px');
+}
+window.addEventListener('resize', setTitleH);
 
 loadData();
 </script>
