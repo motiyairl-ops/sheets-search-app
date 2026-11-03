@@ -297,7 +297,7 @@ function renderPerson(i) {
       <div class="hint">מעתיקים את הברכה, משתפים את התמונה לקבוצה, מדביקים ככיתוב ומתייגים.</div>
       <button class="contact-link" id="contact-${i}">התיוג לא תופס? שמור איש קשר</button>`;
     const ta = document.getElementById('greet-' + i);
-    ta.value = greetingText(p.name);
+    ta.value = greetingText(p.first || p.name);
     autoGrow(ta);
     ta.addEventListener('input', () => autoGrow(ta));
     document.getElementById('copy-' + i).onclick = async e => {
