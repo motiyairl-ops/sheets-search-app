@@ -450,6 +450,29 @@
   .tr-test-row.one span { white-space: nowrap; }
   .tr-next { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 19px; margin-top: 4px; }
   .tr-next-arrow { font-size: 30px; line-height: 1; }
+  /* v55: מונה הגעה, חלקים, חיפוש */
+  .tr-counts { display: flex; gap: 6px; margin: 4px 0 8px; }
+  .tr-cnt { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 8px 4px; text-align: center; }
+  .tr-cnt b { display: block; font-size: 24px; font-weight: 800; line-height: 1.1; }
+  .tr-cnt span { font-size: 12px; color: var(--text2); font-weight: 600; }
+  .tr-cnt.ok b { color: var(--green); }
+  .tr-cnt.no b { color: var(--red); }
+  .tr-cnt.left { border-color: var(--accent); background: rgba(232,160,32,0.10); }
+  .tr-cnt.left b { color: var(--accent); }
+  .tr-cnt-form { font-size: 14px; color: var(--text2); margin-bottom: 4px; }
+  .tr-search-wrap { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .tr-search { margin: 0 !important; }
+  .tr-refresh { align-self: flex-start; background: none; border: none; color: var(--accent); font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 700; padding: 2px 0; cursor: pointer; }
+  .tr-sec { font-size: 16px; font-weight: 800; margin: 16px 0 8px; color: var(--text); }
+  .tr-sec span { color: var(--text2); font-weight: 600; }
+  .tr-sec.ok { color: var(--green); }
+  .tr-sec.no { color: var(--red); }
+  .tr-sec.wait { color: var(--accent); }
+  .tr-add-box { margin-top: 12px; padding: 12px; border: 1.5px dashed var(--border); border-radius: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .tr-add-title { font-size: 14px; color: var(--text2); font-weight: 700; }
+  .tr-add-btn { text-align: right; background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-family: 'Heebo', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; }
+  .tr-add-btn small { color: var(--text2); font-weight: 400; }
+  .tr-fcard { margin-bottom: 8px; }
   /* v53: כפתורים בגודל בינוני / "התחל הדרכה" עמום לפני יום ההדרכה */
   .tr-big-btn.tr-mid { font-size: 16px; padding: 12px 8px; margin-top: 10px; }
   .tr-next.tr-next-dim { font-size: 16px; padding: 12px 8px; margin-top: 10px; color: var(--text2); }
@@ -549,7 +572,7 @@
   <div class="hdr-title" id="hdrTitle" onclick="headerHome()">
       <div class="logo" style="overflow:hidden;padding:0;background:transparent;border:none"><img src="data:image/jpeg;base64,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" style="width:40px;height:40px;object-fit:cover;border-radius:10px;" alt="פנתר"></div>
       <div class="header-title-wrap">
-        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v54</span></div>
+        <div class="header-title">מתנדבי יחידת פנתר <span class="ver">v55</span></div>
         <div class="header-sub" id="totalCount">טוען...</div>
       </div>
       <button class="refresh-btn" onclick="event.stopPropagation();loadData()" aria-label="רענון">↻</button>
@@ -2356,6 +2379,9 @@ let TR_CUR = null;           // ההדרכה הפתוחה
 let TR_SAVE_TIMER = null;
 let TR_SAVE_STATE = '';      // '' | 'saving' | 'saved' | 'error'
 let TR_VIEW_SCROLL = 0;      // מיקום הגלילה במסך ההדרכה – נשמר בין רענונים
+let TR_SEARCH = '';          // v55: חיפוש שם במסך ההדרכה
+let TR_OPEN_PH = null;       // v55: כרטיס מתנדב פתוח בשלב "סגורה" (לפי טלפון)
+let TR_POLL = null;          // v55: בדיקת "מילא טופס" כל 30 שניות
 
 const STAGES = ['הרשמה', 'יום ההדרכה', 'סגורה'];
 const STAGE_IC = { 'הרשמה': '📝', 'יום ההדרכה': '✅', 'סגורה': '🔒' };
@@ -2624,7 +2650,7 @@ function wzCreate() {
       .map(x => ({ name: x.name, phone: normPhone(x.phone), city: x.city, status: 'נרשם', sentAt: '', note: '' })),
   };
   TRAININGS.push(t);
-  TR_CUR = t; WZ = null; TR_VIEW_SCROLL = 0;
+  TR_CUR = t; WZ = null; TR_VIEW_SCROLL = 0; TR_SEARCH = ''; TR_OPEN_PH = null;
   trSaveNow();
   trView();
 }
@@ -2660,6 +2686,7 @@ function trSaveBadge() {
 // ════════ מסך הדרכה ════════
 function trOpen(id) {
   TR_CUR = TRAININGS.find(t => t.id === id) || null;
+  TR_SEARCH = ''; TR_OPEN_PH = null;
   TR_SAVE_STATE = '';
   TR_VIEW_SCROLL = 0;
   if (TR_CUR) trView(); else trList();
@@ -2682,13 +2709,15 @@ function trView() {
   // v50: סדר כמו בהודעת הוואטסאפ (סדר השמירה) – בלי מיון א-ב
   const ppl = (t.people || []).map((p, i) => ({ p, i }));
 
-  // v49: מספור לפי הסדר במסך – רק מי שלא ביטל
+  // v49: מספור לפי הסדר במסך – רק מי שלא ביטל (רק בשלב ההרשמה)
   let n = 0;
-  const rows = ppl.map(({ p, i }) => trPersonRow(t, p, i, filled, p.status === 'ביטל' ? '' : ++n)).join('');
+  const rows = stage === 'הרשמה'
+    ? ppl.map(({ p, i }) => trPersonRow(t, p, i, filled, p.status === 'ביטל' ? '' : ++n)).join('')
+    : trRowsHtml(t, filled); // v55: חלקים דינמיים + חיפוש
 
   let summary;
   if (stage === 'הרשמה') summary = `נרשמו <b>${c.reg}</b>${c.cancel ? ` · ביטלו <b>${c.cancel}</b>` : ''}`;
-  else summary = `הגיעו <b>${c.came}</b> מתוך <b>${c.reg}</b>${c.no ? ` · לא הגיעו <b>${c.no}</b>` : ''}${t.track ? ` · מילאו טופס <b>${c.filled}</b>` : ''}`;
+  else summary = trDayCountsHtml(t, filled); // v55: מונה הגעה
 
   let top = '', bottom = '';
   const nextBtn = label => `<button class="tr-big-btn tr-next" id="trNext"><span>${label}</span><span class="tr-next-arrow">⬅</span></button>`;
@@ -2722,7 +2751,12 @@ function trView() {
     ${info ? `<div class="tr-info">🕖 ${escHtml(info)}</div>` : ''}
     <div class="tr-summary">${summary}<span id="trSaveState" class="tr-save"></span></div>
     ${top}
-    <div style="margin-top:12px">${rows || '<div class="tpl-empty">אין משתתפים עדיין</div>'}</div>
+    ${stage !== 'הרשמה' && (t.people || []).length ? `
+      <div class="tr-search-wrap">
+        <input class="tpl-input tr-search" id="trSearch" type="search" placeholder="🔍 חפש שם, טלפון או יישוב..." value="${escHtml(TR_SEARCH)}" autocomplete="off" autocorrect="off" spellcheck="false">
+        ${t.track ? '<button class="tr-refresh" id="trRefreshF">🔄 בדוק מילוי טופס</button>' : ''}
+      </div>` : ''}
+    <div id="trRows" style="margin-top:12px">${rows || '<div class="tpl-empty">אין משתתפים עדיין</div>'}</div>
     ${bottom}
     <button class="tr-link-btn" id="trEditBtn">✏️ פרטי ההדרכה והודעות</button>`, trList);
   trSaveBadge();
@@ -2746,14 +2780,191 @@ function trView() {
     trGoStage(stage === 'הרשמה' ? 'יום ההדרכה' : 'סגורה');
   });
 
-  document.querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
-    const p = t.people[+b.dataset.st];
-    const v = b.dataset.v;
-    p.status = p.status === v ? 'נרשם' : v;
+  bindTrRows(t);
+
+  // v55: חיפוש – מסנן בלי לבנות מחדש את כל המסך
+  const sIn = document.getElementById('trSearch');
+  if (sIn) sIn.oninput = () => {
+    TR_SEARCH = sIn.value;
+    document.getElementById('trRows').innerHTML = trRowsHtml(t, filledSet());
+    bindTrRows(t);
+  };
+  on('trRefreshF', async e => {
+    const b = e.currentTarget; b.disabled = true; b.textContent = '⏳ בודק...';
+    await silentRefreshData();
+    trView();
+  });
+  trStartPoll();
+}
+
+// v55: חיבור הלחיצות בשורות המשתתפים (נקרא גם אחרי חיפוש)
+function bindTrRows(t) {
+  const box = document.getElementById('trRows');
+  if (!box) return;
+  box.querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
+    trSetStatus(t.people[+b.dataset.st], b.dataset.v);
     trSaveSoon(); trView();
   });
-  document.querySelectorAll('[data-edit]').forEach(el => el.onclick = () => trPerson(+el.dataset.edit));
-  document.querySelectorAll('[data-send]').forEach(b => b.onclick = () => trSend(+b.dataset.send, b.dataset.kind));
+  box.querySelectorAll('[data-edit]').forEach(el => el.onclick = () => trPerson(+el.dataset.edit));
+  box.querySelectorAll('[data-send]').forEach(b => b.onclick = () => trSend(+b.dataset.send, b.dataset.kind));
+  box.querySelectorAll('[data-addname]').forEach(b => b.onclick = () => trPerson(-1, { name: b.dataset.addname }));
+  box.querySelectorAll('[data-addrow]').forEach(b => b.onclick = () => {
+    const row = DATA.find(x => x._id === +b.dataset.addrow);
+    if (!row) return;
+    const r = row._raw;
+    const p = { name: (g(r, C.FIRST) + ' ' + g(r, C.LAST)).trim(), phone: normPhone(g(r, C.PHONE)), city: g(r, C.CITY), status: 'נרשם', sentAt: '', note: '' };
+    trSetStatus(p, 'הגיע');
+    t.people.push(p);
+    TR_SEARCH = '';
+    showToast(`${p.name} נוסף כמי שהגיע ✓`, 'ok');
+    trSaveSoon(); trView();
+  });
+  box.querySelectorAll('[data-fopen]').forEach(el => el.onclick = () => {
+    TR_OPEN_PH = TR_OPEN_PH === el.dataset.fopen ? null : el.dataset.fopen;
+    document.getElementById('trRows').innerHTML = trRowsHtml(t, filledSet());
+    bindTrRows(t);
+  });
+}
+
+// v55: שינוי סטטוס + שעת הגעה
+function trSetStatus(p, v) {
+  p.status = p.status === v ? 'נרשם' : v;
+  if (p.status === 'הגיע') {
+    const now = new Date();
+    p.arrivedAt = pad2(now.getHours()) + ':' + pad2(now.getMinutes());
+  } else p.arrivedAt = '';
+}
+
+// v55: מונה ביום ההדרכה / אחרי הסגירה ("ביטל" נחשב "לא מגיע")
+function trDayCountsHtml(t, filled) {
+  const ppl = t.people || [];
+  const total = ppl.length;
+  const came = ppl.filter(p => p.status === 'הגיע');
+  let no = ppl.filter(p => p.status === 'לא הגיע' || p.status === 'ביטל').length;
+  const closed = t.stage === 'סגורה';
+  const left = total - came.length - no;
+  const f = came.filter(p => hasFilled(p.phone, filled)).length;
+  if (closed) no = total - came.length; // אחרי הסגירה – כל מי שלא הגיע
+  return `<div class="tr-counts">
+      <div class="tr-cnt"><b>${total}</b><span>נרשמו</span></div>
+      <div class="tr-cnt ok"><b>${came.length}</b><span>הגיעו</span></div>
+      <div class="tr-cnt no"><b>${no}</b><span>${closed ? 'לא הגיעו' : 'לא מגיעים'}</span></div>
+      ${closed ? '' : `<div class="tr-cnt left"><b>${left}</b><span>עוד להגיע</span></div>`}
+    </div>
+    ${t.track ? `<div class="tr-cnt-form">📋 מילאו טופס: <b>${f}</b> מתוך <b>${came.length}</b>${came.length - f ? ` · עוד לא מילאו: <b>${came.length - f}</b>` : ''}</div>` : ''}`;
+}
+
+function trMatch(p, q) {
+  if (!q) return true;
+  const txt = (String(p.name || '') + ' ' + String(p.city || '')).toLowerCase();
+  if (q.split(/\s+/).every(w => txt.includes(w))) return true;
+  const d = q.replace(/\D/g, '');
+  return d.length >= 3 && normPhone(p.phone).includes(d);
+}
+
+// v55: רשימה דינמית – יום ההדרכה: ממתינים / הגיעו / לא מגיעים · סגורה: לא מילאו / מילאו / לא הגיעו
+function trRowsHtml(t, filled) {
+  const q = TR_SEARCH.trim().toLowerCase();
+  const list = (t.people || []).map((p, i) => ({ p, i })).filter(({ p }) => trMatch(p, q));
+  const byName = (a, b) => String(a.p.name || '').localeCompare(String(b.p.name || ''), 'he');
+  const head = (title, n, cls) => `<div class="tr-sec ${cls || ''}">${title} <span>(${n})</span></div>`;
+  const sec = (title, arr, cls) => arr.length ? head(title, arr.length, cls) + arr.map(({ p, i }) => trPersonRow(t, p, i, filled, '')).join('') : '';
+  const isNo = p => p.status === 'לא הגיע' || p.status === 'ביטל';
+  let html = '';
+  if (t.stage === 'יום ההדרכה') {
+    const pending = list.filter(x => x.p.status !== 'הגיע' && !isNo(x.p)).sort(byName);
+    const came = list.filter(x => x.p.status === 'הגיע')
+      .sort((a, b) => String(b.p.arrivedAt || '').localeCompare(String(a.p.arrivedAt || '')) || byName(a, b));
+    const no = list.filter(x => isNo(x.p)).sort(byName);
+    html = sec('⏳ ממתינים', pending) + sec('✅ הגיעו', came, 'ok') + sec('✗ לא מגיעים', no, 'no');
+  } else {
+    const came = list.filter(x => x.p.status === 'הגיע');
+    const no = list.filter(x => x.p.status !== 'הגיע').sort(byName);
+    if (t.track) {
+      const notF = came.filter(x => !hasFilled(x.p.phone, filled)).sort(byName);
+      const f = came.filter(x => hasFilled(x.p.phone, filled)).sort(byName);
+      html = sec('⏳ לא מילאו טופס', notF, 'wait')
+        + (f.length ? head('✅ מילאו טופס', f.length, 'ok') + f.map(x => trFilledRow(x.p)).join('') : '')
+        + sec('✗ לא הגיעו', no, 'no');
+    } else {
+      html = sec('✅ הגיעו', came.sort(byName), 'ok') + sec('✗ לא הגיעו', no, 'no');
+    }
+  }
+  if (q && t.stage === 'יום ההדרכה') html += trSearchAddHtml(t, q, list.length);
+  else if (q && !list.length) html += '<div class="tpl-empty">לא נמצא ברשימה</div>';
+  return html || '<div class="tpl-empty">אין משתתפים עדיין</div>';
+}
+
+// v55: לא נמצא ברשימת ההדרכה? הצעה להוסיף מהטבלה הראשית או לפי השם שהוקלד
+function trSearchAddHtml(t, q, found) {
+  const inTr = new Set((t.people || []).map(p => normPhone(p.phone).slice(-9)).filter(Boolean));
+  const words = q.split(/\s+/).filter(Boolean);
+  const fromData = q.length < 2 ? [] : DATA.filter(row => {
+    const r = row._raw;
+    const ph = normPhone(g(r, C.PHONE));
+    if (ph && inTr.has(ph.slice(-9))) return false;
+    const txt = (g(r, C.FIRST) + ' ' + g(r, C.LAST) + ' ' + g(r, C.CITY)).toLowerCase();
+    return words.every(w => txt.includes(w));
+  }).slice(0, 3);
+  const raw = TR_SEARCH.trim().replace(/\s+/g, ' ');
+  return `<div class="tr-add-box">
+      <div class="tr-add-title">${found ? 'לא מי שחיפשת?' : 'לא נמצא ברשימת ההדרכה'}</div>
+      ${fromData.map(row => {
+        const r = row._raw;
+        return `<button class="tr-add-btn" data-addrow="${row._id}">＋ ${escHtml(g(r, C.FIRST) + ' ' + g(r, C.LAST))}${g(r, C.CITY) ? ' · ' + escHtml(g(r, C.CITY)) : ''} <small>(מהטבלה)</small></button>`;
+      }).join('')}
+      ${/\D/.test(raw) ? `<button class="tr-add-btn" data-addname="${escHtml(raw)}">＋ הוסף "${escHtml(raw)}" כמשתתף שהגיע</button>` : ''}
+    </div>`;
+}
+
+// v55: מי שמילא טופס – לחיצה פותחת את הכרטיס המלא מהטבלה
+function trFilledRow(p) {
+  const ph = normPhone(p.phone).slice(-9);
+  const row = DATA.find(x => normPhone(g(x._raw, C.PHONE)).slice(-9) === ph);
+  const isOpen = TR_OPEN_PH === ph;
+  return `<div class="bd-card tr-fcard ${isOpen ? 'open' : ''}">
+      <div class="bd-item" data-fopen="${ph}">
+        <div class="bd-item-main">
+          <div class="bd-item-name">${escHtml(p.name || '(ללא שם)')}</div>
+          <div class="bd-item-sub">${escHtml(p.city || '')}${p.city ? ' · ' : ''}<span class="area-phone">${escHtml(p.phone || '')}</span>${p.arrivedAt ? ' · הגיע ' + escHtml(p.arrivedAt) : ''}</div>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      ${isOpen ? `<div class="card-body"><div class="card-body-inner">${row ? cardBodyInner(row) : '<div class="tpl-empty">הפרטים יופיעו אחרי רענון</div>'}</div></div>` : ''}
+    </div>`;
+}
+
+// v55: טעינה שקטה של הטבלה (בלי מסך טעינה) – לעדכון "מילא טופס"
+async function silentRefreshData() {
+  try {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+    const res = await fetch(url);
+    if (!res.ok) return false;
+    const rows = (await res.json()).values || [];
+    if (rows.length < 2) return false;
+    DATA = rows.slice(1).filter(r => r.length > 2).map((r, i) => ({ _id: i, _raw: r }));
+    document.getElementById('totalCount').textContent = `${DATA.length} מתנדבים · עודכן ` + new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+    updateCounts();
+    render();
+    return true;
+  } catch (_) { return false; }
+}
+
+// v55: כל 30 שניות – רק כשמסך ההדרכה פתוח ביום ההדרכה / סגורה עם מעקב טופס
+function trStartPoll() {
+  if (TR_POLL) return;
+  TR_POLL = setInterval(async () => {
+    const t = TR_CUR;
+    const screenOpen = !!document.getElementById('trRows');
+    if (!t || !screenOpen || t.stage === 'הרשמה' || !t.track) { clearInterval(TR_POLL); TR_POLL = null; return; }
+    const before = filledSet().size;
+    if (!(await silentRefreshData())) return;
+    if (TR_CUR !== t || !document.getElementById('trRows')) return;
+    if (filledSet().size === before) return;
+    const sIn = document.getElementById('trSearch');
+    if (sIn && document.activeElement === sIn) return; // לא מפריעים באמצע הקלדה
+    trView();
+  }, 30000);
 }
 
 function trPersonRow(t, p, i, filled, num) {
@@ -2766,6 +2977,7 @@ function trPersonRow(t, p, i, filled, num) {
     if (f) tags.push('<span class="tr-tag ok">✓ מילא טופס</span>');
     else if (p.sentAt) tags.push('<span class="tr-tag wait">⏳ עוד לא מילא טופס</span>');
   }
+  if (came && p.arrivedAt && stage !== 'הרשמה') tags.push(`<span class="tr-tag ok">🕖 הגיע ${escHtml(p.arrivedAt)}</span>`); // v55
   if (p.sentAt) tags.push(`<span class="tr-tag sent">✉️ ${escHtml(p.sentAt)}</span>`);
   if (p.phone && !phoneValid(p.phone)) tags.push('<span class="tr-tag no">⚠️ טלפון לא תקין</span>');
 
@@ -2835,14 +3047,17 @@ function trShareList() {
     const lines = [`*${t.type || 'הדרכה'} · ${isoToHe(t.date)}*`];
     const info = [t.place, t.time].filter(Boolean).join(' · ');
     if (info) lines.push(`*${info}*`);
-    lines.push(`*${reg ? 'נרשמו' : 'הגיעו'} ${main.length} משתתפים:*`, '');
+    // v55: שורת סיכום – נרשמו / הגיעו / לא הגיעו ("ביטל" = לא הגיע)
+    const no = (t.people || []).filter(p => p.status !== 'הגיע');
+    if (reg) lines.push(`*נרשמו ${main.length} משתתפים:*`, '');
+    else lines.push(`נרשמו ${(t.people || []).length} · הגיעו ${main.length} · לא הגיעו ${no.length}`, '', `*הגיעו (${main.length}):*`);
     main.forEach((p, k) => {
       lines.push(`${k + 1}. *${p.name || '(ללא שם)'}*${p.city ? ' – ' + p.city : ''}`);
       if (phones && p.phone) lines.push(`      ${p.phone}`);
     });
-    if (withNo) {
-      const no = (t.people || []).filter(p => p.status === 'לא הגיע' || p.status === 'נרשם');
-      if (no.length) { lines.push('', `*לא הגיעו (${no.length}):*`); no.forEach(p => lines.push(p.name || p.phone)); }
+    if (withNo && no.length) {
+      lines.push('', `*לא הגיעו (${no.length}):*`);
+      no.forEach(p => lines.push(`${p.name || p.phone}${p.city ? ' – ' + p.city : ''}`)); // v55: + יישוב
     }
     return lines.join('\n');
   };
@@ -3003,10 +3218,11 @@ async function trDelete(t) {
 }
 
 // ── הוספה / עריכה של משתתף ──
-function trPerson(i) {
+function trPerson(i, preset) {
   const t = TR_CUR;
   const isNew = i < 0;
-  const p = isNew ? { name: '', phone: '', city: '', status: t.stage === 'הרשמה' ? 'נרשם' : 'הגיע', sentAt: '', note: '' } : t.people[i];
+  const p = isNew ? { name: '', phone: '', city: '', status: 'נרשם', sentAt: '', note: '', ...(preset || {}) } : t.people[i];
+  if (isNew && t.stage !== 'הרשמה') trSetStatus(p, 'הגיע'); // v55: עם שעת הגעה
   tplShell(isNew ? 'משתתף חדש' : 'עריכת משתתף', `
     <div class="tpl-label">שם מלא</div>
     <input class="tpl-input" id="pName" value="${escHtml(p.name)}" autocomplete="off">
@@ -3028,7 +3244,7 @@ function trPerson(i) {
     if (!name && !phone) { showToast('צריך שם או טלפון', 'err'); return; }
     if (phone && t.people.some((x, k) => k !== i && normPhone(x.phone) === phone)) { showToast('המספר הזה כבר ברשימה', 'err'); return; }
     Object.assign(p, { name, phone, city: document.getElementById('pCity').value.trim(), note: document.getElementById('pNote').value.trim() });
-    if (isNew) t.people.push(p);
+    if (isNew) { t.people.push(p); TR_SEARCH = ''; }
     trSaveSoon(); trView();
   };
   const del = document.getElementById('pDel');
@@ -3098,7 +3314,11 @@ function trImport() {
       const add = document.getElementById('impAdd');
       if (add) add.onclick = () => {
         const sel = found.filter(x => x.on && !x.dup);
-        sel.forEach(x => t.people.push({ name: x.name, phone: normPhone(x.phone), city: x.city, status: t.stage === 'הרשמה' ? 'נרשם' : 'הגיע', sentAt: '', note: '' }));
+        sel.forEach(x => {
+          const np = { name: x.name, phone: normPhone(x.phone), city: x.city, status: 'נרשם', sentAt: '', note: '' };
+          if (t.stage !== 'הרשמה') trSetStatus(np, 'הגיע'); // v55: עם שעת הגעה
+          t.people.push(np);
+        });
         trOrderByMsg(t, msgOrder);
         showToast(`נוספו ${sel.length} משתתפים`, 'ok');
         trSaveSoon(); trView();
